@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/template/sentinel/mpTemplate.xhtml">
+
+	<ui:define name="content">
+		<div class="ContainerIndent">
+			<h:outputScript name="jquery/jquery.js" library="primefaces" target="head" />
+
+			<h:form id="frmCargaBD">
+				<p:messages autoUpdate="false" />
+				
+				<h2 class="aw-page-title">Carga Dados</h2>
+
+				<div class="ContainerIndent">
+					<div class="Container100">
+						<span class="DispInlBlock Fleft FloatNoneOnMobile"> <p:commandButton id="loadButton"
+								value="Carregar" update="@form" onclick="loadButton.disable()"
+								action="#{mpCargaDadosBDBean.carregar}" />
+						</span> <span class="DispInlBlock Fright FloatNoneOnMobile"> <p:button
+								title="Sair" icon="fa fa-close Fs14 yellow" href="/dashboardRS" />
+						</span>
+
+						<p:panelGrid columns="7" layout="grid"
+							style="border:0px !important; background:none;"
+							styleClass="ui-panelgrid-blank">
+							<h:panelGroup>
+								<p:outputLabel value="Custas Composição : " for="indCustasComposicao" />
+								<p:inputSwitch id="indCustasComposicao" onLabel="Sim" offLabel="Não"
+									value="#{mpCargaDadosBDBean.indCargaCustasComposicao}" />
+							</h:panelGroup>
+							<h:panelGroup />
+							<h:panelGroup>
+								<p:outputLabel value="Tipo Protocolo : " for="indTipoProtocolo" />
+								<p:inputSwitch id="indTipoProtocolo" onLabel="Sim" offLabel="Não"
+									value="#{mpCargaDadosBDBean.indCargaTipoProtocolo}" />
+							</h:panelGroup>
+							<h:panelGroup />
+							<h:panelGroup>
+								<p:outputLabel value="Sistema Configuração : " for="indSistemaConfig" />
+								<p:inputSwitch id="indSistemaConfig" onLabel="Sim" offLabel="Não"
+									value="#{mpCargaDadosBDBean.indCargaSistemaConfig}" />
+							</h:panelGroup>
+							<h:panelGroup />
+							<h:panelGroup />
+						</p:panelGrid>
+						
+					</div>
+				</div>
+
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>

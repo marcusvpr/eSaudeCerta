@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/sentinel/planoSaudes/mpTemplate.xhtml">
+
+    <ui:define name="content">
+        <h:outputScript name="jquery/jquery.js" library="primefaces" target="head"/>
+        
+        <h3 class="hardblue TexAlCenter">Cota Plano Saúdes</h3>
+        
+        <span class="TexAlCenter DispBlock Wid100">
+			<h:graphicImage library="images/planoSaude" name="plano_saude_01.jpg"
+            		            									width="300" height="200" />
+            <p:spacer width="60" />
+			<h:graphicImage library="images/planoSaude" name="planos_saude.gif"
+            		            									width="300" height="200" />
+		</span>
+		                         
+        <span class="TexAlCenter DispBlock Wid80">Os melhores Planos para você cuidar da sua saúde e viver melhor.
+Você terá acesso ao Preço do Plano, Redes de Hospitais, Laboratórios, Médicos e Muito Mais..</span>
+
+		<div class="Container">
+        <span class="TexAlCenter DispBlock Wid100">
+            <a href="mpIndividual.xhtml">
+				<h:graphicImage library="images/planoSaude" name="plano_saude_amil.gif"
+            		            									width="200" height="100" />
+            </a>
+            <p:spacer width="60" />
+            <a href="mpIndividual.xhtml">
+				<h:graphicImage library="images/planoSaude" name="plano_saude_assim.gif"
+            		            									width="200" height="100" />
+            </a>
+            <p:spacer width="60" />
+            <a href="mpIndividual.xhtml">
+				<h:graphicImage library="images/planoSaude" name="plano_saude_dix.gif"
+            		            									width="200" height="100" />
+            </a>
+		</span>
+		</div>
+		
+	</ui:define>
+
+</ui:composition>

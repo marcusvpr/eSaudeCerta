@@ -1,0 +1,162 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/template/sentinel/mpTemplate.xhtml">
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<o:viewParam name="mpTitulo"
+				value="#{mpCadastroTituloBean.mpTitulo}" />
+			<f:viewAction action="#{mpCadastroTituloBean.inicializar}" />
+		</f:metadata>
+
+		<div class="ContainerIndent">
+			<h:form id="frm">
+				<p:panel header="Titulo #{mpCadastroTituloBean.txtModoTela}">
+
+					<p:messages id="message" autoUpdate="false" showDetail="false" />
+
+					<ui:include
+						src="/WEB-INF/template/sentinel/cartorios/mpBotoesTitulo.xhtml" /> 
+
+					<div class="ContainerIndent" style="margin-top:60px;">
+					</div>
+					
+					<p:tabView id="tabViewA">
+
+						<p:tab title="Apresentante/Favorecido/Sacador">
+							<div class="ContainerIndent ui-fluid">
+								<p:panel>
+									<div class="Container">
+										<div class="Container95 Responsive100">
+											<div class="Container100">
+											
+												<p:panelGrid columns="5" layout="grid"
+													style="border:0px !important; background:none;"
+													styleClass="ui-panelgrid-blank">
+
+													<h:panelGroup id="pgX">
+														<p:outputLabel value="???????: "
+															rendered="#{mpLoginBean.scIndLabelCampo}" />
+													</h:panelGroup>
+													<h:panelGroup />
+													<h:panelGroup />
+													<h:panelGroup />
+													<h:panelGroup />
+
+												</p:panelGrid>
+
+											</div>
+										</div>
+										<div class="Container5 Responsive100">
+											<div class="Container100">
+												<div class="ContainerIndent"></div>
+											</div>
+										</div>
+									</div>
+								</p:panel>
+
+							</div>
+						</p:tab>
+
+						<p:tab title="Informações Titulo">
+							<div class="ContainerIndent ui-fluid">
+								<p:panel>
+									<div class="Container">
+										<div class="Container95 Responsive100">
+											<div class="Container100">
+											
+												<p:panelGrid columns="5" layout="grid"
+													style="border:0px !important; background:none;"
+													styleClass="ui-panelgrid-blank">
+
+													<h:panelGroup id="pgDataProtocolo">
+														<p:outputLabel value="Data Protocolo: "
+															rendered="#{mpLoginBean.scIndLabelCampo}" />
+														<p:calendar id="dataProtocolo"
+														style="background-color:black; color:yellow;"
+														pattern="dd/MM/yyyy" mask="true"
+														placeholder="Data Protocolo"
+														required="#{mpCadastroTituloBean.indEditavel}"
+														validatorMessage="Informar Data Protocolo"
+														disabled="#{mpCadastroTituloBean.indEditavel}"
+														value="#{mpCadastroTituloBean.mpTitulo.dataProtocolo}" />
+														<p:tooltip for="dataProtocolo" value="Data Protocolo (Ex.: 31/03/2016)" />
+													</h:panelGroup>
+													<h:panelGroup id="pgNumeroProtocolo">
+														<p:outputLabel value="Numero Protocolo: "
+															rendered="#{mpLoginBean.scIndLabelCampo}" />
+														<p:inputText id="numeroProtocolo" maxlength="6"
+															style="text-transform: uppercase"
+															required="#{mpCadastroTituloBean.indEditavel}"
+															validatorMessage="Informar Numero Protocolo"
+															placeholder="Numero Protocolo"
+															readonly="#{mpCadastroTituloBean.indEditavel}"
+															value="#{mpCadastroTituloBean.mpTitulo.numeroProtocolo}" />
+														<p:tooltip id="toolTipNumeroProtocolo" for="numeroProtocolo"
+															value="Numero Protocolo" />
+													</h:panelGroup>
+													<h:panelGroup id="pgDataAte">
+														<p:outputLabel value="Data Até: "
+															rendered="#{mpLoginBean.scIndLabelCampo}" />
+														<p:calendar id="dataAte"
+														style="background-color:black; color:yellow;"
+														pattern="dd/MM/yyyy" mask="true"
+														placeholder="Data Até"
+														required="#{mpCadastroTituloBean.indEditavel}"
+														validatorMessage="Informar Data Até"
+														disabled="#{mpCadastroTituloBean.indEditavel}"
+														value="#{mpCadastroTituloBean.mpTitulo.dataAte}" />
+														<p:tooltip for="dataAte" value="Data Até (Ex.: 31/03/2016)" />
+													</h:panelGroup>
+													<h:panelGroup id="pgCodigoApresentante">
+														<p:outputLabel value="Código Apresentante: "
+															rendered="#{mpLoginBean.scIndLabelCampo}" />
+														<p:inputMask id="codigoApresentante" maxlength="5"
+															required="#{mpCadastroTituloBean.indEditavel}"
+															validatorMessage="Informar Código Apresentante" placeholder="Código Apresentante"
+															readonly="#{mpCadastroTituloBean.indEditavel}"
+															value="#{mpCadastroTituloBean.mpTitulo.codigoApresentante}">
+														</p:inputMask>
+														<p:tooltip id="toolTipCodigoApresentante" for="codigoApresentante" value="Código Apresentante" />
+													</h:panelGroup>
+													<h:panelGroup id="pgConvenio">
+														<p:outputLabel value="Convenio: "
+															rendered="#{mpLoginBean.scIndLabelCampo}" />
+														<p:inputMask id="convenio" maxlength="100"
+															required="#{mpCadastroTituloBean.indEditavel}"
+															validatorMessage="Informar Convênio" placeholder="Convênio"
+															readonly="#{mpCadastroTituloBean.indEditavel}"
+															value="#{mpCadastroTituloBean.mpTitulo.convenio}">
+														</p:inputMask>
+														<p:tooltip id="toolTipConvenio" for="convenio" value="Convênio" />
+													</h:panelGroup>
+
+												</p:panelGrid>
+
+											</div>
+										</div>
+										<div class="Container5 Responsive100">
+											<div class="Container100">
+												<div class="ContainerIndent"></div>
+											</div>
+										</div>
+									</div>
+								</p:panel>
+
+							</div>
+						</p:tab>
+
+					</p:tabView>
+										
+				</p:panel>
+			</h:form>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

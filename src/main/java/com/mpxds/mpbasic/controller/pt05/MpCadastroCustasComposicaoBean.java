@@ -27,6 +27,8 @@ public class MpCadastroCustasComposicaoBean implements Serializable {
 
 	@Inject
 	private MpCustasComposicaoService mpCustasComposicaoService;
+	
+	// ---
 
 	private MpCustasComposicao mpCustasComposicao = new MpCustasComposicao();
 	private MpCustasComposicao mpCustasComposicaoAnt;
@@ -53,6 +55,16 @@ public class MpCadastroCustasComposicaoBean implements Serializable {
 			this.limpar();
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
+		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpCustasComposicao.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
 		}
 		
 		this.setMpCustasComposicaoAnt(this.mpCustasComposicao);

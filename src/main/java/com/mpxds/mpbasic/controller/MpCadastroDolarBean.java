@@ -32,6 +32,8 @@ public class MpCadastroDolarBean implements Serializable {
 
 	@Inject
 	private MpDolarService mpDolarService;
+	
+	// ---
 
 	private MpDolar mpDolar = new MpDolar();
 	private MpDolar mpDolarAnt;
@@ -69,6 +71,16 @@ public class MpCadastroDolarBean implements Serializable {
 				//
 				this.mpEnd(); // Posiciona no último registro !!!
 			}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpDolar.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
+		}
 		
 		this.setMpDolarAnt(this.mpDolar);
 		//

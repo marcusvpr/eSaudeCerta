@@ -31,6 +31,8 @@ public class MpCadastroTenantBean implements Serializable {
 
 	@Inject
 	private MpTenantService mpTenantService;
+	
+	// ---
 
 	private MpTenant mpTenant;
 	private MpTenant mpTenantAnt;
@@ -53,10 +55,21 @@ public class MpCadastroTenantBean implements Serializable {
 	}
 	
 	public void inicializar() {
+		//
 		if (null == this.mpTenant) {
 			this.limpar();
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
+		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpTenant.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
 		}
 		
 		this.setMpTenantAnt(this.mpTenant);

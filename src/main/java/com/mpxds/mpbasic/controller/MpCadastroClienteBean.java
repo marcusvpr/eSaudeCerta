@@ -149,6 +149,16 @@ public class MpCadastroClienteBean implements Serializable {
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
 		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpCliente.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
+		}
 		
 		this.setMpClienteAnt(this.mpCliente);
 		//
@@ -476,8 +486,7 @@ public class MpCadastroClienteBean implements Serializable {
 		try {
 			this.mpClientes.remover(mpCliente);
 			
-			MpFacesUtil.addInfoMessage("Cliente... " + this.mpCliente.getNome()
-																	+ " excluído com sucesso.");
+			MpFacesUtil.addInfoMessage("Cliente... " + this.mpCliente.getNome() + " excluído com sucesso.");
 		} catch (MpNegocioException ne) {
 			MpFacesUtil.addErrorMessage(ne.getMessage());
 		}
@@ -497,8 +506,7 @@ public class MpCadastroClienteBean implements Serializable {
 		this.setMpClienteAnt(this.mpCliente);
 		//
 		this.indEditavel = true;
-		this.indEditavelNav = this.mpSeguranca.getMpUsuarioLogado().getMpUsuario().
-																		getIndBarraNavegacao();
+		this.indEditavelNav = this.mpSeguranca.getMpUsuarioLogado().getMpUsuario().getIndBarraNavegacao();
 		this.indNaoEditavel = false;
 		//
 		this.txtModoTela = "";
@@ -513,8 +521,7 @@ public class MpCadastroClienteBean implements Serializable {
 		this.trataExibicaoArquivo();
 		//
 		this.indEditavel = true;
-		this.indEditavelNav = this.mpSeguranca.getMpUsuarioLogado().getMpUsuario().
-																	getIndBarraNavegacao();
+		this.indEditavelNav = this.mpSeguranca.getMpUsuarioLogado().getMpUsuario().getIndBarraNavegacao();
 		this.indNaoEditavel = false;
 		//
 		this.txtModoTela = "";

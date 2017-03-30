@@ -86,11 +86,15 @@
 
 			</span>
 			<span class="DispInlBlock Fright FloatNoneOnMobile"> 
-				<p:button title="Sair" icon="fa fa-close Fs14 yellow" href="/dashboardRS" />
-				<p:commandButton title="Ajuda - Informação (alt+h)" accesskey="h" 
-					icon="fa fa-question-circle Fs14 red" process="@this" 
-					action="#{mpCadastroProdutoBean.mpHelp}" update="frmHelp"
-					oncomplete="PF('helpProdutoDialog').show()" />
+				<p:toolbar>
+					<p:toolbarGroup>
+						<p:button title="Sair" icon="fa fa-close Fs14 yellow" href="/dashboardRS" />
+						<p:commandButton title="Ajuda - Informação (alt+h)" accesskey="h" 
+							icon="fa fa-question-circle Fs14 red" process="@this" 
+							action="#{mpCadastroProdutoBean.mpHelp}" update="frmHelp"
+							oncomplete="PF('helpProdutoDialog').show()" />
+					</p:toolbarGroup>
+				</p:toolbar>
 			</span>
 			
 		</div>

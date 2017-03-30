@@ -35,15 +35,21 @@
 							</h:panelGroup>
 							<h:panelGroup id="pgDataC2"
 								rendered="#{!mpCadastroProcessoBean.indEditavel}">
-								<p:outputLabel value="Data Cadastro : "
-									rendered="#{mpLoginBean.scIndLabelCampo}" />
-								<p:calendar id="dataCadastro" showOn="button" locale="pt"
-									timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm"
+								<p:outputLabel value="Data Cadastro : " />
+								<p:calendar id="dataCadastroD" showOn="button" locale="pt"
+									timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy"
 									mask="true" required="#{mpCadastroProcessoBean.indEditavel}"
 									validatorMessage="Informar Data Cadastro"
 									value="#{mpCadastroProcessoBean.mpProcesso.dataCadastro}" />
-								<p:tooltip for="dataCadastro"
-									value="Data (Ex.: 31/03/2016 13:45)" />
+								<p:tooltip for="dataCadastroD"
+									value="Data (Ex.: 31/03/2061)" />
+								<p:calendar id="dataCadastroH" showOn="button" locale="pt"
+									timeZone="America/Sao_Paulo" pattern="HH:mm" timeOnly="true"
+									mask="true" required="#{mpCadastroProcessoBean.indEditavel}"
+									validatorMessage="Informar Hora Cadastro"
+									value="#{mpCadastroProcessoBean.horaProcesso}" />
+								<p:tooltip for="dataCadastroH"
+									value="Hora (Ex.: 13:45)" />
 							</h:panelGroup>
 							<p:spacer width="60" height="10" />
 							<p:outputLabel value="No.Controle : " />
@@ -71,6 +77,7 @@
 															<p:outputLabel value="No.Processo : "
 																rendered="#{mpLoginBean.scIndLabelCampo}" />
 															<p:inputText id="numProcesso" placeholder="Número Processo"
+																counter="display" maxlength="30" 
 																readonly="#{mpCadastroProcessoBean.indEditavel}"
 																value="#{mpCadastroProcessoBean.mpProcesso.processoCodigo}" />
 															<p:tooltip id="toolTipNumProcesso" for="numProcesso" 
@@ -80,6 +87,7 @@
 															<p:outputLabel value="Autor: "
 																rendered="#{mpLoginBean.scIndLabelCampo}" />
 															<p:inputText id="autor" placeholder="Autor"
+																counter="display" maxlength="150" 
 																readonly="#{mpCadastroProcessoBean.indEditavel}"
 																value="#{mpCadastroProcessoBean.mpProcesso.autor}" />
 															<p:tooltip id="toolTipAutor" for="autor" value="Autor" />
@@ -160,7 +168,7 @@
 																<f:selectItems var="mpComarca" itemValue="#{mpComarca}"
 																	value="#{mpCadastroProcessoBean.mpComarcaList}"
 																	itemLabel="#{mpComarca.descricao}" />
-															 	<p:ajax event="change" update="mpComarcaCartorio"
+															 	<p:ajax event="change" update="mpComarcaCartorio" ignoreAutoUpdate="false"
 															 		    listener="#{mpCadastroProcessoBean.carregarMpComarcaCartorio}" />
 															</p:selectOneMenu>
 															<p:tooltip for="pgComarca" value="Comarca ( Ex.: Cabo Frio)" />
@@ -217,30 +225,40 @@
 
 												</p:panelGrid>
 												<p:spacer />
-												<p:panelGrid id="pGridAndamento" columns="4" layout="grid"
+												<p:panelGrid id="pGridAndamento1" columns="4" layout="grid"
 													style="border:0px !important; background:none;"
 													styleClass="ui-panelgrid-blank">
 
 													<h:panelGroup id="pgRadioA">
 														<p:selectOneRadio
+															disabled="#{mpCadastroProcessoBean.indEditavel}"
 															value="#{mpCadastroProcessoBean.mpProcessoAndamento.mpAtoPraticado}">
 															<f:selectItems itemLabel="#{mpAtoPraticado.descricao}"
 																value="#{mpCadastroProcessoBean.mpAtoPraticadoList}"
 																var="mpAtoPraticado" itemValue="#{mpAtoPraticado}" />
-															<p:ajax event="change" process="@this"
-																update="pGridAndamento pgAndamentoTipo" ignoreAutoUpdate="true"
+															<p:ajax event="change" process="@this" ignoreAutoUpdate="true"
+																update="pGridAndamento1 pGridAndamento2 pgAndamentoTipo" 
 																listener="#{mpCadastroProcessoBean.trataVisivelDet}" />
 														</p:selectOneRadio>
 													</h:panelGroup>
-													<h:panelGroup id="pgDataCA">
-														<p:calendar id="dataCadastroA" locale="pt" timeZone="America/Sao_Paulo"
-															pattern="dd/MM/yyyy HH:mm" mask="true" showOn="button"
+													<h:panelGroup id="pgDataCAD">
+														<p:calendar id="dataCadastroAD" locale="pt" timeZone="America/Sao_Paulo"
+															pattern="dd/MM/yyyy" mask="true" showOn="button"
 															disabled="#{mpCadastroProcessoBean.indEditavel}"
 															value="#{mpCadastroProcessoBean.mpProcessoAndamento.dataCadastro}">
-															<p:ajax event="change" process="@this" ignoreAutoUpdate="true"
+														</p:calendar>
+														<p:tooltip for="dataCadastroAD" value="Data (Ex.: 31/03/2061)" />
+													</h:panelGroup>
+													<h:panelGroup id="pgDataCAT">
+														<p:calendar id="dataCadastroAT" locale="pt" timeZone="America/Sao_Paulo"
+															pattern="HH:mm" mask="true" showOn="button" timeOnly="true"
+															disabled="#{mpCadastroProcessoBean.indEditavel}"
+															value="#{mpCadastroProcessoBean.horaProcessoAndamento}">
+															<p:ajax event="change" process="@this" update="dataCadastroAD"
+															 	ignoreAutoUpdate="true"
 																listener="#{mpCadastroProcessoBean.trataChangeDet}" />
 														</p:calendar>
-														<p:tooltip for="dataCadastroA" value="Data (Ex.: 31/03/201x 13:45)" />
+														<p:tooltip for="dataCadastroAT" value="Hora (Ex.: 13:45)" />
 													</h:panelGroup>
 													<h:panelGroup id="pgAndamentoTipo"
 														rendered="#{mpCadastroProcessoBean.indVisivelDet}">
@@ -255,9 +273,13 @@
 																listener="#{mpCadastroProcessoBean.trataChangeDet}" />
 														</p:selectOneMenu>
 													</h:panelGroup>
-													<h:panelGroup
-														rendered="#{!mpCadastroProcessoBean.indVisivelDet}" />
-													<h:panelGroup />
+													<h:panelGroup rendered="#{!mpCadastroProcessoBean.indVisivelDet}" />
+
+												</p:panelGrid>
+
+												<p:panelGrid id="pGridAndamento2" columns="3" layout="grid"
+													style="border:0px !important; background:none;"
+													styleClass="ui-panelgrid-blank">
 
 													<h:panelGroup />
 													<h:panelGroup id="pgDetalhamento">
@@ -269,18 +291,18 @@
 																value="#{mpCadastroProcessoBean.mpDetalhamentoList}"
 																var="mpDetalhamento" itemValue="#{mpDetalhamento.descricao}" />
 															<p:ajax event="change" process="@this" ignoreAutoUpdate="true"
-																update="mpAndamentosTable pGridAndamento" 
+																update="mpAndamentosTable pGridAndamento1 pGridAndamento2" 
 																listener="#{mpCadastroProcessoBean.trataGravacaoDet}" />
 														</p:selectOneMenu>
 													</h:panelGroup>
 													<h:panelGroup id="pgAcao">
 														<p:commandButton disabled="#{mpCadastroProcessoBean.indEditavel}"
-															action="#{mpCadastroProcessoBean.trataGravacaoDet}"
-															process="@this" update="mpAndamentosTable pGridAndamento"
+															action="#{mpCadastroProcessoBean.trataGravacaoDet}" process="@this" 
+															update="mpAndamentosTable pGridAndamento1 pGridAndamento2"
 															icon="fa fa-fw fa-save" title="Salvar" />
 														<p:commandButton disabled="#{mpCadastroProcessoBean.indEditavel}"
 															action="#{mpCadastroProcessoBean.trataLimpezaDet}"
-															process="@this" update="pGridAndamento"
+															process="@this" update="pGridAndamento1 pGridAndamento2"
 															icon="fa fa-fw fa-eraser" title="Limpar" />
 													</h:panelGroup>
 
@@ -290,8 +312,7 @@
 													value="#{mpCadastroProcessoBean.mpProcesso.mpAndamentosDataModel}"
 													lazy="true" style="margin-top:10px" var="mpAndamento" reflow="true"	
 													selection="#{mpCadastroProcessoBean.mpProcessoAndamentoSelecionado}"
-													selectionMode="single" 
-													emptyMessage="O Processo ainda não possui Andamentos."
+													selectionMode="single" emptyMessage="O Processo ainda não possui Andamentos."
 													rows="20" paginator="true" paginatorAlwaysVisible="false"
 													paginatorPosition="bottom">
 													
@@ -301,8 +322,8 @@
 													<p:column headerText="Ação"
 														style="text-align:center;" exportable="false">
 														<p:commandButton disabled="#{mpCadastroProcessoBean.indEditavel}"
-															action="#{mpCadastroProcessoBean.trataAlteracaoDet}"
-															process="@this" update=":frmProc:tabViewC:pGridAndamento"
+															action="#{mpCadastroProcessoBean.trataAlteracaoDet}" process="@this" 
+															update=":frmProc:tabViewC:pGridAndamento1 :frmProc:tabViewC:pGridAndamento2"
 															icon="fa fa-fw fa-check-square-o" title="Selecionar">
 															<f:setPropertyActionListener value="#{mpAndamento}"
 																target="#{mpCadastroProcessoBean.mpProcessoAndamentoSelecionado}" />
@@ -344,8 +365,8 @@
 																mode="simple" skinSimple="true"
 																disabled="#{mpCadastroProcessoBean.indEditavel}"
 																value="#{mpCadastroProcessoBean.arquivoUpload}" />
-    														<p:commandButton title="Upload" icon="fa fa-fw fa-upload" 
-    															update=":frmProc:tabViewC:pGridAndamento" ajax="false"
+    														<p:commandButton title="Upload" icon="fa fa-fw fa-upload" ajax="false"
+    															update=":frmProc:tabViewC:pGridAndamento1 :frmProc:tabViewC:pGridAndamento2" 
     															process="@this" disabled="#{mpCadastroProcessoBean.indEditavel}"
     															action="#{mpCadastroProcessoBean.gravaFileUpload}">
 																<f:setPropertyActionListener value="#{mpAndamento}"

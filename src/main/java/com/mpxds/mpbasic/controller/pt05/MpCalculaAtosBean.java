@@ -98,8 +98,8 @@ public class MpCalculaAtosBean implements Serializable {
 			//
 			this.mpAto.getMpValorAto().zerarValorTotal();
 			//
-			this.mpAto.tratarValorTotal(scOficVariavel, scOficLei3217, scOficLei4664,
-																scOficLei111, scOficLei6281);
+			this.mpAto = mpAtoService.tratarValorTotal(this.mpAto, scOficVariavel, scOficLei3217, scOficLei4664,
+																   scOficLei111, scOficLei6281);
 			//
 			this.mpAto.setIndAlteraValorAto(false);
 			//

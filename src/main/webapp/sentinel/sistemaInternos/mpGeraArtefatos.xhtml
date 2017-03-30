@@ -160,7 +160,7 @@
 							</div>
 						</p:tab>
 						
-						<p:tab title="Resultado ( Model )">
+						<p:tab title="Resultado ( Model )" rendered="#{mpGeraArtefatosBean.indGeraModel}">
 							<div class="ContainerIndent ui-fluid">
 								<p:panel>
 									<div class="Container">
@@ -179,7 +179,7 @@
     													<p:fileDownload value="#{mpGeraArtefatosBean.prepDownloadModel}" />
   													</p:commandButton  -->    												
 													<p:outputLabel value="Resultado: " />
-													<p:inputTextarea id="resultFonte" placeholder="Result Fonte Model" 
+													<p:inputTextarea id="resultFonteM" placeholder="Result Fonte Model" 
 														rows="20" value="#{mpGeraArtefatosBean.resultFonteModel}" />
 												</p:panelGrid>
 											</div>
@@ -194,7 +194,7 @@
 							</div>
 						</p:tab>
 
-						<p:tab title="Resultado ( Filter )">
+						<p:tab title="Resultado ( Filter )" rendered="#{mpGeraArtefatosBean.indGeraFilter}">
 							<div class="ContainerIndent ui-fluid">
 								<p:panel>
 									<div class="Container">
@@ -214,6 +214,270 @@
 													<p:outputLabel value="Resultado: " />
 													<p:inputTextarea id="resultFonteF" placeholder="Result Fonte Filter" 
 														rows="20" value="#{mpGeraArtefatosBean.resultFonteFilter}" />
+												</p:panelGrid>
+											</div>
+										</div>
+										<div class="Container5 Responsive100">
+											<div class="Container100">
+												<div class="ContainerIndent"></div>
+											</div>
+										</div>
+									</div>
+								</p:panel>
+							</div>
+						</p:tab>
+
+						<p:tab title="Resultado ( Repository )" rendered="#{mpGeraArtefatosBean.indGeraRepository}">
+							<div class="ContainerIndent ui-fluid">
+								<p:panel>
+									<div class="Container">
+										<div class="Container95 Responsive100">
+											<div class="Container100">
+												<p:panelGrid id="pgResultR" columns="1" layout="grid"
+													style="border:0px !important; background:none;"
+													styleClass="ui-panelgrid-blank">
+    												<p:commandButton value="Download Repository" ajax="false" 
+    													onclick="PrimeFaces.monitorDownload(start, stop);"
+    													icon="ui-icon-arrowthick-1-s">
+        												<p:fileDownload value="#{mpGeraArtefatosBean.fileRepositoryX}" />
+    												</p:commandButton>
+  													<!-- p:commandButton id="downloadLink" value="Download Model" ajax="false">
+    													<p:fileDownload value="#{mpGeraArtefatosBean.prepDownloadModel}" />
+  													</p:commandButton  -->    												
+													<p:outputLabel value="Resultado: " />
+													<p:inputTextarea id="resultFonteR" placeholder="Result Fonte Repository" 
+														rows="20" value="#{mpGeraArtefatosBean.resultFonteRepository}" />
+												</p:panelGrid>
+											</div>
+										</div>
+										<div class="Container5 Responsive100">
+											<div class="Container100">
+												<div class="ContainerIndent"></div>
+											</div>
+										</div>
+									</div>
+								</p:panel>
+							</div>
+						</p:tab>
+
+						<p:tab title="Resultado ( Service )" rendered="#{mpGeraArtefatosBean.indGeraService}">
+							<div class="ContainerIndent ui-fluid">
+								<p:panel>
+									<div class="Container">
+										<div class="Container95 Responsive100">
+											<div class="Container100">
+												<p:panelGrid id="pgResultS" columns="1" layout="grid"
+													style="border:0px !important; background:none;"
+													styleClass="ui-panelgrid-blank">
+    												<p:commandButton value="Download Service" ajax="false" 
+    													onclick="PrimeFaces.monitorDownload(start, stop);"
+    													icon="ui-icon-arrowthick-1-s">
+        												<p:fileDownload value="#{mpGeraArtefatosBean.fileServiceX}" />
+    												</p:commandButton>
+  													<!-- p:commandButton id="downloadLink" value="Download Model" ajax="false">
+    													<p:fileDownload value="#{mpGeraArtefatosBean.prepDownloadModel}" />
+  													</p:commandButton  -->    												
+													<p:outputLabel value="Resultado: " />
+													<p:inputTextarea id="resultFonteS" placeholder="Result Fonte Service" 
+														rows="20" value="#{mpGeraArtefatosBean.resultFonteService}" />
+												</p:panelGrid>
+											</div>
+										</div>
+										<div class="Container5 Responsive100">
+											<div class="Container100">
+												<div class="ContainerIndent"></div>
+											</div>
+										</div>
+									</div>
+								</p:panel>
+							</div>
+						</p:tab>
+
+						<p:tab title="Resultado ( Converter )" rendered="#{mpGeraArtefatosBean.indGeraConverter}">
+							<div class="ContainerIndent ui-fluid">
+								<p:panel>
+									<div class="Container">
+										<div class="Container95 Responsive100">
+											<div class="Container100">
+												<p:panelGrid id="pgResultC" columns="1" layout="grid"
+													style="border:0px !important; background:none;"
+													styleClass="ui-panelgrid-blank">
+    												<p:commandButton value="Download Converter" ajax="false" 
+    													onclick="PrimeFaces.monitorDownload(start, stop);"
+    													icon="ui-icon-arrowthick-1-s">
+        												<p:fileDownload value="#{mpGeraArtefatosBean.fileConverterX}" />
+    												</p:commandButton>
+  													<!-- p:commandButton id="downloadLink" value="Download Model" ajax="false">
+    													<p:fileDownload value="#{mpGeraArtefatosBean.prepDownloadModel}" />
+  													</p:commandButton  -->    												
+													<p:outputLabel value="Resultado: " />
+													<p:inputTextarea id="resultFonteC" placeholder="Result Fonte Converter" 
+														rows="20" value="#{mpGeraArtefatosBean.resultFonteConverter}" />
+												</p:panelGrid>
+											</div>
+										</div>
+										<div class="Container5 Responsive100">
+											<div class="Container100">
+												<div class="ContainerIndent"></div>
+											</div>
+										</div>
+									</div>
+								</p:panel>
+							</div>
+						</p:tab>
+
+						<p:tab title="Resultado ( Tela Cadastro )" rendered="#{mpGeraArtefatosBean.indGeraTelaCadastro}">
+							<div class="ContainerIndent ui-fluid">
+								<p:panel>
+									<div class="Container">
+										<div class="Container95 Responsive100">
+											<div class="Container100">
+												<p:panelGrid id="pgResultTC" columns="1" layout="grid"
+													style="border:0px !important; background:none;"
+													styleClass="ui-panelgrid-blank">
+    												<p:commandButton value="Download Tela Cadastro" ajax="false" 
+    													onclick="PrimeFaces.monitorDownload(start, stop);"
+    													icon="ui-icon-arrowthick-1-s">
+        												<p:fileDownload value="#{mpGeraArtefatosBean.fileTelaCadastroX}" />
+    												</p:commandButton>
+  													<!-- p:commandButton id="downloadLink" value="Download Model" ajax="false">
+    													<p:fileDownload value="#{mpGeraArtefatosBean.prepDownloadModel}" />
+  													</p:commandButton  -->    												
+													<p:outputLabel value="Resultado: " />
+													<p:inputTextarea id="resultFonteTC" placeholder="Result Fonte Tela Cadastro" 
+														rows="20" value="#{mpGeraArtefatosBean.resultFonteTelaCadastro}" />
+												</p:panelGrid>
+											</div>
+										</div>
+										<div class="Container5 Responsive100">
+											<div class="Container100">
+												<div class="ContainerIndent"></div>
+											</div>
+										</div>
+									</div>
+								</p:panel>
+							</div>
+						</p:tab>
+
+						<p:tab title="Resultado ( Botão Cadastro )" rendered="#{mpGeraArtefatosBean.indGeraBotaoCadastro}">
+							<div class="ContainerIndent ui-fluid">
+								<p:panel>
+									<div class="Container">
+										<div class="Container95 Responsive100">
+											<div class="Container100">
+												<p:panelGrid id="pgResultBC" columns="1" layout="grid"
+													style="border:0px !important; background:none;"
+													styleClass="ui-panelgrid-blank">
+    												<p:commandButton value="Download Botão Cadastro" ajax="false" 
+    													onclick="PrimeFaces.monitorDownload(start, stop);"
+    													icon="ui-icon-arrowthick-1-s">
+        												<p:fileDownload value="#{mpGeraArtefatosBean.fileBotaoCadastroX}" />
+    												</p:commandButton>
+  													<!-- p:commandButton id="downloadLink" value="Download Model" ajax="false">
+    													<p:fileDownload value="#{mpGeraArtefatosBean.prepDownloadModel}" />
+  													</p:commandButton  -->    												
+													<p:outputLabel value="Resultado: " />
+													<p:inputTextarea id="resultFonteBC" placeholder="Result Fonte Botão Cadastro" 
+														rows="20" value="#{mpGeraArtefatosBean.resultFonteBotaoCadastro}" />
+												</p:panelGrid>
+											</div>
+										</div>
+										<div class="Container5 Responsive100">
+											<div class="Container100">
+												<div class="ContainerIndent"></div>
+											</div>
+										</div>
+									</div>
+								</p:panel>
+							</div>
+						</p:tab>
+
+						<p:tab title="Resultado ( Controller Cadastro )" rendered="#{mpGeraArtefatosBean.indGeraControllerCadastro}">
+							<div class="ContainerIndent ui-fluid">
+								<p:panel>
+									<div class="Container">
+										<div class="Container95 Responsive100">
+											<div class="Container100">
+												<p:panelGrid id="pgResultCC" columns="1" layout="grid"
+													style="border:0px !important; background:none;"
+													styleClass="ui-panelgrid-blank">
+    												<p:commandButton value="Download Controller Cadastro" ajax="false" 
+    													onclick="PrimeFaces.monitorDownload(start, stop);"
+    													icon="ui-icon-arrowthick-1-s">
+        												<p:fileDownload value="#{mpGeraArtefatosBean.fileControllerCadastroX}" />
+    												</p:commandButton>
+  													<!-- p:commandButton id="downloadLink" value="Download Model" ajax="false">
+    													<p:fileDownload value="#{mpGeraArtefatosBean.prepDownloadModel}" />
+  													</p:commandButton  -->    												
+													<p:outputLabel value="Resultado: " />
+													<p:inputTextarea id="resultFonteCC" placeholder="Result Fonte Controller Cadastro" 
+														rows="20" value="#{mpGeraArtefatosBean.resultFonteControllerCadastro}" />
+												</p:panelGrid>
+											</div>
+										</div>
+										<div class="Container5 Responsive100">
+											<div class="Container100">
+												<div class="ContainerIndent"></div>
+											</div>
+										</div>
+									</div>
+								</p:panel>
+							</div>
+						</p:tab>
+
+						<p:tab title="Resultado ( Tela Pesquisa )" rendered="#{mpGeraArtefatosBean.indGeraTelaPesquisa}">
+							<div class="ContainerIndent ui-fluid">
+								<p:panel>
+									<div class="Container">
+										<div class="Container95 Responsive100">
+											<div class="Container100">
+												<p:panelGrid id="pgResultTP" columns="1" layout="grid"
+													style="border:0px !important; background:none;"
+													styleClass="ui-panelgrid-blank">
+    												<p:commandButton value="Download Tela Pesquisa" ajax="false" 
+    													onclick="PrimeFaces.monitorDownload(start, stop);"
+    													icon="ui-icon-arrowthick-1-s">
+        												<p:fileDownload value="#{mpGeraArtefatosBean.fileTelaPesquisaX}" />
+    												</p:commandButton>
+  													<!-- p:commandButton id="downloadLink" value="Download Model" ajax="false">
+    													<p:fileDownload value="#{mpGeraArtefatosBean.prepDownloadModel}" />
+  													</p:commandButton  -->    												
+													<p:outputLabel value="Resultado: " />
+													<p:inputTextarea id="resultFonteTP" placeholder="Result Fonte Tela  Pesquisa" 
+														rows="20" value="#{mpGeraArtefatosBean.resultFonteTelaPesquisa}" />
+												</p:panelGrid>
+											</div>
+										</div>
+										<div class="Container5 Responsive100">
+											<div class="Container100">
+												<div class="ContainerIndent"></div>
+											</div>
+										</div>
+									</div>
+								</p:panel>
+							</div>
+						</p:tab>
+
+						<p:tab title="Resultado ( Controller Pesquisa )" rendered="#{mpGeraArtefatosBean.indGeraControllerPesquisa}">
+							<div class="ContainerIndent ui-fluid">
+								<p:panel>
+									<div class="Container">
+										<div class="Container95 Responsive100">
+											<div class="Container100">
+												<p:panelGrid id="pgResultCP" columns="1" layout="grid"
+													style="border:0px !important; background:none;"
+													styleClass="ui-panelgrid-blank">
+    												<p:commandButton value="Download Controller Pesquisa" ajax="false" 
+    													onclick="PrimeFaces.monitorDownload(start, stop);"
+    													icon="ui-icon-arrowthick-1-s">
+        												<p:fileDownload value="#{mpGeraArtefatosBean.fileControllerPesquisaX}" />
+    												</p:commandButton>
+  													<!-- p:commandButton id="downloadLink" value="Download Model" ajax="false">
+    													<p:fileDownload value="#{mpGeraArtefatosBean.prepDownloadModel}" />
+  													</p:commandButton  -->    												
+													<p:outputLabel value="Resultado: " />
+													<p:inputTextarea id="resultFonteCP" placeholder="Result Fonte Controller Pesquisa" 
+														rows="20" value="#{mpGeraArtefatosBean.resultFonteControllerPesquisa}" />
 												</p:panelGrid>
 											</div>
 										</div>

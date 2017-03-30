@@ -19,14 +19,14 @@ import lombok.ToString;
 
 @Entity
 @Audited
-@AuditTable(value="mp_dolar_")
-@Table(name="mp_dolar")
+@AuditTable(value="MP_DOLAR_")
+@Table(name="MP_DOLAR")
 @ToString
 public class MpDolar extends MpBaseEntity {
 	//
 	private static final long serialVersionUID = 1L;
 
-	@Column(nullable = false, length = 20)
+	@Column(name =  "DATA_MOVIMENTO", nullable = false, length = 20)
 	@Getter @Setter
 	private Date dataMovimento; 
 	//

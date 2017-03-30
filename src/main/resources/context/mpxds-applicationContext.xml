@@ -169,6 +169,8 @@
 
     <http pattern="/geraArtefatosRS" security="none" />
 
+    <http pattern="/sistemaHelpRS" security="none" />
+
 	<!-- ////////////////////////////////////////////////// -->
 	
     <http pattern="/sentinel/mpLogin.xhtml" security="none" />

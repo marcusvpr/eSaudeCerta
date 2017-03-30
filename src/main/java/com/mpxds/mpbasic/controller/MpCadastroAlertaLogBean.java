@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.mpxds.mpbasic.model.log.MpAlertaLog;
 import com.mpxds.mpbasic.repository.MpAlertaLogs;
+import com.mpxds.mpbasic.security.MpSeguranca;
 import com.mpxds.mpbasic.service.MpAlertaLogService;
 import com.mpxds.mpbasic.exception.MpNegocioException;
 import com.mpxds.mpbasic.util.jsf.MpFacesUtil;
@@ -29,6 +30,11 @@ public class MpCadastroAlertaLogBean implements Serializable {
 	@Inject
 	private MpAlertaLogService mpAlertaLogService;
 
+	@Inject
+	private MpSeguranca mpSeguranca;
+
+	// ---
+	
 	private MpAlertaLog mpAlertaLog = new MpAlertaLog();
 	private MpAlertaLog mpAlertaLogAnt;
 
@@ -61,7 +67,17 @@ public class MpCadastroAlertaLogBean implements Serializable {
 		else
 			if (null == this.mpAlertaLog)
 				this.mpEnd(); // Posiciona no último registro !!!
-
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpAlertaLog.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
+		}
+		//
 		this.setMpAlertaLogAnt(this.mpAlertaLog);
 	}
 	

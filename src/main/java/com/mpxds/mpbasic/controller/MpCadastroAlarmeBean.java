@@ -69,6 +69,16 @@ public class MpCadastroAlarmeBean implements Serializable {
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
 		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpAlarme.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
+		}
 
 		this.setMpAlarmeAnt(this.mpAlarme);
 		//

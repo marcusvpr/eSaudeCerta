@@ -33,10 +33,7 @@ public class MpGeraArtefatosBean implements Serializable {
 	//
     private String nomeClasse = "Xyyyyyy";
     private String sqlFonte;
-    
-    private String resultFonteModel;
-    private String resultFonteFilter;
-    
+    //
     private Boolean indGeraModel = false;
     private Boolean indGeraFilter = false;
     private Boolean indGeraRepository = false;       
@@ -47,6 +44,17 @@ public class MpGeraArtefatosBean implements Serializable {
     private Boolean indGeraControllerCadastro = false;
     private Boolean indGeraTelaPesquisa = false;
     private Boolean indGeraControllerPesquisa = false;
+    //
+    private String resultFonteModel;
+    private String resultFonteFilter;
+    private String resultFonteRepository;
+    private String resultFonteService;
+    private String resultFonteConverter;
+    private String resultFonteTelaCadastro;
+    private String resultFonteBotaoCadastro;
+    private String resultFonteControllerCadastro;
+    private String resultFonteTelaPesquisa;
+    private String resultFonteControllerPesquisa;
     
     // ---
     	
@@ -57,6 +65,14 @@ public class MpGeraArtefatosBean implements Serializable {
     //
     private StreamedContent fileModelX;
     private StreamedContent fileFilterX;
+    private StreamedContent fileRepositoryX;
+    private StreamedContent fileServiceX;
+    private StreamedContent fileConverterX;
+    private StreamedContent fileTelaCadastroX;
+    private StreamedContent fileBotaoCadastroX;
+    private StreamedContent fileControllerCadastroX;
+    private StreamedContent fileTelaPesquisaX;
+    private StreamedContent fileControllerPesquisaX;
 	
     // -------------------------------- Inicio ------------------------------------
 
@@ -88,6 +104,14 @@ public class MpGeraArtefatosBean implements Serializable {
     	//
     	if (this.indGeraModel) trataGeraModel();    	
     	if (this.indGeraFilter) trataGeraFilter();    	
+    	if (this.indGeraRepository) trataGeraRepository();
+    	if (this.indGeraService) trataGeraService();
+    	if (this.indGeraConverter) trataGeraConverter();
+    	if (this.indGeraTelaCadastro) trataGeraTelaCadastro();
+    	if (this.indGeraBotaoCadastro) trataGeraBotaoCadastro();
+    	if (this.indGeraControllerCadastro) trataGeraControllerCadastro();
+    	if (this.indGeraTelaPesquisa) trataGeraTelaPesquisa();
+    	if (this.indGeraControllerPesquisa) trataGeraControllerPesquisa();
     	//
     	MpFacesUtil.addInfoMessage("Geração Artefato(s)... Efetuada ! ( Classe = " + this.nomeClasse +
     		" ) / Ind.s (M= " + this.indGeraModel +
@@ -132,9 +156,11 @@ public class MpGeraArtefatosBean implements Serializable {
 	    			continue; 
 	    		}
 				//
-				line = line.replace("Dolar", this.nomeClasse.trim());					
+				line = line.replace("Dolar", this.nomeClasse.trim().substring(0,1).toUpperCase() +
+	 					 					 this.nomeClasse.trim().substring(1));
 				line = line.replace("dolar", this.nomeClasse.trim().substring(0,1).toLowerCase() +
-											 this.nomeClasse.trim().substring(1));
+						 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("DOLAR", this.nomeClasse.trim().toUpperCase());
 				//		
 			    out.append(line + "\n");
 			    
@@ -164,7 +190,7 @@ public class MpGeraArtefatosBean implements Serializable {
 			//
 		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraModel() - File = " + fileModel.getAbsolutePath());
 		    //
-		    this.trataFileDownload(fileModel, "model");
+		    this.trataFileDownload(fileModel, "Model");
 		    //
 		} catch (IOException e) {
     		MpFacesUtil.addInfoMessage("trataGeraModel() Error Gravação : e = " + e);
@@ -177,6 +203,7 @@ public class MpGeraArtefatosBean implements Serializable {
     	if (null == this.sqlFonte || this.sqlFonte.isEmpty()) return;    	
     	//    	
     	String campo = "";
+    	String campoName = "";
     	String formato = "";
     	String tamanho = "";
     	String indNull = "";
@@ -195,6 +222,7 @@ public class MpGeraArtefatosBean implements Serializable {
     			campo = wordCs[0].trim();
     			campo = campo.replace("[", "");
     			campo = campo.replace("]", "");
+    			campoName = campo.toUpperCase();
     			campo = campo.replace("_", "");
     			//
         		formato = "String";
@@ -244,25 +272,29 @@ public class MpGeraArtefatosBean implements Serializable {
     			//
         		if (formato.equals("byte[]")) {
     			    this.outCampos.append("        @Lob\n");
-    			    this.outCampos.append(
-    			    		"        @Column(columnDefinition = \"blob\", nullable = true, length = 10000)\n");
+    			    this.outCampos.append("        @Column(name = \"" + campoName + "\", " + 
+    			    								"columnDefinition = \"blob\", nullable = true, length = 10000)\n");
         		} else
         		if (formato.equals("Date")) {
     			    this.outCampos.append("        @Temporal(TemporalType.TIMESTAMP)\n");
-    			    this.outCampos.append("        @Column(nullable = " + indNull + ")\n");
+    			    this.outCampos.append("        @Column(name = \"" + campoName + "\", " + 
+    			    								"nullable = " + indNull + ")\n");
         		} else
             	if (formato.equals("Integer") 
             	||  formato.equals("Boolean")) 
-    			    this.outCampos.append("        @Column(nullable = " + indNull + ")\n");
+    			    this.outCampos.append("        @Column(name = \"" + campoName + "\", " + 
+    			    								"nullable = " + indNull + ")\n");
         		else
             	if (formato.equals("BigDecimal")) 
-            		this.outCampos.append("        @Column(nullable = " + indNull + ", " + tamanho + ")\n");
+            		this.outCampos.append("        @Column(name = \"" + campoName + "\", " + 
+            										"nullable = " + indNull + ", " + tamanho + ")\n");
             	else
             		if (tamanho.isEmpty())
-            			this.outCampos.append("        @Column(nullable = " + indNull + ")\n");
+            			this.outCampos.append("        @Column(name = \"" + campoName + "\", " + 
+            											"nullable = " + indNull + ")\n");
             		else
-            			this.outCampos.append("        @Column(nullable = " + indNull + ", length = " + 
-            																				tamanho + ")\n");
+            			this.outCampos.append("        @Column(name = \"" + campoName + "\", " + 
+            											"nullable = " + indNull + ", length = " + tamanho + ")\n");
         		//
         		this.outCampos.append("        @Getter @Setter\n");
         		this.outCampos.append("        private " + formato + " " + campo.substring(0,1).toLowerCase() +
@@ -287,9 +319,11 @@ public class MpGeraArtefatosBean implements Serializable {
             //
 			while ((line = br.readLine()) != null) {
 				//
-				line = line.replace("Dolar", this.nomeClasse.trim());					
+				line = line.replace("Dolar", this.nomeClasse.trim().substring(0,1).toUpperCase() +
+						 					 this.nomeClasse.trim().substring(1));
 				line = line.replace("dolar", this.nomeClasse.trim().substring(0,1).toLowerCase() +
 											 this.nomeClasse.trim().substring(1));
+				line = line.replace("DOLAR", this.nomeClasse.trim().toUpperCase());
 				//		
 			    out.append(line + "\n");
 			}
@@ -297,8 +331,8 @@ public class MpGeraArtefatosBean implements Serializable {
 			this.resultFonteFilter = out.toString();
 			//
 		} catch (IOException e) {
-    		MpFacesUtil.addInfoMessage("trataGeraRepositoryFilter() Error : e = " + e);
-		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraRepositoryFilter() - Error Geração : e = " + e);
+    		MpFacesUtil.addInfoMessage("trataGeraFilter() Error : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraFilter() - Error Geração : e = " + e);
 		}    	
 
 		// Trata gravação arquivo...
@@ -315,13 +349,444 @@ public class MpGeraArtefatosBean implements Serializable {
 			fileWriter.flush();
 			fileWriter.close();
 			//
-		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraModel() - File = " + fileFilter.getAbsolutePath());
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraFilter() - File = " + fileFilter.getAbsolutePath());
 		    //
-		    this.trataFileDownload(fileFilter, "filter");
+		    this.trataFileDownload(fileFilter, "Filter");
 		    //
 		} catch (IOException e) {
-    		MpFacesUtil.addInfoMessage("trataGeraModel() Error Gravação : e = " + e);
-		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraModel() - Error Gravação : e = " + e);
+    		MpFacesUtil.addInfoMessage("trataGeraFilter() Error Gravação : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraFilter() - Error Gravação : e = " + e);
+		}
+    }
+
+    private void trataGeraRepository() {
+    	//
+        try {
+        	InputStream is = MpGeraArtefatosBean.class.getResourceAsStream("/artefatos/base/MpDolars.java");
+        	
+        	InputStreamReader r = new InputStreamReader(is);
+        	BufferedReader br = new BufferedReader(r);
+            //
+            StringBuilder out = new StringBuilder();
+            String line;
+            //
+			while ((line = br.readLine()) != null) {
+				//
+				line = line.replace("Dolar", this.nomeClasse.trim().substring(0,1).toUpperCase() +
+	 					 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("dolar", this.nomeClasse.trim().substring(0,1).toLowerCase() +
+						 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("DOLAR", this.nomeClasse.trim().toUpperCase());
+				//		
+			    out.append(line + "\n");
+			}
+			//
+			this.resultFonteRepository = out.toString();
+			//
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraRepository() Error : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraRepository() - Error Geração : e = " + e);
+		}    	
+
+		// Trata gravação arquivo...
+		ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();						
+
+		try {
+			String nomeArquivo = "Mp" + this.nomeClasse.trim() + "s.java";
+			
+			File fileRepository = new File(extContext.getRealPath("//resources//artefatos//" + nomeArquivo));
+			FileWriter fileWriter = new FileWriter(fileRepository);
+			
+			fileWriter.write(this.resultFonteRepository);
+			
+			fileWriter.flush();
+			fileWriter.close();
+			//
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraRepository() - File = " + 
+		    																	fileRepository.getAbsolutePath());
+		    //
+		    this.trataFileDownload(fileRepository, "Repository");
+		    //
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraRepository() Error Gravação : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraRepository() - Error Gravação : e = " + e);
+		}
+    }
+
+    private void trataGeraService() {
+    	//
+        try {
+        	InputStream is = MpGeraArtefatosBean.class.getResourceAsStream("/artefatos/base/MpDolarService.java");
+        	
+        	InputStreamReader r = new InputStreamReader(is);
+        	BufferedReader br = new BufferedReader(r);
+            //
+            StringBuilder out = new StringBuilder();
+            String line;
+            //
+			while ((line = br.readLine()) != null) {
+				//
+				line = line.replace("Dolar", this.nomeClasse.trim().substring(0,1).toUpperCase() +
+	 					 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("dolar", this.nomeClasse.trim().substring(0,1).toLowerCase() +
+						 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("DOLAR", this.nomeClasse.trim().toUpperCase());
+				//		
+			    out.append(line + "\n");
+			}
+			//
+			this.resultFonteService = out.toString();
+			//
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraService() Error : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraService() - Error Geração : e = " + e);
+		}    	
+
+		// Trata gravação arquivo...
+		ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();						
+
+		try {
+			String nomeArquivo = "Mp" + this.nomeClasse.trim() + "Service.java";
+			
+			File fileService = new File(extContext.getRealPath("//resources//artefatos//" + nomeArquivo));
+			FileWriter fileWriter = new FileWriter(fileService);
+			
+			fileWriter.write(this.resultFonteService);
+			
+			fileWriter.flush();
+			fileWriter.close();
+			//
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraService() - File = " + fileService.getAbsolutePath());
+		    //
+		    this.trataFileDownload(fileService, "Service");
+		    //
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraService() Error Gravação : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraService() - Error Gravação : e = " + e);
+		}
+    }
+
+    private void trataGeraConverter() {
+    	//
+        try {
+        	InputStream is = MpGeraArtefatosBean.class.getResourceAsStream("/artefatos/base/MpDolarConverter.java");
+        	
+        	InputStreamReader r = new InputStreamReader(is);
+        	BufferedReader br = new BufferedReader(r);
+            //
+            StringBuilder out = new StringBuilder();
+            String line;
+            //
+			while ((line = br.readLine()) != null) {
+				//
+				line = line.replace("Dolar", this.nomeClasse.trim().substring(0,1).toUpperCase() +
+	 					 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("dolar", this.nomeClasse.trim().substring(0,1).toLowerCase() +
+						 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("DOLAR", this.nomeClasse.trim().toUpperCase());
+				//		
+			    out.append(line + "\n");
+			}
+			//
+			this.resultFonteConverter = out.toString();
+			//
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraConverter() Error : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraConverter() - Error Geração : e = " + e);
+		}    	
+
+		// Trata gravação arquivo...
+		ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();						
+
+		try {
+			String nomeArquivo = "Mp" + this.nomeClasse.trim() + "Converter.java";
+			
+			File fileConverter = new File(extContext.getRealPath("//resources//artefatos//" + nomeArquivo));
+			FileWriter fileWriter = new FileWriter(fileConverter);
+			
+			fileWriter.write(this.resultFonteConverter);
+			
+			fileWriter.flush();
+			fileWriter.close();
+			//
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraConverter() - File = " + 
+		    																		fileConverter.getAbsolutePath());
+		    //
+		    this.trataFileDownload(fileConverter, "Converter");
+		    //
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraConverter() Error Gravação : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraConverter() - Error Gravação : e = " + e);
+		}
+    }
+
+    private void trataGeraTelaCadastro() {
+    	//
+        try {
+        	InputStream is = MpGeraArtefatosBean.class.getResourceAsStream("/artefatos/base/mpCadastroDolar.xhtml");
+        	
+        	InputStreamReader r = new InputStreamReader(is);
+        	BufferedReader br = new BufferedReader(r);
+            //
+            StringBuilder out = new StringBuilder();
+            String line;
+            //
+			while ((line = br.readLine()) != null) {
+				//
+				line = line.replace("Dolar", this.nomeClasse.trim().substring(0,1).toUpperCase() +
+	 					 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("dolar", this.nomeClasse.trim().substring(0,1).toLowerCase() +
+						 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("DOLAR", this.nomeClasse.trim().toUpperCase());
+				//		
+			    out.append(line + "\n");
+			}
+			//
+			this.resultFonteTelaCadastro = out.toString();
+			//
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraTelaCadastro() Error : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraTelaCadastro() - Error Geração : e = " + e);
+		}    	
+
+		// Trata gravação arquivo...
+		ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();						
+
+		try {
+			String nomeArquivo = "mpCadastro" + this.nomeClasse.trim() + ".xhtml";
+			
+			File fileTelaCadastro = new File(extContext.getRealPath("//resources//artefatos//" + nomeArquivo));
+			FileWriter fileWriter = new FileWriter(fileTelaCadastro);
+			
+			fileWriter.write(this.resultFonteTelaCadastro);
+			
+			fileWriter.flush();
+			fileWriter.close();
+			//
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraTelaCadastro() - File = " + 
+		    																	fileTelaCadastro.getAbsolutePath());
+		    //
+		    this.trataFileDownload(fileTelaCadastro, "TelaCadastro");
+		    //
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraTelaCadastro() Error Gravação : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraTelaCadastro() - Error Gravação : e = " + e);
+		}
+    }
+
+    private void trataGeraBotaoCadastro() {
+    	//
+        try {
+        	InputStream is = MpGeraArtefatosBean.class.getResourceAsStream("/artefatos/base/mpBotoesDolar.xhtml");
+        	
+        	InputStreamReader r = new InputStreamReader(is);
+        	BufferedReader br = new BufferedReader(r);
+            //
+            StringBuilder out = new StringBuilder();
+            String line;
+            //
+			while ((line = br.readLine()) != null) {
+				//
+				line = line.replace("Dolar", this.nomeClasse.trim().substring(0,1).toUpperCase() +
+	 					 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("dolar", this.nomeClasse.trim().substring(0,1).toLowerCase() +
+						 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("DOLAR", this.nomeClasse.trim().toUpperCase());
+				//		
+			    out.append(line + "\n");
+			}
+			//
+			this.resultFonteBotaoCadastro = out.toString();
+			//
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraBotaoCadastro() Error : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraBotaoCadastro() - Error Geração : e = " + e);
+		}    	
+
+		// Trata gravação arquivo...
+		ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();						
+
+		try {
+			String nomeArquivo = "mpBotoes" + this.nomeClasse.trim() + ".xhtml";
+			
+			File fileBotaoCadastro = new File(extContext.getRealPath("//resources//artefatos//" + nomeArquivo));
+			FileWriter fileWriter = new FileWriter(fileBotaoCadastro);
+			
+			fileWriter.write(this.resultFonteBotaoCadastro);
+			
+			fileWriter.flush();
+			fileWriter.close();
+			//
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraBotaoCadastro() - File = " + 
+		    																	fileBotaoCadastro.getAbsolutePath());
+		    //
+		    this.trataFileDownload(fileBotaoCadastro, "BotaoCadastro");
+		    //
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraBotaoCadastro() Error Gravação : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraBotaoCadastro() - Error Gravação : e = " + e);
+		}
+    }
+
+    private void trataGeraControllerCadastro() {
+    	//
+        try {
+        	InputStream is = MpGeraArtefatosBean.class.getResourceAsStream("/artefatos/base/MpCadastroDolarBean.java");
+        	
+        	InputStreamReader r = new InputStreamReader(is);
+        	BufferedReader br = new BufferedReader(r);
+            //
+            StringBuilder out = new StringBuilder();
+            String line;
+            //
+			while ((line = br.readLine()) != null) {
+				//
+				line = line.replace("Dolar", this.nomeClasse.trim().substring(0,1).toUpperCase() +
+	 					 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("dolar", this.nomeClasse.trim().substring(0,1).toLowerCase() +
+						 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("DOLAR", this.nomeClasse.trim().toUpperCase());
+				//		
+			    out.append(line + "\n");
+			}
+			//
+			this.resultFonteControllerCadastro = out.toString();
+			//
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraControllerCadastro() Error : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraControllerCadastro() - Error Geração : e = " + e);
+		}    	
+
+		// Trata gravação arquivo...
+		ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();						
+
+		try {
+			String nomeArquivo = "MpCadastro" + this.nomeClasse.trim() + "Bean.java";
+			
+			File fileControllerCadastro = new File(extContext.getRealPath("//resources//artefatos//" + nomeArquivo));
+			FileWriter fileWriter = new FileWriter(fileControllerCadastro);
+			
+			fileWriter.write(this.resultFonteControllerCadastro);
+			
+			fileWriter.flush();
+			fileWriter.close();
+			//
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraControllerCadastro() - File = " + 
+		    																fileControllerCadastro.getAbsolutePath());
+		    //
+		    this.trataFileDownload(fileControllerCadastro, "ControllerCadastro");
+		    //
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraControllerCadastro() Error Gravação : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraControllerCadastro() - Error Gravação : e = " + e);
+		}
+    }
+
+    private void trataGeraTelaPesquisa() {
+    	//
+        try {
+        	InputStream is = MpGeraArtefatosBean.class.getResourceAsStream("/artefatos/base/mpPesquisaDolars.xhtml");
+        	
+        	InputStreamReader r = new InputStreamReader(is);
+        	BufferedReader br = new BufferedReader(r);
+            //
+            StringBuilder out = new StringBuilder();
+            String line;
+            //
+			while ((line = br.readLine()) != null) {
+				//
+				line = line.replace("Dolar", this.nomeClasse.trim().substring(0,1).toUpperCase() +
+	 					 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("dolar", this.nomeClasse.trim().substring(0,1).toLowerCase() +
+						 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("DOLAR", this.nomeClasse.trim().toUpperCase());
+				//		
+			    out.append(line + "\n");
+			}
+			//
+			this.resultFonteTelaPesquisa = out.toString();
+			//
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraTelaPesquisa() Error : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraTelaPesquisa() - Error Geração : e = " + e);
+		}    	
+
+		// Trata gravação arquivo...
+		ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();						
+
+		try {
+			String nomeArquivo = "mpPesquisa" + this.nomeClasse.trim() + "s.xhtml";
+			
+			File fileTelaPesquisa = new File(extContext.getRealPath("//resources//artefatos//" + nomeArquivo));
+			FileWriter fileWriter = new FileWriter(fileTelaPesquisa);
+			
+			fileWriter.write(this.resultFonteTelaPesquisa);
+			
+			fileWriter.flush();
+			fileWriter.close();
+			//
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraTelaPesquisa() - File = " + 
+		    																	fileTelaPesquisa.getAbsolutePath());
+		    //
+		    this.trataFileDownload(fileTelaPesquisa, "TelaPesquisa");
+		    //
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraTelaPesquisa() Error Gravação : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraTelaPesquisa() - Error Gravação : e = " + e);
+		}
+    }
+
+    private void trataGeraControllerPesquisa() {
+    	//
+        try {
+        	InputStream is = MpGeraArtefatosBean.class.getResourceAsStream("/artefatos/base/MpPesquisaDolarsBean.java");
+        	
+        	InputStreamReader r = new InputStreamReader(is);
+        	BufferedReader br = new BufferedReader(r);
+            //
+            StringBuilder out = new StringBuilder();
+            String line;
+            //
+			while ((line = br.readLine()) != null) {
+				//
+				line = line.replace("Dolar", this.nomeClasse.trim().substring(0,1).toUpperCase() +
+	 					 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("dolar", this.nomeClasse.trim().substring(0,1).toLowerCase() +
+						 					 this.nomeClasse.trim().substring(1));
+				line = line.replace("DOLAR", this.nomeClasse.trim().toUpperCase());
+				//		
+			    out.append(line + "\n");
+			}
+			//
+			this.resultFonteControllerPesquisa = out.toString();
+			//
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraControllerPesquisa() Error : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraControllerPesquisa() - Error Geração : e = " + e);
+		}    	
+
+		// Trata gravação arquivo...
+		ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();						
+
+		try {
+			String nomeArquivo = "MpPesquisa" + this.nomeClasse.trim() + "sBean.java";
+			
+			File fileControllerPesquisa = new File(extContext.getRealPath("//resources//artefatos//" + nomeArquivo));
+			FileWriter fileWriter = new FileWriter(fileControllerPesquisa);
+			
+			fileWriter.write(this.resultFonteControllerPesquisa);
+			
+			fileWriter.flush();
+			fileWriter.close();
+			//
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraControllerPesquisa() - File = " + 
+		    																fileControllerPesquisa.getAbsolutePath());
+		    //
+		    this.trataFileDownload(fileControllerPesquisa, "ControllerPesquisa");
+		    //
+		} catch (IOException e) {
+    		MpFacesUtil.addInfoMessage("trataGeraControllerPesquisa() Error Gravação : e = " + e);
+		    MpAppUtil.PrintarLn("MpGerartafatosBean.trataGeraControllerPesquisa() - Error Gravação : e = " + e);
 		}
     }
         
@@ -336,13 +801,41 @@ public class MpGeraArtefatosBean implements Serializable {
 		try {
 			streamX = new FileInputStream(fileDown);
 
-			if (tipo.equals("model"))
-				this.fileModelX = new DefaultStreamedContent(streamX, externalContext.getMimeType(fileDown.getName()),
-																				"downloaded_" + fileDown.getName());
-			else
-			if (tipo.equals("filter"))
-				this.fileFilterX = new DefaultStreamedContent(streamX, externalContext.getMimeType(fileDown.getName()),
-																				"downloaded_" + fileDown.getName());
+			StreamedContent fileXX = new DefaultStreamedContent(streamX, externalContext.getMimeType(
+												fileDown.getName()), "downloaded_" + fileDown.getName());
+			//			
+			switch (tipo) {
+				case "Model":
+					this.fileModelX = fileXX;
+					break;
+				case "Filter":
+					this.fileFilterX = fileXX;
+					break;
+				case "Repository":
+					this.fileRepositoryX = fileXX;
+					break;
+				case "Service":
+					this.fileServiceX = fileXX;
+					break;
+				case "Converter":
+					this.fileConverterX = fileXX;
+					break;
+				case "TelaCadastro":
+					this.fileTelaCadastroX = fileXX;
+					break;
+				case "BotaoCadastro":
+					this.fileBotaoCadastroX = fileXX;
+					break;
+				case "ControllerCadastro":
+					this.fileControllerCadastroX = fileXX;
+					break;
+				case "TelaPesquisa":
+					this.fileTelaPesquisaX = fileXX;
+					break;
+				case "ControllerPesquisa":
+					this.fileControllerPesquisaX = fileXX;
+					break;
+			}			
 			//
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -368,13 +861,45 @@ public class MpGeraArtefatosBean implements Serializable {
     
     public String getSqlFonte() { return this.sqlFonte; }
     public void setSqlFonte(String newSqlFonte) { this.sqlFonte = newSqlFonte; }
-    
+    //
     public String getResultFonteModel() { return this.resultFonteModel; }
     public void setResultFonteModel(String newResultFonteModel) { this.resultFonteModel = newResultFonteModel; }
 
     public String getResultFonteFilter() { return this.resultFonteFilter; }
     public void setResultFonteFilter(String newResultFonteFilter) { this.resultFonteFilter = newResultFonteFilter; }
 
+    public String getResultFonteRepository() { return this.resultFonteRepository; }
+    public void setResultFonteRepository(String newResultFonteRepository) { 
+    														this.resultFonteRepository = newResultFonteRepository; }
+
+    public String getResultFonteService() { return this.resultFonteService; }
+    public void setResultFonteService(String newResultFonteService) { 
+    															this.resultFonteService = newResultFonteService; }
+
+    public String getResultFonteConverter() { return this.resultFonteConverter; }
+    public void setResultFonteConverter(String newResultFonteConverter) { 
+    														this.resultFonteConverter = newResultFonteConverter; }
+
+    public String getResultFonteTelaCadastro() { return this.resultFonteTelaCadastro; }
+    public void setResultFonteTelaCadastro(String newResultFonteTelaCadastro) { 
+    													this.resultFonteTelaCadastro = newResultFonteTelaCadastro; }
+
+    public String getResultFonteBotaoCadastro() { return this.resultFonteBotaoCadastro; }
+    public void setResultFonteBotaoCadastro(String newResultFonteBotaoCadastro) { 
+    												this.resultFonteBotaoCadastro = newResultFonteBotaoCadastro; }
+
+    public String getResultFonteControllerCadastro() { return this.resultFonteControllerCadastro; }
+    public void setResultFonteControllerCadastro(String newResultFonteControllerCadastro) { 
+    										this.resultFonteControllerCadastro = newResultFonteControllerCadastro; }
+
+    public String getResultFonteTelaPesquisa() { return this.resultFonteTelaPesquisa; }
+    public void setResultFonteTelaPesquisa(String newResultFonteTelaPesquisa) {
+    													this.resultFonteTelaPesquisa = newResultFonteTelaPesquisa; }
+
+    public String getResultFonteControllerPesquisa() { return this.resultFonteControllerPesquisa; }
+    public void setResultFonteControllerPesquisa(String newResultFonteControllerPesquisa) { 
+    										this.resultFonteControllerPesquisa = newResultFonteControllerPesquisa; }
+    //
     public boolean getIndGeraModel() { return this.indGeraModel; }
     public void setIndGeraModel(boolean newIndGeraModel) { this.indGeraModel = newIndGeraModel; }
 
@@ -428,5 +953,34 @@ public class MpGeraArtefatosBean implements Serializable {
     
     public void setFileFilterX(StreamedContent fileFilterX) { this.fileFilterX = fileFilterX; }
     public StreamedContent getFileFilterX() { return fileFilterX; }
+    
+    public void setFileRepositoryX(StreamedContent fileRepositoryX) { this.fileRepositoryX = fileRepositoryX; }
+    public StreamedContent getFileRepositoryX() { return fileRepositoryX; }
+    
+    public void setFileServiceX(StreamedContent fileServiceX) { this.fileServiceX = fileServiceX; }
+    public StreamedContent getFileServiceX() { return fileServiceX; }
+    
+    public void setFileConverterX(StreamedContent fileConverterX) { this.fileConverterX = fileConverterX; }
+    public StreamedContent getFileConverterX() { return fileConverterX; }
+    
+    public void setFileTelaCadastroX(StreamedContent fileTelaCadastroX) { 
+    																this.fileTelaCadastroX = fileTelaCadastroX; }
+    public StreamedContent getFileTelaCadastroX() { return fileTelaCadastroX; }
+    
+    public void setFileBotaoCadastroX(StreamedContent fileBotaoCadastroX) { 
+    																this.fileBotaoCadastroX = fileBotaoCadastroX; }
+    public StreamedContent getFileBotaoCadastroX() { return fileBotaoCadastroX; }
+    
+    public void setFileControllerCadastroX(StreamedContent fileControllerCadastroX) { 
+    														this.fileControllerCadastroX = fileControllerCadastroX; }
+    public StreamedContent getFileControllerCadastroX() { return fileControllerCadastroX; }
+    
+    public void setFileTelaPesquisaX(StreamedContent fileTelaPesquisaX) { 
+    																this.fileTelaPesquisaX = fileTelaPesquisaX; }
+    public StreamedContent getFileTelaPesquisaX() { return fileTelaPesquisaX; }
+    
+    public void setFileControllerPesquisaX(StreamedContent fileControllerPesquisaX) { 
+    														this.fileControllerPesquisaX = fileControllerPesquisaX; }
+    public StreamedContent getFileControllerPesquisaX() { return fileControllerPesquisaX; }
     
 }

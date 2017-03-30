@@ -27,6 +27,7 @@ import com.mpxds.mpbasic.model.enums.MpApresentacaoProduto;
 import com.mpxds.mpbasic.model.enums.MpMarcaProduto;
 import com.mpxds.mpbasic.repository.MpCategorias;
 import com.mpxds.mpbasic.repository.MpTabelaInternas;
+import com.mpxds.mpbasic.security.MpSeguranca;
 import com.mpxds.mpbasic.model.enums.MpStatusProduto;
 import com.mpxds.mpbasic.model.enums.MpTipoConservacao;
 import com.mpxds.mpbasic.model.enums.MpTipoMedicamento;
@@ -48,6 +49,11 @@ public class MpCadastroProdutoBeanY implements Serializable {
 	
 	@Inject
 	private MpTabelaInternas mpTabelaInternas;
+	
+	@Inject
+	private MpSeguranca mpSeguranca;
+	
+	// ---
 	
 	private MpProduto mpProduto = new MpProduto();
 	private MpProduto mpProdutoAnt;
@@ -97,8 +103,19 @@ public class MpCadastroProdutoBeanY implements Serializable {
 	}
 	
 	public void inicializar() {
+		//
 		if (null == this.mpProduto)
 			this.limpar();
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpProduto.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
+		}
 		//
 		this.mpTipoProdutoList = Arrays.asList(MpTipoProduto.values());
 		this.mpStatusProdutoList = Arrays.asList(MpStatusProduto.values());

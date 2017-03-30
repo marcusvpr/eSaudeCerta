@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
-import org.hibernate.validator.constraints.NotBlank;
+//import org.hibernate.validator.constraints.NotBlank;
 
 import com.mpxds.mpbasic.model.MpBaseEntity;
 
@@ -25,7 +25,7 @@ public class MpAtoComposicao extends MpBaseEntity {
 	private MpCustasComposicao mpCustasComposicao;
 
 	private String complemento;
-	private String excessao;
+	private String excecao;
 
 	private BigDecimal valorCusta = BigDecimal.ZERO; 
 	
@@ -43,15 +43,15 @@ public class MpAtoComposicao extends MpBaseEntity {
 	public void setMpCustasComposicao(MpCustasComposicao mpCustasComposicao) {
 													this.mpCustasComposicao = mpCustasComposicao; }
 	
-	@NotBlank(message = "Por favor, informe o COMPLEMENTO")
-	@Column(nullable = false, length = 20)
+//	@NotBlank(message = "Por favor, informe o COMPLEMENTO")
+	@Column(nullable = true, length = 20)
 	public String getComplemento() { return complemento; }
 	public void setComplemento(String complemento) { this.complemento = complemento; }
 
-	@NotBlank(message = "Por favor, informe a EXCESSÃO")
-	@Column(nullable = false, length = 50)
-	public String getExcessao() { return excessao; }
-	public void setExcessao(String excessao) { this.excessao = excessao; }
+//	@NotBlank(message = "Por favor, informe a EXCEÇÃO")
+	@Column(nullable = true, length = 50)
+	public String getExcecao() { return excecao; }
+	public void setExcecao(String excecao) { this.excecao = excecao; }
 	
 	@Column(name = "valor_custa", nullable = true, precision = 10, scale = 2)
 	public BigDecimal getValorCusta() { return valorCusta; }

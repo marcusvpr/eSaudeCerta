@@ -82,6 +82,16 @@ public class MpCadastroUsuarioTenantBean implements Serializable {
 			// Posiciona no usuário logado !!!
 			this.mpNext();; 
 		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpUsuarioTenant.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
+		}
 		
 		this.setMpUsuarioTenantAnt(this.mpUsuarioTenant);
 		//

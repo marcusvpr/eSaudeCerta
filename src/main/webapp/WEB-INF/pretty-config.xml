@@ -501,5 +501,10 @@
 		<pattern value="/geraArtefatosRS" />
 		<view-id value="/sentinel/sistemaInternos/mpGeraArtefatos.xhtml" />
 	</url-mapping>
+
+	<url-mapping id="sistemaHelpRS">
+		<pattern value="/sistemaHelpRS" />
+		<view-id value="/sentinel/sistemaHelp/mpSistemaHelp.xhtml" />
+	</url-mapping>
 	
 </pretty-config>

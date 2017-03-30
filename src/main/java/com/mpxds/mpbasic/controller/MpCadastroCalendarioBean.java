@@ -77,6 +77,16 @@ public class MpCadastroCalendarioBean implements Serializable {
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
 		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpCalendario.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
+		}
 		
 		this.setMpCalendarioAnt(this.mpCalendario);
 		//
@@ -123,10 +133,10 @@ public class MpCadastroCalendarioBean implements Serializable {
 			else
 				calendar.setTime(this.mpCalendario.getDataMovimento());
 			//
-			calendar.set(Calendar.HOUR_OF_DAY,0);
-			calendar.set(Calendar.MINUTE,0);
-			calendar.set(Calendar.SECOND,0);
-			calendar.set(Calendar.MILLISECOND,0);
+			calendar.set(Calendar.HOUR_OF_DAY, 0);
+			calendar.set(Calendar.MINUTE, 0);
+			calendar.set(Calendar.SECOND, 0);
+			calendar.set(Calendar.MILLISECOND, 0);
 			//
 			this.mpCalendario.setDataMovimento(calendar.getTime());
 			//

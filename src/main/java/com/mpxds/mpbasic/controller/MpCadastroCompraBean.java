@@ -55,6 +55,8 @@ public class MpCadastroCompraBean implements Serializable {
 	
 	@Inject
 	private MpCompraService mpCompraService;
+	
+	// ---
 
 	private String sku;
 	
@@ -84,10 +86,21 @@ public class MpCadastroCompraBean implements Serializable {
 	}
 	
 	public void inicializar() {
+		//
 		if (null == this.mpCompra) {
 			this.limpar();
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
+		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpCompra.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
 		}
 		
 		this.setMpCompraAnt(this.mpCompra);		

@@ -32,6 +32,8 @@ public class MpCadastroTabelaInternaSJBeanX implements Serializable {
 
 	@Inject
 	private MpTabelaInternaSJServiceX mpTabelaInternaSJServiceX;
+	
+	// ---
 
 	private MpTabelaInternaSJ mpTabelaInternaSJ;
 	private MpTabelaInternaSJ mpTabelaInternaSJAnt;
@@ -65,6 +67,16 @@ public class MpCadastroTabelaInternaSJBeanX implements Serializable {
 			this.limpar();
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
+		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpTabelaInternaSJ.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
 		}
 		
 		this.setMpTabelaInternaSJAnt(this.mpTabelaInternaSJ);

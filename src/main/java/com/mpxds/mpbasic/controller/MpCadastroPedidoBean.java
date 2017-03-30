@@ -58,6 +58,8 @@ public class MpCadastroPedidoBean implements Serializable {
 	
 	@Inject
 	private MpPedidoService mpPedidoService;
+	
+	// ---
 
 	private String sku;
 	
@@ -90,10 +92,21 @@ public class MpCadastroPedidoBean implements Serializable {
 	}
 	
 	public void inicializar() {
+		//
 		if (null == this.mpPedido) {
 			this.limpar();
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
+		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpPedido.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
 		}
 		
 		this.setMpPedidoAnt(this.mpPedido);		

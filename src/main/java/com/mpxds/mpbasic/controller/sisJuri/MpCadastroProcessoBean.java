@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -76,8 +77,6 @@ public class MpCadastroProcessoBean implements Serializable {
 	@Inject
 	private MpPessoaFisicas mpPessoaFisicas;
 	
-	
-
 	// ---
 	
 	private MpProcesso mpProcesso = new MpProcesso();
@@ -85,15 +84,18 @@ public class MpCadastroProcessoBean implements Serializable {
 
 	private MpProcessoAndamento mpProcessoAndamento = new MpProcessoAndamento();
 	private MpProcessoAndamento mpProcessoAndamentoSelecionado = new MpProcessoAndamento();
+	
 	private MpProcessoAndamento mpProcessoAndamentoAnt = new MpProcessoAndamento();
 
 //	private MpProcessoAndamento mpProcessoAndamentoUpload = new MpProcessoAndamento();
 
 	private List<MpProcessoAndamento> mpProcessoAndamentoDelList = new ArrayList<MpProcessoAndamento>();
 	
-	//
+	// ---
 
 	private Boolean indVisivelDet = true;
+	private Boolean indAlteracaoDet = false;
+
 	private Boolean indEditavel = true;
 	private Boolean indEditavelNav = true;
 	private Boolean indNaoEditavel = false;
@@ -123,6 +125,9 @@ public class MpCadastroProcessoBean implements Serializable {
 	
 	private StreamedContent fileSC = new DefaultStreamedContent();
 	
+	private Date horaProcesso;
+	private Date horaProcessoAndamento;
+	
 	// ---
 	
 	public MpCadastroProcessoBean() {
@@ -139,11 +144,22 @@ public class MpCadastroProcessoBean implements Serializable {
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
 		}
-		System.out.println("MpCadadastroBean.inicializar() - ( " + this.mpProcesso.getProcessoCodigo()); 
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpProcesso.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
+		}
+//		System.out.println("MpCadadastroBean.inicializar() - ( " + this.mpProcesso.getProcessoCodigo()); 
 		
 		this.setMpProcessoAnt(this.mpProcesso);
 		
 		this.mpProcessoAndamento.setMpProcesso(this.mpProcesso);
+		this.mpProcessoAndamento.setTenantId(this.mpProcesso.getTenantId());
 		//
 		this.indEditavelNav = this.mpSeguranca.getMpUsuarioLogado().getMpUsuario().getIndBarraNavegacao();
 		//
@@ -163,12 +179,30 @@ public class MpCadastroProcessoBean implements Serializable {
 		//
 		this.mpComarcaCartorioList = this.mpTabelaInternaSJs.mpFilhaList(this.mpProcesso.getMpComarca());
 		//
+		this.horaProcesso = this.mpProcesso.getDataCadastro();
+		
 		System.out.println("MpCadastroProcessoBean.carregarMpComarcaCartorio() ( " + this.mpProcesso.getMpComarca()
 																+ " / " + this.mpComarcaCartorioList.size());	
 	}
 	
 	public void salvar() {
 		//
+		// Trata Unificação Data & Hora ...
+		// ================================
+		Calendar calendarD = Calendar.getInstance();
+		Calendar calendarT = Calendar.getInstance();
+		//
+		calendarD.setTime(this.mpProcesso.getDataCadastro());
+		calendarT.setTime(this.horaProcesso);
+		//
+		calendarD.set(Calendar.HOUR_OF_DAY, calendarT.get(Calendar.HOUR_OF_DAY));
+		calendarD.set(Calendar.MINUTE, calendarT.get(Calendar.MINUTE));
+		calendarD.set(Calendar.SECOND, 0);
+		calendarD.set(Calendar.MILLISECOND, 0);
+		//
+		this.mpProcesso.setDataCadastro(calendarD.getTime());
+		// ====
+		
 		this.mpProcesso = this.mpProcessoService.salvar(this.mpProcesso);
 		//
 		if (this.mpProcessoAndamentoDelList.size() > 0) {
@@ -212,11 +246,25 @@ public class MpCadastroProcessoBean implements Serializable {
 				System.out.println("MpCadastroProcessoBean.trataChangeDet() ( " + 
 													this.mpProcessoAndamento.getDataCadastro() + " / " +
 													this.mpProcessoAndamento.getMpAndamentoTipo().getDescricao());
+		// Trata Unificação Data & Hora ...
+		// ================================
+		Calendar calendarD = Calendar.getInstance();
+		Calendar calendarT = Calendar.getInstance();
+		//
+		calendarD.setTime(this.mpProcessoAndamento.getDataCadastro());
+		calendarT.setTime(this.horaProcessoAndamento);
+		//
+		calendarD.set(Calendar.HOUR_OF_DAY, calendarT.get(Calendar.HOUR_OF_DAY));
+		calendarD.set(Calendar.MINUTE, calendarT.get(Calendar.MINUTE));
+		calendarD.set(Calendar.SECOND, 0);
+		calendarD.set(Calendar.MILLISECOND, 0);
+		//
+		this.mpProcessoAndamento.setDataCadastro(calendarD.getTime());
 	}
 	
 	public void trataGravacaoDet() {
 		//
-		if (null == this.mpProcessoAndamento.getId())
+		if (!this.indAlteracaoDet)
 			this.mpProcesso.getMpAndamentos().add(this.mpProcessoAndamento);
 		else {
 			this.mpProcesso.getMpAndamentos().remove(this.mpProcessoAndamentoAnt);
@@ -240,11 +288,20 @@ public class MpCadastroProcessoBean implements Serializable {
 //				" / " + iamLookingFor.getClientId() + " / " + iamLookingFor.getContainerClientId(context));		
 		//		
 		this.mpProcessoAndamento = new MpProcessoAndamento();
+
 		this.mpProcessoAndamento.setMpProcesso(this.mpProcesso);
+		this.mpProcessoAndamento.setTenantId(this.mpProcesso.getTenantId());
 		this.mpProcessoAndamento.setDataCadastro(new Date());
-
+		this.mpProcessoAndamento.setTenantId(this.mpProcesso.getTenantId());
+		
+		this.horaProcessoAndamento = this.mpProcessoAndamento.getDataCadastro();
+		//
+//		this.mpProcesso.getMpAndamentos().add(this.mpProcessoAndamento);
+		
 		this.mpProcessoAndamentoAnt = new MpProcessoAndamento();
-
+		this.mpProcessoAndamentoAnt.setTenantId(this.mpProcesso.getTenantId());
+		
+		this.indAlteracaoDet = false;
 	}
 
 //	private UIComponent findComponent(String id, UIComponent where) {
@@ -280,10 +337,14 @@ public class MpCadastroProcessoBean implements Serializable {
 	
 	public void trataAlteracaoDet() {
 		//
+		this.indAlteracaoDet = true;
+		
 		System.out.println("MpCadastroProcessoBean.trataAlteracaoDet() ( " +
 										this.mpProcessoAndamentoSelecionado.getDataCadastro());
 		
 		this.mpProcessoAndamento = this.mpProcessoAndamentoSelecionado;
+		this.horaProcessoAndamento = this.mpProcessoAndamento.getDataCadastro();
+				
 		this.mpProcessoAndamentoAnt = this.mpProcessoAndamentoSelecionado;
 	}
 
@@ -608,8 +669,6 @@ public class MpCadastroProcessoBean implements Serializable {
 		this.setMpProcessoAnt(this.mpProcesso);
 		
 		this.limpar();
-		
-		this.mpProcesso.setTenantId(mpSeguranca.capturaTenantId());
 		//
 		this.indEditavel = false;
 		this.indEditavelNav = false;
@@ -655,7 +714,7 @@ public class MpCadastroProcessoBean implements Serializable {
 			MpFacesUtil.addInfoMessage("Erro na Gravação! ( " + e.toString());
 			return;
 		}
-
+		//
 		this.setMpProcessoAnt(this.mpProcesso);
 		//
 		this.indEditavel = true;
@@ -739,10 +798,20 @@ public class MpCadastroProcessoBean implements Serializable {
 		//
 		this.mpProcesso = new MpProcesso();
 		
+		this.mpProcesso.setTenantId(mpSeguranca.capturaTenantId());
 		this.mpProcesso.setDataCadastro(new Date());
 		
 		this.mpComarcaCartorioList.clear();
 		this.mpProcessoAndamentoDelList.clear();
+		//
+		this.horaProcesso = this.mpProcesso.getDataCadastro();
+
+		this.mpProcessoAndamento = new MpProcessoAndamento();
+
+		this.mpProcessoAndamento.setMpProcesso(this.mpProcesso);
+		this.mpProcesso.setTenantId(this.mpProcesso.getTenantId());
+		
+		this.horaProcessoAndamento = this.mpProcesso.getDataCadastro();
 	}
           	
 	// --- 
@@ -799,6 +868,13 @@ public class MpCadastroProcessoBean implements Serializable {
 	
 	public String getDialogPagina() { return dialogPagina; }
 	public void setDialogPagina(String dialogPagina) { this.dialogPagina = dialogPagina; }
+	
+	public Date getHoraProcesso() { return horaProcesso; }
+	public void setHoraProcesso(Date horaProcesso) { this.horaProcesso = horaProcesso; }
+	
+	public Date getHoraProcessoAndamento() { return horaProcessoAndamento; }
+	public void setHoraProcessoAndamento(Date horaProcessoAndamento) { 
+											this.horaProcessoAndamento = horaProcessoAndamento; }
 	
 	// ---
 

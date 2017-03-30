@@ -20,6 +20,7 @@ import com.mpxds.mpbasic.model.enums.MpChamadoTipo;
 import com.mpxds.mpbasic.model.enums.MpChamadoAreaTipo;
 import com.mpxds.mpbasic.model.enums.MpChamadoSeveridade;
 import com.mpxds.mpbasic.repository.MpChamados;
+import com.mpxds.mpbasic.security.MpSeguranca;
 import com.mpxds.mpbasic.service.MpChamadoService;
 import com.mpxds.mpbasic.exception.MpNegocioException;
 import com.mpxds.mpbasic.util.jsf.MpFacesUtil;
@@ -35,6 +36,11 @@ public class MpCadastroChamadoBean implements Serializable {
 
 	@Inject
 	private MpChamadoService mpChamadoService;
+	
+	@Inject
+	private MpSeguranca mpSeguranca;
+	
+	// ---
 
 	private MpChamado mpChamado = new MpChamado();
 	private MpChamado mpChamadoAnt;
@@ -69,10 +75,21 @@ public class MpCadastroChamadoBean implements Serializable {
 	}
 	
 	public void inicializar() throws ParseException, IOException {
+		//
 		if (null == this.mpChamado) {
 			this.limpar();
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
+		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpChamado.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
 		}
 		
 		this.setMpChamadoAnt(this.mpChamado);

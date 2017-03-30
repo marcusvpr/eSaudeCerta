@@ -7,8 +7,8 @@ mvn install:install-file -Dfile=facilitasdk.jar -DgroupId=facilitasdk -Dartifact
 ----------------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------------------
-Ordem de criação dos objetos:
-=============================
+Ordem de criação dos objetos/formulários/procedimentos:
+=======================================================
 <01> com.mpxds.mpbasic.model.pt01 -> (Ex: MpDolar.java) ;
 <02> com.mpxds.mpbasic.repository.filter.pt01 -> (Ex.: MpDolarFilter.java) ;
 <03>  com.mpxds.mpbasic.repository.pt01 -> (Ex.: MpDolars.java) ;
@@ -16,10 +16,10 @@ Ordem de criação dos objetos:
 <05> com.mpxds.mpbasic.converter.pt01 -> (Ex.: MpDolarConverter.java) ;
 <06> ... src -> webapp -> sentinel -> <nomePasta(s)> -> (Criar pasta. Ex: dolars) ; 
 <07> Criar tela de cadastro -> (Ex.: mpCadastroDolar.xhtml) ;
-<08> Criar tela de pesquisa -> (Ex.: mpPesquisaDolars.xhtml) ;
+<08> Criar template botões ... src -> webapp -> WEB-INF -> template -> sentinel -> (Ex.: mpBotoesDolar.xhtml) ;
 <09> com.mpxds.mpbasic.controller (Tela Cadastro) -> (Ex.: MpCadastroDolarBean.java)  ;
-<10> com.mpxds.mpbasic.controller (Tela Pesquisa) -> (Ex.: MpPesquisaDolarsBean.java) ;
-<11> Criar template botões ... src -> webapp -> WEB-INF -> template -> sentinel -> (Ex.: mpBotoesDolar.xhtml) ;
+<10> Criar tela de pesquisa -> (Ex.: mpPesquisaDolars.xhtml) ;
+<11> com.mpxds.mpbasic.controller (Tela Pesquisa) -> (Ex.: MpPesquisaDolarsBean.java) ;
 <12> Atualizar ENUM -> MpMenuGlobalObjeto.java ;
 <13> Cadastrar MENU Sistema -> OBJETO e relacionar no GRUPO ;
 <14> Atualizar CONTEXTO ->... resources -> context -> mpxds-applicationContext.xml ;

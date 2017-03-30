@@ -32,6 +32,8 @@ public class MpCadastroTurnoBean implements Serializable {
 
 	@Inject
 	private MpTurnoService mpTurnoService;
+	
+	// ---
 
 	private MpTurno mpTurno = new MpTurno();
 	private MpTurno mpTurnoAnt;
@@ -64,6 +66,16 @@ public class MpCadastroTurnoBean implements Serializable {
 			this.limpar();
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
+		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpTurno.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
 		}
 		
 		this.setMpTurnoAnt(this.mpTurno);

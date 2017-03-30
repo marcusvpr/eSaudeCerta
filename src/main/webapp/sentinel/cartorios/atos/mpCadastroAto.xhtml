@@ -40,7 +40,7 @@
 													styleClass="ui-panelgrid-blank">
 
 													<h:panelGroup id="pgCodigo">
-														<p:outputLabel value="Código: "
+														<p:outputLabel value="Código : "
 															rendered="#{mpLoginBean.scIndLabelCampo}" />
 														<p:inputMask id="codigo" mask="9999"
 															required="#{mpCadastroAtoBean.indEditavel}"
@@ -52,7 +52,7 @@
 													</h:panelGroup>
 
 													<h:panelGroup id="pgSequencia">
-														<p:outputLabel value="Sequência: "
+														<p:outputLabel value="Sequência : "
 															rendered="#{mpLoginBean.scIndLabelCampo}" />
 														<p:inputMask id="sequencia" mask="9"
 															required="#{mpCadastroAtoBean.indEditavel}"
@@ -65,7 +65,7 @@
 													</h:panelGroup>
 
 													<h:panelGroup id="pgDescricao">
-														<p:outputLabel value="Descrição: "
+														<p:outputLabel value="Descrição : "
 															rendered="#{mpLoginBean.scIndLabelCampo}" />
 														<p:inputText id="descricao" maxlength="100"
 															style="text-transform: uppercase"
@@ -79,7 +79,7 @@
 													</h:panelGroup>
 
 													<h:panelGroup id="pgTipoSelo">
-														<p:outputLabel value="Tipo Selo: "
+														<p:outputLabel value="Tipo Selo : "
 															rendered="#{mpLoginBean.scIndLabelCampo}" />
 														<p:inputText id="tipoSelo" maxlength="1"
 															style="text-transform: uppercase"
@@ -99,7 +99,7 @@
 														styleClass="ui-panelgrid-blank">
 
 														<h:panelGroup>
-															<p:outputLabel value="Emolumento: "
+															<p:outputLabel value="Emolumento : "
 																rendered="#{mpLoginBean.scIndLabelCampo}" />
 															<p:inputText id="atEmolumento"
 																readonly="#{mpCadastroAtoBean.indEditavelValorAto}"
@@ -110,7 +110,7 @@
 															<p:tooltip for="atEmolumento" value="Emolumento" />
 														</h:panelGroup>
 														<h:panelGroup>
-															<p:outputLabel value="Valor Ato: "
+															<p:outputLabel value="Valor Ato : "
 																rendered="#{mpLoginBean.scIndLabelCampo}" />
 															<p:inputText id="atVariavel"
 																readonly="#{mpCadastroAtoBean.indEditavelValorAto}"
@@ -121,7 +121,7 @@
 															<p:tooltip for="atVariavel"	value="Variavel" />
 														</h:panelGroup>
 														<h:panelGroup>
-															<p:outputLabel value="Lei 3217: "
+															<p:outputLabel value="Lei 3217 : "
 																rendered="#{mpLoginBean.scIndLabelCampo}" />
 															<p:inputText id="atLei3217"
 																readonly="#{mpCadastroAtoBean.indEditavelValorAto}"
@@ -132,7 +132,7 @@
 															<p:tooltip for="atLei3217" value="Lei.3217" />
 														</h:panelGroup>
 														<h:panelGroup>
-															<p:outputLabel value="Lei 4664: "
+															<p:outputLabel value="Lei 4664 : "
 																rendered="#{mpLoginBean.scIndLabelCampo}" />
 															<p:inputText id="atLei4664"
 																readonly="#{mpCadastroAtoBean.indEditavelValorAto}"
@@ -143,7 +143,7 @@
 															<p:tooltip for="atLei4664" value="Lei.4664" />
 														</h:panelGroup>
 														<h:panelGroup>
-															<p:outputLabel value="Lei 111: "
+															<p:outputLabel value="Lei 111 : "
 																rendered="#{mpLoginBean.scIndLabelCampo}" />
 															<p:inputText id="atLei111"
 																readonly="#{mpCadastroAtoBean.indEditavelValorAto}"
@@ -154,7 +154,7 @@
 															<p:tooltip for="atLei111" value="Lei.111" />
 														</h:panelGroup>
 														<h:panelGroup>
-															<p:outputLabel value="Lei 3761: "
+															<p:outputLabel value="Lei 3761 : "
 																rendered="#{mpLoginBean.scIndLabelCampo}" />
 															<p:inputText id="atLei3761"
 																readonly="#{mpCadastroAtoBean.indEditavelValorAto}"
@@ -165,7 +165,7 @@
 															<p:tooltip for="atLei3761" value="Lei.3761" />
 														</h:panelGroup>
 														<h:panelGroup>
-															<p:outputLabel value="Lei 590: "
+															<p:outputLabel value="Lei 590 : "
 																rendered="#{mpLoginBean.scIndLabelCampo}" />
 															<p:inputText id="atLei590"
 																readonly="#{mpCadastroAtoBean.indEditavelValorAto}"
@@ -176,7 +176,7 @@
 															<p:tooltip for="atLei590" value="Lei.590" />
 														</h:panelGroup>
 														<h:panelGroup>
-															<p:outputLabel value="Lei 6281: "
+															<p:outputLabel value="Lei 6281 : "
 																rendered="#{mpLoginBean.scIndLabelCampo}" />
 															<p:inputText id="atLei6281"
 																readonly="#{mpCadastroAtoBean.indEditavelValorAto}"
@@ -187,7 +187,7 @@
 															<p:tooltip for="atLei6281" value="Lei.6281" />
 														</h:panelGroup>
 														<h:panelGroup>
-															<p:outputLabel value="Valor Distribuição: "
+															<p:outputLabel value="Valor Distribuição : "
 																rendered="#{mpLoginBean.scIndLabelCampo}" />
 															<p:inputText id="atDistribuicao"
 																readonly="#{mpCadastroAtoBean.indEditavelValorAto}"
@@ -243,7 +243,7 @@
 														<h:outputText value="#{mpAtoComposicao.complemento}" />
 													</p:column>
 													<p:column headerText="Excessão">
-														<h:outputText value="#{mpAtoComposicao.excessao}" />
+														<h:outputText value="#{mpAtoComposicao.excecao}" />
 													</p:column>
 
 													<p:column style="text-align:center">
@@ -321,70 +321,107 @@
 				
 					<p:messages autoUpdate="false" />
 
-						<p:panelGrid id="alteraMpAtoTipoGrid" columns="1">
+						<p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;"
+							styleClass="ui-panelgrid-blank" id="alteraMpAtoTipoGrid">
 
-							<p:inputText id="atEmolumento" maxlength="10" styleClass="moeda"
-								placeholder="Emolumento"
-								value="#{mpCadastroAtoBean.mpValorAto.valorAtoEmolumento}">
-								<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
-							</p:inputText>
-							<p:tooltip for="atEmolumento" value="Emolumento" />
+							<h:panelGroup>
+								<p:outputLabel value="Emolumento : "
+									rendered="#{mpLoginBean.scIndLabelCampo}" />
+								<p:inputText id="atEmolumento" maxlength="10" styleClass="moeda"
+									placeholder="Emolumento"
+									value="#{mpCadastroAtoBean.mpAto.mpValorAto.valorAtoEmolumento}">
+									<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+								</p:inputText>
+								<p:tooltip for="atEmolumento" value="Emolumento" />
+							</h:panelGroup>
 
-							<p:inputText id="variavel" maxlength="10" styleClass="moeda"
-								placeholder="Variavel"
-								value="#{mpCadastroAtoBean.mpValorAto.valorAtoVariavel}">
-								<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
-							</p:inputText>
-							<p:tooltip for="variavel" value="Variavel" />
+							<h:panelGroup>
+								<p:outputLabel value="Variavel : "
+									rendered="#{mpLoginBean.scIndLabelCampo}" />
+								<p:inputText id="variavel" maxlength="10" styleClass="moeda"
+									placeholder="Variavel"
+									value="#{mpCadastroAtoBean.mpAto.mpValorAto.valorAtoVariavel}">
+									<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+								</p:inputText>
+								<p:tooltip for="variavel" value="Variavel" />
+							</h:panelGroup>
 
-							<p:inputText id="lei3217" maxlength="10" styleClass="moeda"
-								placeholder="Lei.3217"
-								value="#{mpCadastroAtoBean.mpValorAto.valorAtoLei3217}">
-								<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
-							</p:inputText>
-							<p:tooltip for="lei3217" value="Lei.3217" />
+							<h:panelGroup>
+								<p:outputLabel value="Lei.3217 : "
+									rendered="#{mpLoginBean.scIndLabelCampo}" />
+								<p:inputText id="lei3217" maxlength="10" styleClass="moeda"
+									placeholder="Lei.3217"
+									value="#{mpCadastroAtoBean.mpAto.mpValorAto.valorAtoLei3217}">
+									<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+								</p:inputText>
+								<p:tooltip for="lei3217" value="Lei.3217" />
+							</h:panelGroup>
 
-							<p:inputText id="lei4664" maxlength="10" styleClass="moeda"
-								placeholder="Lei.4664"
-								value="#{mpCadastroAtoBean.mpValorAto.valorAtoLei4664}">
-								<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
-							</p:inputText>
-							<p:tooltip for="lei4664" value="Lei.4664" />
+							<h:panelGroup>
+								<p:outputLabel value="lei4664 : "
+									rendered="#{mpLoginBean.scIndLabelCampo}" />
+								<p:inputText id="lei4664" maxlength="10" styleClass="moeda"
+									placeholder="Lei.4664"
+									value="#{mpCadastroAtoBean.mpAto.mpValorAto.valorAtoLei4664}">
+									<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+								</p:inputText>
+								<p:tooltip for="lei4664" value="Lei.4664" />
+							</h:panelGroup>
 
-							<p:inputText id="lei111" maxlength="10" styleClass="moeda"
-								placeholder="Lei.111"
-								value="#{mpCadastroAtoBean.mpValorAto.valorAtoLei111}">
-								<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
-							</p:inputText>
-							<p:tooltip for="lei111" value="Lei.111" />
+							<h:panelGroup>
+								<p:outputLabel value="Lei.111 : "
+									rendered="#{mpLoginBean.scIndLabelCampo}" />
+								<p:inputText id="lei111" maxlength="10" styleClass="moeda"
+									placeholder="Lei.111"
+									value="#{mpCadastroAtoBean.mpAto.mpValorAto.valorAtoLei111}">
+									<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+								</p:inputText>
+								<p:tooltip for="lei111" value="Lei.111" />
+							</h:panelGroup>
 
-							<p:inputText id="lei3761" maxlength="10" styleClass="moeda"
-								placeholder="Lei.3761"
-								value="#{mpCadastroAtoBean.mpValorAto.valorAtoLei3761}">
-								<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
-							</p:inputText>
-							<p:tooltip for="lei3761" value="Lei.3761" />
+							<h:panelGroup>
+								<p:outputLabel value="Lei.3761 : "
+									rendered="#{mpLoginBean.scIndLabelCampo}" />
+								<p:inputText id="lei3761" maxlength="10" styleClass="moeda"
+									placeholder="Lei.3761"
+									value="#{mpCadastroAtoBean.mpAto.mpValorAto.valorAtoLei3761}">
+									<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+								</p:inputText>
+								<p:tooltip for="lei3761" value="Lei.3761" />
+							</h:panelGroup>
 
-							<p:inputText id="lei590" maxlength="10" styleClass="moeda"
-								placeholder="Lei.590"
-								value="#{mpCadastroAtoBean.mpValorAto.valorAtoLei590}">
-								<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
-							</p:inputText>
-							<p:tooltip for="lei590" value="Lei.590" />
+							<h:panelGroup>
+								<p:outputLabel value="Lei.590 : "
+									rendered="#{mpLoginBean.scIndLabelCampo}" />
+								<p:inputText id="lei590" maxlength="10" styleClass="moeda"
+									placeholder="Lei.590"
+									value="#{mpCadastroAtoBean.mpAto.mpValorAto.valorAtoLei590}">
+									<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+								</p:inputText>
+								<p:tooltip for="lei590" value="Lei.590" />
+							</h:panelGroup>
 
-							<p:inputText id="lei6281" maxlength="10" styleClass="moeda"
-								placeholder="Lei.6281"
-								value="#{mpCadastroAtoBean.mpValorAto.valorAtoLei6281}">
-								<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
-							</p:inputText>
-							<p:tooltip for="lei6281" value="Lei.6281" />
+							<h:panelGroup>
+								<p:outputLabel value="Lei.6281 : "
+									rendered="#{mpLoginBean.scIndLabelCampo}" />
+								<p:inputText id="lei6281" maxlength="10" styleClass="moeda"
+									placeholder="Lei.6281"
+									value="#{mpCadastroAtoBean.mpAto.mpValorAto.valorAtoLei6281}">
+									<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+								</p:inputText>
+								<p:tooltip for="lei6281" value="Lei.6281" />
+							</h:panelGroup>
 
-							<p:inputText id="distribuicao" maxlength="10" styleClass="moeda"
-								placeholder="Distribuição"
-								value="#{mpCadastroAtoBean.mpValorAto.valorAtoDistribuicao}">
-								<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
-							</p:inputText>
-							<p:tooltip for="distribuicao" value="Distribuição" />
+							<h:panelGroup>
+								<p:outputLabel value="Distribuição : "
+									rendered="#{mpLoginBean.scIndLabelCampo}" />
+								<p:inputText id="distribuicao" maxlength="10" styleClass="moeda"
+									placeholder="Distribuição"
+									value="#{mpCadastroAtoBean.mpAto.mpValorAto.valorAtoDistribuicao}">
+									<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+								</p:inputText>
+								<p:tooltip for="distribuicao" value="Distribuição" />
+							</h:panelGroup>
 
 						</p:panelGrid>
 
@@ -408,42 +445,62 @@
 				<h:panelGroup id="novoMpAtoComposicaoPanel">
 				
 					<p:messages autoUpdate="false" />
-				
-					<p:panelGrid columns="1">
-													
-						<p:selectOneMenu id="MpCustasCompAtoC" validatorMessage="Informar Custas Composição"
-									required="#{mpCadastroAtoBean.indEditavelMpCustasComposicao}"  value=
-												"#{mpCadastroAtoBean.mpAtoComposicao.mpCustasComposicao}">
-							<f:selectItem itemLabel="Selecione o Custas Composição" />
-							<f:selectItems value="#{mpCadastroAtoBean.mpCustasComposicaoList}"
-													var="mpCustasComposicao" itemValue="#{mpCustasComposicao}"
-									 				itemLabel="#{mpCustasComposicao.tabelaItemSub}" />
-						</p:selectOneMenu>
 
-						<p:inputMask id="quantidadeAtoC" placeholder="Quantidade" maxlength="1" mask="9"
-											required="#{mpCadastroAtoBean.indEditavelMpAtoComposicao}"
- 											validatorMessage="Informar Quantidade"											          
-						 					value="#{mpCadastroAtoBean.mpAtoComposicao.valorCusta}" />
+						<p:panelGrid columns="2" layout="grid"
+							style="border:0px !important; background:none;"
+							styleClass="ui-panelgrid-blank">
 
-						<p:inputText id="complemtentoAtoc" 
+							<h:panelGroup>
+								<p:outputLabel value="Custas Composição : "
+									rendered="#{mpLoginBean.scIndLabelCampo}" />
+								<p:selectOneMenu id="MpCustasCompAtoC"
+									validatorMessage="Informar Custas Composição"
+									required="#{mpCadastroAtoBean.indEditavelMpCustasComposicao}"
+									value="#{mpCadastroAtoBean.mpAtoComposicao.mpCustasComposicao}">
+									<f:selectItem itemLabel="Selecione o Custas Composição" />
+									<f:selectItems
+										value="#{mpCadastroAtoBean.mpCustasComposicaoList}"
+										var="mpCustasComposicao" itemValue="#{mpCustasComposicao}"
+										itemLabel="#{mpCustasComposicao.tabelaItemSub}" />
+								</p:selectOneMenu>
+							</h:panelGroup>
+
+							<h:panelGroup>
+								<p:outputLabel value="Quantidade : "
+									rendered="#{mpLoginBean.scIndLabelCampo}" />
+								<p:inputMask id="quantidadeAtoC" placeholder="Quantidade"
+									maxlength="1" mask="9"
 									required="#{mpCadastroAtoBean.indEditavelMpAtoComposicao}"
- 									validatorMessage="Informar Complemento" placeholder="Complemento" 
-						 			value="#{mpCadastroAtoBean.mpAtoComposicao.complemento}" />
-												
-						<p:inputText placeholder="Excessão" 
-						 			value="#{mpCadastroAtoBean.mpAtoComposicao.excessao}" />
+									validatorMessage="Informar Quantidade"
+									value="#{mpCadastroAtoBean.mpAtoComposicao.valorCusta}" />
+							</h:panelGroup>
 
-						<p:commandButton value="Salvar" process="novoMpAtoComposicaoDialogId"
-						update=
+							<h:panelGroup>
+								<p:outputLabel value="Informar Complemento : "
+									rendered="#{mpLoginBean.scIndLabelCampo}" />
+								<p:inputText id="complemtentoAtoc"
+									placeholder="Complemento"
+									value="#{mpCadastroAtoBean.mpAtoComposicao.complemento}" />
+							</h:panelGroup>
+
+							<h:panelGroup>
+								<p:outputLabel value="Exceção : "
+									rendered="#{mpLoginBean.scIndLabelCampo}" />
+								<p:inputText placeholder="Exceção"
+									value="#{mpCadastroAtoBean.mpAtoComposicao.excecao}" />
+							</h:panelGroup>
+
+							<p:commandButton value="Salvar"
+								process="novoMpAtoComposicaoDialogId" update=
 ":frm:tabViewA:mpAtoComposicaosTable :frm:tabViewA:pgValorAto :frm:tabViewA:pgrValorAto novoMpAtoComposicaoPanel"
-						action="#{mpCadastroAtoBean.salvarMpAtoComposicao}"
-						oncomplete="if (!args.validationFailed) PF('novoMpAtoComposicaoDialog').hide()">
-							<p:collector value="#{mpCadastroAtoBean.mpAtoComposicao}"
-										addTo="#{mpCadastroAtoBean.mpAto.mpAtoComposicaos}" />
-						</p:commandButton>
-						
-					</p:panelGrid>
-				</h:panelGroup>
+								action="#{mpCadastroAtoBean.salvarMpAtoComposicao}"
+								oncomplete="if (!args.validationFailed) PF('novoMpAtoComposicaoDialog').hide()">
+								<p:collector value="#{mpCadastroAtoBean.mpAtoComposicao}"
+									addTo="#{mpCadastroAtoBean.mpAto.mpAtoComposicaos}" />
+							</p:commandButton>
+
+						</p:panelGrid>
+					</h:panelGroup>
 			</p:dialog>
 		  </h:form>
 		</div>
@@ -458,7 +515,8 @@
 				
 					<p:messages autoUpdate="false" />
 				
-					<p:panelGrid columns="1">
+					<p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;"
+						styleClass="ui-panelgrid-blank">
 													
 						<h:panelGroup id="pgHlpTransacao">
 							<p:outputLabel value="Transação: "

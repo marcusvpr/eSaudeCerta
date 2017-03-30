@@ -65,6 +65,16 @@ public class MpCadastroPessoaTituloBean implements Serializable {
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
 		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpPessoaTitulo.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
+		}
 		
 		this.setMpPessoaTituloAnt(this.mpPessoaTitulo);
 		//		

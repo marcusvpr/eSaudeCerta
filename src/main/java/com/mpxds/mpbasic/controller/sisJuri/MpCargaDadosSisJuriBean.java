@@ -153,10 +153,7 @@ public class MpCargaDadosSisJuriBean implements Serializable {
 			
 			connection = DriverManager.getConnection("jdbc:hsqldb:file:~/db/sisjuri/sisjuriDB", "SA", "");
 			statement = connection.createStatement();
-			
-			resultSet = statement.executeQuery("SELECT id, numero, codigo, descricao FROM tabela_interna" +
-											   " ORDER BY numero, codigo");
-			
+						
 			resultSet = statement.executeQuery("SELECT t.\"ID\" AS id, t.\"NUMERO\" AS numero," + 
 											   " t.\"CODIGO\" AS codigo, t.\"DESCRICAO\" AS descricao," +
 											   " t.\"INDPAI\" AS indpai, t.\"INDFILHA\" AS indfilha," +

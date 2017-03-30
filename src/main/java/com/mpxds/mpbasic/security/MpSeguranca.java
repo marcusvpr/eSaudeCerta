@@ -114,9 +114,9 @@ public class MpSeguranca implements Serializable {
 //	private String sistemaURL = "localhost:8080/mpProtesto/";
 	private String sistemaURL = "www.mpxds.com/mpProtesto/";
 
-	private String freshdeskURL =  "mpxdsrj.freshdesk.com";
+	private String freshdeskURL = "mpcom.freshdesk.com"; // "mpxdsrj.freshdesk.com";
 	
-	private String sistemaVersao = "1.0.10-11";
+	private String sistemaVersao = "1.0.10-12";
 	
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	

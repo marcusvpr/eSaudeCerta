@@ -79,6 +79,8 @@ public class MpCadastroPessoaBean implements Serializable {
 
 	@Inject
 	private MpPessoaService mpPessoaService;
+	
+	// ---
 
 	private MpPessoa mpPessoa = new MpPessoa();
 	private MpPessoa mpPessoaAnt;
@@ -147,6 +149,16 @@ public class MpCadastroPessoaBean implements Serializable {
 			this.limpar();
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
+		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpPessoa.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
 		}
 		
 		this.setMpPessoaAnt(this.mpPessoa);

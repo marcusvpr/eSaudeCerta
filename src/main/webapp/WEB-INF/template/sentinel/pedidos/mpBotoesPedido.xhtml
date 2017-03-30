@@ -104,26 +104,31 @@
 
 			</span>
 			<span class="DispInlBlock Fright FloatNoneOnMobile">
+				<p:toolbar>
+					<p:toolbarGroup>
 
-				<p:outputLabel class="Fs18 FontTitilliumRegular black"
-						value="Data Criação" rendered="#{mpCadastroPedidoBean.mpPedido.existente}" />
-        		<h:outputText class="Fs18 FontTitilliumRegular red"
-        				value="#{mpCadastroPedidoBean.mpPedido.dataCriacao}" 
+						<p:outputLabel class="Fs18 FontTitilliumRegular black"
+							value="Data Criação" rendered="#{mpCadastroPedidoBean.mpPedido.existente}" />
+        				<h:outputText class="Fs18 FontTitilliumRegular red"
+        					value="#{mpCadastroPedidoBean.mpPedido.dataCriacao}" 
         										rendered="#{mpCadastroPedidoBean.mpPedido.existente}">
-        			<f:convertDateTime pattern="dd/MM/yyyy" />
-        		</h:outputText>
-        		<p:spacer width="20" height="5" />
-				<p:outputLabel class="Fs18 FontTitilliumRegular black" 
-						value="Número" rendered="#{mpCadastroPedidoBean.mpPedido.existente}" />
-				<h:outputText class="Fs18 FontTitilliumRegular red" 
-											value="#{mpCadastroPedidoBean.mpPedido.id}" 
-											rendered="#{mpCadastroPedidoBean.mpPedido.existente}" />
-        		<p:spacer width="20" height="5" />
-        		<p:outputLabel class="Fs18 FontTitilliumRegular black" value="Status : "/>
-        		<h:outputText class="Fs18 FontTitilliumRegular red"
-        						value="#{mpCadastroPedidoBean.mpPedido.mpStatus.descricao}" />
-        		<p:spacer width="20" height="5" />
-				<p:button title="Sair" icon="fa fa-close Fs14 yellow" href="/dashboardRS" />
+        					<f:convertDateTime pattern="dd/MM/yyyy" />
+        				</h:outputText>
+        				<p:spacer width="20" height="5" />
+						<p:outputLabel class="Fs18 FontTitilliumRegular black" 
+							value="Número" rendered="#{mpCadastroPedidoBean.mpPedido.existente}" />
+						<h:outputText class="Fs18 FontTitilliumRegular red" 
+							value="#{mpCadastroPedidoBean.mpPedido.id}" 
+							rendered="#{mpCadastroPedidoBean.mpPedido.existente}" />
+        				<p:spacer width="20" height="5" />
+        				<p:outputLabel class="Fs18 FontTitilliumRegular black" value="Status : "/>
+        				<h:outputText class="Fs18 FontTitilliumRegular red"
+        					value="#{mpCadastroPedidoBean.mpPedido.mpStatus.descricao}" />
+        				<p:spacer width="20" height="5" />
+						<p:button title="Sair" icon="fa fa-close Fs14 yellow" href="/dashboardRS" />
+						
+					</p:toolbarGroup>
+				</p:toolbar>
 			</span>
 		</div>
 	</div>

@@ -1,3 +1,9 @@
+********************************************************************************
+
+		# Arquivo DESCONTINUADO (03/2017) .... vide "mpSistemaHelp.xhtml" !!!!!!!
+	
+********************************************************************************
+	
 	# Controle de Versão/Release Notes ... by: Marcus VPR (MPXDS) date: 04/2016.
 
 . Versão: 1.0.0 (04/2016):
@@ -42,4 +48,10 @@
 . Versão: 1.0.9 (06/2016):
   ========================
 - Conversão modulos sistema de oficio PRISCO ;
+	    
+. Versão: 1.0.10 (01/2017) -> 1.0.10.11 (03/2017) :
+  ========================
+- Conversão/Implantacão/Carga módulo sistema sisjuri.ZK (Reginaldo) ;
+- Implementação library+Eclipse LOMBOK ;
+- Programa geração de artefatos sistema VB/SQL.Server2000 ;
 	    

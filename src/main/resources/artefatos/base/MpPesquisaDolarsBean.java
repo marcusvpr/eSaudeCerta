@@ -1,4 +1,4 @@
-package com.mpxds.mpbasic.controller.sisJuri;
+package com.mpxds.mpbasic.controller;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,59 +17,56 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
-import com.mpxds.mpbasic.model.sisJuri.MpProcesso;
-import com.mpxds.mpbasic.repository.sisJuri.MpProcessos;
-import com.mpxds.mpbasic.repository.filter.sisJuri.MpProcessoFilter;
+import com.mpxds.mpbasic.model.MpDolar;
+import com.mpxds.mpbasic.repository.MpDolars;
+import com.mpxds.mpbasic.repository.filter.MpDolarFilter;
 
 @Named
 @ViewScoped
-public class MpPesquisaProcessosBean implements Serializable {
+public class MpPesquisaDolarsBean implements Serializable {
 	//
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private MpProcessos mpProcessos;
+	private MpDolars mpDolars;
 	
-	private MpProcessoFilter mpFiltro;
-	private List<MpProcesso> mpProcessosFiltrados;
+	private MpDolarFilter mpFiltro;
+	private List<MpDolar> mpDolarsFiltrados;
 	
-	private MpProcesso mpProcessoSelecionado;
+	private MpDolar mpDolarSelecionado;
 	
-	private LazyDataModel<MpProcesso> model;
+	private LazyDataModel<MpDolar> model;
 	
 	//---
 	
-	public MpPesquisaProcessosBean() {
-		//
-		mpFiltro = new MpProcessoFilter();
+	public MpPesquisaDolarsBean() {
+		mpFiltro = new MpDolarFilter();
 		
-		model = new LazyDataModel<MpProcesso>() {
+		model = new LazyDataModel<MpDolar>() {
 
 			private static final long serialVersionUID = 1L;
 			
 			@Override
-			public List<MpProcesso> load(int first, int pageSize, String sortField,
+			public List<MpDolar> load(int first, int pageSize, String sortField,
 											SortOrder sortOrder, Map<String, Object> filters) {
 				mpFiltro.getMpFilterOrdenacao().setPrimeiroRegistro(first);
 				mpFiltro.getMpFilterOrdenacao().setQuantidadeRegistros(pageSize);
 				mpFiltro.getMpFilterOrdenacao().setPropriedadeOrdenacao(sortField);
 				mpFiltro.getMpFilterOrdenacao().setAscendente(SortOrder.DESCENDING.equals(
 																					sortOrder));
-				setRowCount(mpProcessos.quantidadeFiltrados(mpFiltro));
+				setRowCount(mpDolars.quantidadeFiltrados(mpFiltro));
 				
-				return mpProcessos.filtrados(mpFiltro);
+				return mpDolars.filtrados(mpFiltro);
 			}
 			
 		};
 	}
 
 	public void pesquisar() {
-		//
-		mpProcessosFiltrados = mpProcessos.filtrados(mpFiltro);
+		mpDolarsFiltrados = mpDolars.filtrados(mpFiltro);
 	}
 
 	public void posProcessarXls(Object documento) {
-		//
 		HSSFWorkbook planilha = (HSSFWorkbook) documento;
 		HSSFSheet folha = planilha.getSheetAt(0);
 		HSSFRow cabecalho = folha.getRow(0);
@@ -91,14 +88,14 @@ public class MpPesquisaProcessosBean implements Serializable {
 	
 	// ---
 	
-	public MpProcessoFilter getMpFiltro() { return mpFiltro; }
+	public MpDolarFilter getMpFiltro() { return mpFiltro; }
 
-	public LazyDataModel<MpProcesso> getModel() { return model; }
+	public LazyDataModel<MpDolar> getModel() { return model; }
 	
-	public List<MpProcesso> getMpProcessosFiltrados() { return mpProcessosFiltrados; }
+	public List<MpDolar> getMpDolarsFiltrados() { return mpDolarsFiltrados; }
 
-	public MpProcesso getMpProcessoSelecionado() { return mpProcessoSelecionado; }
-	public void setMpProcessoSelecionado(MpProcesso mpProcessoSelecionado) {
-													this.mpProcessoSelecionado = mpProcessoSelecionado; }
+	public MpDolar getMpDolarSelecionado() { return mpDolarSelecionado; }
+	public void setMpDolarSelecionado(MpDolar mpDolarSelecionado) {
+												this.mpDolarSelecionado = mpDolarSelecionado; }
 	
 }

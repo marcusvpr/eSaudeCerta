@@ -27,6 +27,8 @@ public class MpCadastroTipoProtocoloBean implements Serializable {
 
 	@Inject
 	private MpTipoProtocoloService mpTipoProtocoloService;
+	
+	// ---
 
 	private MpTipoProtocolo mpTipoProtocolo = new MpTipoProtocolo();
 	private MpTipoProtocolo mpTipoProtocoloAnt;
@@ -53,6 +55,16 @@ public class MpCadastroTipoProtocoloBean implements Serializable {
 			this.limpar();
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
+		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpTipoProtocolo.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
 		}
 		
 		this.setMpTipoProtocoloAnt(this.mpTipoProtocolo);

@@ -32,6 +32,8 @@ public class MpCadastroFeriadoBean implements Serializable {
 
 	@Inject
 	private MpFeriadoService mpFeriadoService;
+	
+	// ---
 
 	private MpFeriado mpFeriado = new MpFeriado();
 	private MpFeriado mpFeriadoAnt;
@@ -69,6 +71,16 @@ public class MpCadastroFeriadoBean implements Serializable {
 				//
 				this.mpEnd(); // Posiciona no último registro !!!
 			}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpFeriado.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
+		}
 		
 		this.setMpFeriadoAnt(this.mpFeriado);
 		//

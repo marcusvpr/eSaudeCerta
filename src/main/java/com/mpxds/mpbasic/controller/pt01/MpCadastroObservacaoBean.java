@@ -27,6 +27,8 @@ public class MpCadastroObservacaoBean implements Serializable {
 
 	@Inject
 	private MpObservacaoService mpObservacaoService;
+	
+	// ---
 
 	private MpObservacao mpObservacao = new MpObservacao();
 	private MpObservacao mpObservacaoAnt;
@@ -53,6 +55,16 @@ public class MpCadastroObservacaoBean implements Serializable {
 			this.limpar();
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
+		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpObservacao.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
 		}
 		
 		this.setMpObservacaoAnt(this.mpObservacao);

@@ -42,6 +42,8 @@ public class MpCadastroGrupoBean implements Serializable {
 
 	@Inject
 	private MpObjetos service;
+	
+	// ---
 
 	private MpGrupo mpGrupo;
 	private MpGrupo mpGrupoAnt;
@@ -90,6 +92,16 @@ public class MpCadastroGrupoBean implements Serializable {
 			this.mpFirst(); // Posiciona no primeiro registro !!!
 		} else
 			this.mpTrataMpGrupo();
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpGrupo.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
+		}
 		
 		this.setMpGrupoAnt(this.mpGrupo);
 		//

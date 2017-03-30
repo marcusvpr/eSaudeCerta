@@ -98,6 +98,16 @@ public class MpCadastroAtoBean implements Serializable {
 			//
 			this.mpFirst(); // Posiciona no primeiro registro !!!
 		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpAto.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
+		}
 		
 		this.setMpAtoAnt(this.mpAto);
 		// ---
@@ -201,7 +211,7 @@ public class MpCadastroAtoBean implements Serializable {
 		
 		this.mpAtoComposicao.setMpAto(this.mpAto);
 		//
-		if (this.mpAto.getMpAtoComposicaos().size() > 0)
+//		if (this.mpAto.getMpAtoComposicaos().size() > 0) ???
 			this.mpAto.getMpAtoComposicaos().add(this.mpAtoComposicao);
 		//
 		this.indEditavelMpAtoComposicao = true;
@@ -238,13 +248,19 @@ public class MpCadastroAtoBean implements Serializable {
 
 	public void calculaValorAto() {
 		//
-		if (!this.mpAto.getIndAlteraValorAto())
+		if (this.mpAto.getIndAlteraValorAto())
+			assert(true); // nop
+		else
 			this.mpAto.getMpValorAto().zerarValorTotal();
-
-		this.mpAto.tratarValorTotal(scOficVariavel, scOficLei3217, scOficLei4664,
-																scOficLei111, scOficLei6281);
-		//
-		this.setValorAto(mpAto.getMpValorAto().calcularValorTotal());
+		// 
+		if (null == this.mpAto.getId())
+			assert(true); // nop
+		else {
+			this.mpAto = mpAtoService.tratarValorTotal(this.mpAto, scOficVariavel, scOficLei3217, scOficLei4664,
+															   		scOficLei111, scOficLei6281);
+			//
+			this.setValorAto(mpAto.getMpValorAto().calcularValorTotal());
+		}
 		//
 	}			
 		
@@ -418,7 +434,9 @@ public class MpCadastroAtoBean implements Serializable {
 	private void limpar() {
 		//
 		this.mpAto = new MpAto();
+		
 		this.mpAto.setCodigo("");
+		this.mpAto.setMpAtoComposicaos(new ArrayList<MpAtoComposicao>());
 		//
 		this.limpaValorAto();
 		

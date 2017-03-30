@@ -33,6 +33,8 @@ public class MpCadastroSistemaConfigBean implements Serializable {
 
 	@Inject
 	private MpSistemaConfigService mpSistemaConfigService;
+	
+	// ---
 
 	private MpSistemaConfig mpSistemaConfig = new MpSistemaConfig();
 	private MpSistemaConfig mpSistemaConfigAnt;
@@ -76,7 +78,17 @@ public class MpCadastroSistemaConfigBean implements Serializable {
 			this.mpFirst(); // Posiciona no primeiro registro !!!
 		} else
 			this.mpTrataMpSistemaConfig();
-		
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpSistemaConfig.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
+		}
+		//
 		this.setMpSistemaConfigAnt(this.mpSistemaConfig);
 		//
 		this.indEditavelNav = this.mpSeguranca.getMpUsuarioLogado().getMpUsuario().

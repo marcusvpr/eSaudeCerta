@@ -204,8 +204,20 @@ public class MpCadastroProjetoBean implements Serializable {
 			this.mpFirst(); // Posiciona no primeiro registro !!!
 
 			this.txtModoTela = " .";
-		} else
+		} else {
+			//
 			this.mpNavegaComplementa();
+		}	
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpProjeto.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
+				//
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
+			}
+		}
 		//
 		// Trata posição anterior !
 		// ========================
@@ -249,8 +261,7 @@ public class MpCadastroProjetoBean implements Serializable {
 																				mpComplexibilidade));
 				mpStatusDTO.setMpComplexibilidade(mpComplexibilidade);
 				//
-				this.mpStatusDTOList.set(mpComplexibilidadeList.indexOf(mpComplexibilidade), 
-																						mpStatusDTO);
+				this.mpStatusDTOList.set(mpComplexibilidadeList.indexOf(mpComplexibilidade), mpStatusDTO);
 			} else {
 				mpStatusDTO = new MpStatusDTO();
 				
@@ -263,12 +274,10 @@ public class MpCadastroProjetoBean implements Serializable {
 		for (MpStatusRequisito mpStatusRequisito : mpStatusRequisitoList) {
 			//
 			if (mpStatusRequisitoList.indexOf(mpStatusRequisito) < this.mpStatusDTOList.size()) {
-				mpStatusDTO = this.mpStatusDTOList.get(mpStatusRequisitoList.indexOf(
-																				mpStatusRequisito));
+				mpStatusDTO = this.mpStatusDTOList.get(mpStatusRequisitoList.indexOf(mpStatusRequisito));
 				mpStatusDTO.setMpStatusRequisito(mpStatusRequisito);
 				//
-				this.mpStatusDTOList.set(mpStatusRequisitoList.indexOf(mpStatusRequisito),
-																						mpStatusDTO);
+				this.mpStatusDTOList.set(mpStatusRequisitoList.indexOf(mpStatusRequisito), mpStatusDTO);
 			} else {
 				mpStatusDTO = new MpStatusDTO();
 				mpStatusDTO.setMpStatusRequisito(mpStatusRequisito);

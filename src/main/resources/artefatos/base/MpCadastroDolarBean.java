@@ -32,6 +32,8 @@ public class MpCadastroDolarBean implements Serializable {
 
 	@Inject
 	private MpDolarService mpDolarService;
+	
+	// ===
 
 	private MpDolar mpDolar = new MpDolar();
 	private MpDolar mpDolarAnt;
@@ -47,7 +49,6 @@ public class MpCadastroDolarBean implements Serializable {
 	// ------------------
 	
 	public MpCadastroDolarBean() {
-//		System.out.println("MpCadastroDolarBean - Entrou 0000 ");
 		//
 		if (null == this.mpDolar)
 			this.limpar();
@@ -55,25 +56,25 @@ public class MpCadastroDolarBean implements Serializable {
 	
 	public void inicializar() {
 		//
-		HttpServletRequest request = (HttpServletRequest) FacesContext
-									.getCurrentInstance().getExternalContext().getRequest();
-		
-		String param = request.getParameter("param");
-		if (null == param) param = "null";
-//		System.out.println("MpCadastroDolarBean.inicializar() - ( param = " + param);
-		if (param.equals("login"))
-			this.mpNew(); // Posiciona no novo registro !!!
-		else
-			if (null == this.mpDolar) {
-				this.limpar();
+		if (null == this.mpDolar) {
+			this.limpar();
+			//
+			this.mpFirst(); // Posiciona no primeiro registro !!!
+		}
+		// Verifica TenantId ?
+		if (!mpSeguranca.capturaTenantId().trim().equals("0")) {
+			if (!this.mpDolar.getTenantId().trim().equals(mpSeguranca.capturaTenantId().trim())) {
 				//
-				this.mpEnd(); // Posiciona no último registro !!!
+				MpFacesUtil.addInfoMessage("Error Violação! Contactar o Suporte!");
+				//
+				this.limpar();
+				return;
 			}
-		
+		}
+		//
 		this.setMpDolarAnt(this.mpDolar);
 		//
-		this.indEditavelNav = this.mpSeguranca.getMpUsuarioLogado().getMpUsuario().
-																			getIndBarraNavegacao();
+		this.indEditavelNav = this.mpSeguranca.getMpUsuarioLogado().getMpUsuario().getIndBarraNavegacao();
 	}
 	
 	private void limpar() {

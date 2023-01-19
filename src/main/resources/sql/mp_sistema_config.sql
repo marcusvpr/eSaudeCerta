@@ -6,4 +6,4 @@ INSERT INTO MP_SISTEMA_CONFIG (ID, IND_ATIVO, IND_EXCLUSAO, DTHR_ALT, DTHR_INC, 
 INSERT INTO MP_SISTEMA_CONFIG (ID, IND_ATIVO, IND_EXCLUSAO, DTHR_ALT, DTHR_INC, USER_ALT, USER_INC, TENANT_ID, VERSION, DESCRICAO, INDVALOR, MPTIPOCAMPO, OBJETO, PARAMETRO, VALORN, VALORT) VALUES
  (30, true, false, null, '2016-08-07 11:21:24', null, null, '0', 0, 'Caminho(Path) recebimento arquivo ATO', true, 1, '', 'oficPathRecebeATO', 0, 'C:\\RECEBE_ATO\\');
 INSERT INTO MP_SISTEMA_CONFIG (ID, IND_ATIVO, IND_EXCLUSAO, DTHR_ALT, DTHR_INC, USER_ALT, USER_INC, TENANT_ID, VERSION, DESCRICAO, INDVALOR, MPTIPOCAMPO, OBJETO, PARAMETRO, VALORN, VALORT) VALUES
- (31, true, false, null, '2016-08-07 11:21:24', null, null, '0', 0, 'Ativa Exibição Label nos Campos', true, 1, '', 'indLabelCampo', 0, '');
+ (31, true, false, null, '2016-08-07 11:21:24', null, null, '0', 0, 'Ativa Exibicao Label nos Campos', true, 1, '', 'indLabelCampo', 0, '');

@@ -105,8 +105,6 @@
     <http pattern="/vendasRS" security="none" />
     <http pattern="/compraRS" security="none" />
     <http pattern="/comprasRS" security="none" />
-    <http pattern="/atoRS" security="none" />
-    <http pattern="/atosRS" security="none" />
     <http pattern="/usuarioTenantRS" security="none" />
     <http pattern="/usuarioTenantsRS" security="none" />
     <http pattern="/usuarioTenantConfigRS" security="none" />
@@ -115,51 +113,17 @@
     <http pattern="/turnoRS" security="none" />
     <http pattern="/turnosRS" security="none" />
     <http pattern="/enviaSqlRS" security="none" />
-    <http pattern="/receceTitulosRS" security="none" />
-    <http pattern="/recebimentoRS" security="none" />
     <http pattern="/feriadoRS" security="none" />
     <http pattern="/feriadosRS" security="none" />
-
-    <http pattern="/dataProcessoRS" security="none" />
-    <http pattern="/dataProcessosRS" security="none" />
-    <http pattern="/bancoRS" security="none" />
-    <http pattern="/bancosRS" security="none" />
-
-    <http pattern="/usuarioIffRS" security="none" />
-    <http pattern="/usuarioIffsRS" security="none" />
-    <http pattern="/indexIffRS" security="none" />
 
     <http pattern="/observacaoRS" security="none" />
     <http pattern="/observacaosRS" security="none" />
 
-    <http pattern="/tituloRS" security="none" />
-    <http pattern="/titulosRS" security="none" />
-    <http pattern="/pessoaTituloRS" security="none" />
-    <http pattern="/pessoaTitulosRS" security="none" />
     <http pattern="/projetoRS" security="none" />
     <http pattern="/projetosRS" security="none" />
 
     <http pattern="/contatoRS" security="none" />
     <http pattern="/contatosRS" security="none" />
-
-    <http pattern="/eCartorioRjRS" security="none" />
-
-    <http pattern="/certidaoQRCodeRS" security="none" />
-
-    <http pattern="/pessoaFisicaRS" security="none" />
-    <http pattern="/pessoaFisicasRS" security="none" />
-    <http pattern="/pessoaJuridicaRS" security="none" />
-    <http pattern="/pessoaJuridicasRS" security="none" />
-    <http pattern="/clienteSJRS" security="none" />
-    <http pattern="/clienteSJsRS" security="none" />
-
-    <http pattern="/processoRS" security="none" />
-    <http pattern="/processosRS" security="none" />
-
-    <http pattern="/cargaDadosSJRS" security="none" />
-
-    <http pattern="/relatorioProcessosRS" security="none" />
-    <http pattern="/graficoProcessosDiaRS" security="none" />
 
     <http pattern="/tabelaInternaSJRS" security="none" />
     <http pattern="/tabelaInternaSJsRS" security="none" />
@@ -170,8 +134,13 @@
     <http pattern="/geraArtefatosRS" security="none" />
 
     <http pattern="/sistemaHelpRS" security="none" />
+    
+    <http pattern="/pessoaERRS" security="none" />
+    <http pattern="/pessoaERsRS" security="none" />
 
 	<!-- ////////////////////////////////////////////////// -->
+	
+	<http pattern="/home/**" security="none" />
 	
     <http pattern="/sentinel/mpLogin.xhtml" security="none" />
     <http pattern="/sentinel/mpLogout.xhtml" security="none" />
@@ -179,16 +148,12 @@
     <http pattern="/sentinel/videos/mpProtestoTour.xhtml" security="none" />
     
     <http pattern="/sentinel/videos/MpProtesto.mp4" security="none" />
-    <http pattern="/sentinel/planoSaudes/**" security="none" />
-    <http pattern="/sentinel/iffs/index.xhtml" security="none" />
-    <http pattern="/sentinel/eBusiness/mpHome.xhtml" security="none" />
 
     <http pattern="/alertaLogs/MpAlertaLogAlarme.xhtml" security="none" />
     <http pattern="/alertaLogs/MpAlertaLogAtividade.xhtml" security="none" />
     <http pattern="/alertaLogs/MpAlertaLogCalendario.xhtml" security="none" />
     <http pattern="/alertaLogs/MpAlertaLogEstoqueReposicao.xhtml" security="none" />
 
-    <http pattern="/servicos/certidaoEletronica/mpGeraQRCode.xhtml" security="none" />
     <http pattern="/resources/pdfs/**" security="none" />
     
     <http pattern="/testeJDBC.jsp" security="none" />
@@ -205,13 +170,9 @@
 						access="hasAnyRole('VENDEDORES', 'AUXILIARES', 'ADMINISTRADORES', 'SK_ADMIN')" />
 		<intercept-url pattern="/sentinel/produtos/**" 
 						access="hasAnyRole('ADMINISTRADORES', 'PROTESTOS_ADMIN', 'SK_ADMIN')" />
-		<intercept-url pattern="/sentinel/usuarioIffs/**" 
-						access="hasAnyRole('ADMINISTRADORES', 'IFFS_ADMIN')" />
-		<intercept-url pattern="/sentinel/sisjuri/**" 
-						access="hasAnyRole('ADMINISTRADORES', 'SISJURI_ADMIN')" />
 		<intercept-url pattern="/responsivos/**" access="hasAnyRole('ADMINISTRADORES')" />
 		<intercept-url pattern="/sentinel/**" access=
-"hasAnyRole('ADMINISTRADORES', 'PROTESTOS_ADMIN', 'PROTESTOS', 'IFFS_ADMIN', 'ENGREQ_ADMIN', 'SK_ADMIN', 'SISJURI_ADMIN')" />
+					"hasAnyRole('ADMINISTRADORES', 'PROTESTOS_ADMIN', 'PROTESTOS', 'ENGREQ_ADMIN', 'SK_ADMIN')" />
 		<intercept-url pattern="/telegrams/**" access="hasAnyRole('ADMINISTRADORES')" />
 		
 		<intercept-url pattern="/**" access="denyAll" />

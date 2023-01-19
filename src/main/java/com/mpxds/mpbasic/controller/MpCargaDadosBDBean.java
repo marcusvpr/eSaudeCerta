@@ -9,8 +9,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.mpxds.mpbasic.model.MpObjeto;
 import com.mpxds.mpbasic.repository.MpArquivoBDs;
-
+import com.mpxds.mpbasic.security.MpSeguranca;
 import com.mpxds.mpbasic.util.jsf.MpFacesUtil;
 
 @Named
@@ -21,7 +22,12 @@ public class MpCargaDadosBDBean implements Serializable {
 
 	@Inject
 	private MpArquivoBDs mpArquivoBDs;
-	//	
+
+	@Inject
+	private MpSeguranca mpSeguranca;
+
+	// ---
+	
 	private String lineSQL;
 
 	private Boolean indCargaCustasComposicao = false;
@@ -32,6 +38,8 @@ public class MpCargaDadosBDBean implements Serializable {
 
 	private Boolean indCargaSistemaConfig = false;
 	private Integer contCargaSistemaConfig = 0;
+	
+	private MpObjeto mpObjetoHelp;
 
 	// ---
 	
@@ -143,8 +151,16 @@ public class MpCargaDadosBDBean implements Serializable {
 		}
 		//
 	}
+
+	public void mpHelp() {
+		//
+		this.mpObjetoHelp = mpSeguranca.mpHelp(this.getClass().getSimpleName());
+		//
+	}	
 	
 	// ---
+
+	public MpObjeto getMpObjetoHelp() { return mpObjetoHelp; }
 	
 	public Boolean getIndCargaCustasComposicao() { return indCargaCustasComposicao; }
 	public void setIndCargaCustasComposicao(Boolean indCargaCustasComposicao) { 

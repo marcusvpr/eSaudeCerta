@@ -65,8 +65,7 @@ public class MpJsfLoginUrlAuthenticationEntryPoint implements AuthenticationEntr
         Assert.isTrue(StringUtils.hasText(loginFormUrl) && UrlUtils.isValidRedirectUrl(loginFormUrl),
                 "loginFormUrl must be specified and must be a valid redirect URL");
         if (useForward && UrlUtils.isAbsoluteUrl(loginFormUrl)) {
-            throw new IllegalArgumentException(
-            							"useForward must be false if using an absolute loginFormURL");
+            throw new IllegalArgumentException("useForward must be false if using an absolute loginFormURL");
         }
         Assert.notNull(portMapper, "portMapper must be specified");
         Assert.notNull(portResolver, "portResolver must be specified");

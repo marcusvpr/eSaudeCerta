@@ -12,8 +12,6 @@ import javax.persistence.TemporalType;
 public class MpAuditoriaObjeto implements Serializable {
 	//
 	private static final long serialVersionUID = 1L;
-
-	// ---
 	
 	private Date dtHrAlt;
 	private Date dtHrInc;
@@ -40,40 +38,24 @@ public class MpAuditoriaObjeto implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dthr_alt", nullable = true)
-	public Date getDtHrAlt() {
-		return this.dtHrAlt;
-	}
-	public void setDtHrAlt(Date newDthrAlt) {
-		this.dtHrAlt = newDthrAlt;
-	}
+	public Date getDtHrAlt() { return this.dtHrAlt; }
+	public void setDtHrAlt(Date newDthrAlt) { this.dtHrAlt = newDthrAlt; }
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dthr_inc", nullable = true)
-	public Date getDtHrInc() {
-		return this.dtHrInc;
-	}
-	public void setDtHrInc(Date newDtHrInc) {
-		this.dtHrInc = newDtHrInc;
-	}
+	public Date getDtHrInc() { return this.dtHrInc; }
+	public void setDtHrInc(Date newDtHrInc) { this.dtHrInc = newDtHrInc; }
 
 	@Column(name = "user_alt", nullable = true, length = 100)
-	public String getUserAlt() {
-		return this.userAlt;
-	}
-	public void setUserAlt(String newUserAlt) {
-		this.userAlt = newUserAlt;
-	}
+	public String getUserAlt() { return this.userAlt; }
+	public void setUserAlt(String newUserAlt) { this.userAlt = newUserAlt; }
 
 	@Column(name = "user_inc", nullable = true, length = 100)
-	public String getUserInc() {
-		return this.userInc;
-	}
-	public void setUserInc(String newUserInc) {
-		this.userInc = newUserInc;
-	}
+	public String getUserInc() { return this.userInc; }
+	public void setUserInc(String newUserInc) { this.userInc = newUserInc; }
 
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
-	}
+	// ---
+	
+	public Object clone() throws CloneNotSupportedException { return super.clone(); }
 
 }

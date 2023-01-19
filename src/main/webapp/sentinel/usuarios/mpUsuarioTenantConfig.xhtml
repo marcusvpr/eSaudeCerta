@@ -35,25 +35,6 @@
 												<p:panelGrid columns="7" layout="grid"
 													style="border:0px !important; background:none;"
 													styleClass="ui-panelgrid-blank">
-													<h:panelGroup>
-														<p:outputLabel value="Menu Superior : " for="indMenuTop" />
-														<p:selectBooleanButton id="indMenuTop" onLabel="Sim"
-															offLabel="Não" onIcon="ui-icon-check"
-															offIcon="ui-icon-close" style="width:90px"
-															required="#{mpCadastroUsuarioTenantBean.indEditavel}"
-															disabled="#{mpCadastroUsuarioTenantBean.indEditavel}"
-															value="#{mpCadastroUsuarioTenantBean.mpUsuarioTenant.indMenuTop}" />
-													</h:panelGroup>
-
-													<h:panelGroup>
-														<p:outputLabel value="Menu Lateral : " for="indMenuLeft" />
-														<p:selectBooleanButton id="indMenuLeft" onLabel="Sim"
-															offLabel="Não" onIcon="ui-icon-check"
-															offIcon="ui-icon-close" style="width:90px"
-															required="#{mpCadastroUsuarioTenantBean.indEditavel}"
-															disabled="#{mpCadastroUsuarioTenantBean.indEditavel}"
-															value="#{mpCadastroUsuarioTenantBean.mpUsuarioTenant.indMenuLeft}" />
-													</h:panelGroup>
 
 													<h:panelGroup>
 														<p:outputLabel value="Barra Navegacão : "

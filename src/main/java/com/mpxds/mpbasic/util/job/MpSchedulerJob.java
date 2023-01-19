@@ -50,7 +50,7 @@ import com.mpxds.mpbasic.util.sms.MpUtilSMS;
 import com.outjected.email.api.MailMessage;
 import com.outjected.email.impl.templating.velocity.VelocityTemplate;
 
-@Scheduled(cronExpression = "0 0/5 * * * ?")
+@Scheduled(cronExpression = "0 0/50 * * * ?") // Mvpr-06/2017 Passei para 50 ! 
 public class MpSchedulerJob implements Job {
 	//
 //	private Log log = LogFactory.getLog(MpSchedulerJob.class);
@@ -139,8 +139,7 @@ public class MpSchedulerJob implements Job {
 				return; // Não executa !
 			}
 		//
-		System.out.println("MpSchedulerJobForm.execute() - 003 (Date() = " + 
-																	sdf.format(new Date()));
+		System.out.println("MpSchedulerJobForm.execute() - 003 (Date() = " + sdf.format(new Date()));
 		//
 		mpSistemaConfig = mpSistemaConfigs.porParametro("sistemaURL");
 		if (null == mpSistemaConfig)
@@ -194,14 +193,14 @@ public class MpSchedulerJob implements Job {
 					this.scIndAlertaAlarme + "/" + this.scIndAlertaAtividade + "/" +
 					this.scIndAlertaCalendario + "/" + this.scIndAlertaEstoqueReposicao + "/");
 		//
-		if (this.scIndAlertaAlarme)
-			this.trataAlarme(dataHoraJob);
-		if (this.scIndAlertaAtividade)
-			this.trataAtividade(dataHoraJob);
-		if (this.scIndAlertaCalendario)
-			this.trataCalendario(dataHoraJob);
-		if (this.scIndAlertaEstoqueReposicao)
-			this.trataEstoqueReposicao(dataHoraJob);
+//		if (this.scIndAlertaAlarme)
+//			this.trataAlarme(dataHoraJob);
+//		if (this.scIndAlertaAtividade)
+//			this.trataAtividade(dataHoraJob);
+//		if (this.scIndAlertaCalendario)
+//			this.trataCalendario(dataHoraJob);
+//		if (this.scIndAlertaEstoqueReposicao)
+//			this.trataEstoqueReposicao(dataHoraJob);
 		// ==========
 		System.out.println("MpSchedulerJobForm.execute() = Calendário/Alarme/Atividade" +
 													"/Estoque - " +	sdf.format(dataHoraJob));

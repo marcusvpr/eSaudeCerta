@@ -28,23 +28,13 @@ public enum MpMenuGlobalSistemaConfig {
 	G21("indRodapeSistema", "Ativa Rodapé Sistema", MpTipoCampo.BOOLEAN, "", 0, true, ""),
 	G22("indAtivaJob", "Ativa Job Scheduler", MpTipoCampo.BOOLEAN, "", 0, false, ""),
 	G23("indCapturaFoto", "Ativa Captura Foto", MpTipoCampo.BOOLEAN, "", 0, true, ""),
-	G24("oficVariavel", "Valor Variavel(%)", MpTipoCampo.NUMERO, "", 2, true, ""),
-	G25("oficLei3217", "Valor Lei.3217(%)", MpTipoCampo.NUMERO, "", 20, true, ""),
-	G26("oficLei4664", "Valor Lei.4664(%)", MpTipoCampo.NUMERO, "", 5, true, ""),
-	G27("oficLei111", "Valor Lei.111(%)", MpTipoCampo.NUMERO, "", 5, true, ""),
-	G28("oficLei6281", "Valor Lei.6281(%)", MpTipoCampo.NUMERO, "", 4, true, ""),
-	G29("oficPathRecebeTXT", "Caminho(Path) recebimento arquivo TXT", MpTipoCampo.TEXTO,
-														   "C:\\RECEBE_TXT\\", 0, true, ""),
-	G30("oficPathRecebeATO", "Caminho(Path) recebimento arquivo ATO", MpTipoCampo.TEXTO,
-															"C:\\RECEBE_ATO\\", 0, true, ""),
 	G31("indLabelCampo", "Ativa Exibição Label nos Campos", MpTipoCampo.BOOLEAN, "", 0, false, ""),
 	G32("indAtivaEmail", "Ativa Envio de EMAIL", MpTipoCampo.BOOLEAN, "", 0, false, ""),
 	G33("indAtivaSMS", "Ativa Envio de SMS", MpTipoCampo.BOOLEAN, "", 0, false, ""),
 	G34("indAtivaPush", "Ativa Envio de Push", MpTipoCampo.BOOLEAN, "", 0, false, ""),
 	G35("indAtivaTelegram", "Ativa Envio de Telegram", MpTipoCampo.BOOLEAN, "", 0, false, ""),
 	G36("indAtivaWhatsapp", "Ativa Envio de Whatsapp", MpTipoCampo.BOOLEAN, "", 0,	false, ""),
-	G37("indAtivaMpComunicator", "Ativa Envio de MpComunicator", MpTipoCampo.BOOLEAN, "", 0, false, ""),
-	G38("oficServentiaECartorioRJ", "Código Escrevente - eCartorioRJ", MpTipoCampo.TEXTO, "????", 0, false, "");
+	G37("indAtivaMpComunicator", "Ativa Envio de MpComunicator", MpTipoCampo.BOOLEAN, "", 0, false, "");
 
 	// ---
 	

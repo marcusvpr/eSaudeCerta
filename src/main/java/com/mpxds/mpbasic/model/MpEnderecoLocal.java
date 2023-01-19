@@ -29,27 +29,27 @@ public class MpEnderecoLocal implements Serializable {
 	// ---
 	
 	@NotBlank @Size(max = 150)
-	@Column(name = "entrega_logradouro", nullable = false, length = 150)
+	@Column(name = "local_logradouro", nullable = false, length = 150)
 	public String getLogradouro() {	return logradouro; }
 	public void setLogradouro(String logradouro) { this.logradouro = logradouro; }
 
 	@NotBlank @Size(max = 20)
-	@Column(name = "entrega_numero", nullable = false, length = 20)
+	@Column(name = "local_numero", nullable = false, length = 20)
 	public String getNumero() { return numero; }
 	public void setNumero(String numero) { this.numero = numero; }
 
 	@Size(max = 150)
-	@Column(name = "entrega_complemento", length = 150)
+	@Column(name = "local_complemento", length = 150)
 	public String getComplemento() { return complemento; }
 	public void setComplemento(String complemento) { this.complemento = complemento; }
 
 	@NotBlank @Size(max = 60)
-	@Column(name = "entrega_cidade", nullable = false, length = 60)
+	@Column(name = "local_cidade", nullable = false, length = 60)
 	public String getCidade() { return cidade; }
 	public void setCidade(String cidade) { this.cidade = cidade; }
 
 	@NotBlank @Size(max = 60)
-	@Column(name = "entrega_bairro", nullable = false, length = 60)
+	@Column(name = "local_bairro", nullable = false, length = 60)
 	public String getBairro() { return bairro; }
 	public void setBairro(String bairro) { this.bairro = bairro; }
 
@@ -59,7 +59,7 @@ public class MpEnderecoLocal implements Serializable {
 	public void setMpEstadoUF(MpEstadoUF mpEstadoUF) { this.mpEstadoUF = mpEstadoUF; }
 
 	@NotBlank @Size(max = 9)
-	@Column(name = "entrega_cep", nullable = false, length = 9)
+	@Column(name = "local_cep", nullable = false, length = 9)
 	public String getCep() { return cep; }
 	public void setCep(String cep) { this.cep = cep; }
 

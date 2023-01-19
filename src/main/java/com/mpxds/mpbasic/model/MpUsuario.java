@@ -184,9 +184,12 @@ public class MpUsuario extends MpBaseEntity {
 	public void setMpGrupoTenant(MpGrupoTenant mpGrupoTenant) { 
 															this.mpGrupoTenant = mpGrupoTenant; }
 
-	@OneToOne(fetch = FetchType.EAGER) 
-	@JoinColumn(name = "mpAlertaId")
-	public MpAlerta getMpAlerta() {
+//	@OneToOne(fetch = FetchType.EAGER) 
+//	@JoinColumn(name = "mpAlertaId")
+	
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "mpAlertaId", referencedColumnName = "id")
+    public MpAlerta getMpAlerta() {
 		//
 		if (null == this.mpAlerta)  
 			this.mpAlerta = new MpAlerta(false, false, false, false, false, false, false);

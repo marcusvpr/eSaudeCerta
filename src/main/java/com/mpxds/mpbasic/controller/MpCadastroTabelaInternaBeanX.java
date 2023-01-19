@@ -1,6 +1,7 @@
 package com.mpxds.mpbasic.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class MpCadastroTabelaInternaBeanX implements Serializable {
 	private MpTabelaInterna mpTabelaInternaAnt;
 	
 	private MpTabelaInterna mpTabelaInternaPai;
-	private List<MpTabelaInterna> mpPais;
+	private List<MpTabelaInterna> mpPais = new ArrayList<MpTabelaInterna>();
 
 	private MpTipoTabelaInterna mpTipoTabelaInterna;
 	private List<MpTipoTabelaInterna> mpTipoTabelaInternaList;

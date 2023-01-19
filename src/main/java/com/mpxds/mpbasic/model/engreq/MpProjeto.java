@@ -49,6 +49,7 @@ public class MpProjeto extends MpBaseEntity {
 	private List<MpRequisitoFuncional> mpRequisitoFuncionalList = new ArrayList<>();
 	private List<MpRegraNegocio> mpRegraNegocioList = new ArrayList<>();
 	private List<MpRequisitoNaoFuncional> mpRequisitoNaoFuncionalList = new ArrayList<>();
+	private List<MpProjetoPessoaER> mpProjetoPessoaERList = new ArrayList<>();
 		
 	// ---
 
@@ -135,7 +136,12 @@ public class MpProjeto extends MpBaseEntity {
 																return mpRequisitoNaoFuncionalList; }
 	public void setMpRequisitoNaoFuncionalList(List<MpRequisitoNaoFuncional> 
 																	mpRequisitoNaoFuncionalList) {
-									this.mpRequisitoNaoFuncionalList = mpRequisitoNaoFuncionalList; }
+												this.mpRequisitoNaoFuncionalList = mpRequisitoNaoFuncionalList; }
+	
+	@OneToMany(mappedBy = "mpProjeto", cascade = CascadeType.ALL)
+	public List<MpProjetoPessoaER> getMpProjetoPessoaERList() { return mpProjetoPessoaERList; }
+	public void setMpProjetoPessoaERList(List<MpProjetoPessoaER> mpProjetoPessoaERList) {
+															this.mpProjetoPessoaERList = mpProjetoPessoaERList; }
 		
 	// ---
 	
@@ -162,5 +168,9 @@ public class MpProjeto extends MpBaseEntity {
 	@Transient
 	public Integer getRequisitoNaoFuncionalSize() {
 		return this.mpRequisitoNaoFuncionalList.size(); }
+	
+	@Transient
+	public Integer getProjetoPessoaERSize() {
+		return this.mpProjetoPessoaERList.size(); }
 	
 }

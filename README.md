@@ -4,7 +4,7 @@ This README would normally document whatever steps are necessary to get your app
 
 ### What is this repository for? ###
 
-* Quick summary: (MpProtesto by MPXDS MarcusVPR) ;
+* Quick summary: (MpSaudeMedidaCerta by MPXDS MarcusVPR) ;
 * Version: (1.0.1) ;
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 

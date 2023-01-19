@@ -96,7 +96,7 @@ public class MpEnviaSqlBean implements Serializable {
     	    Class.forName("org.hsqldb.jdbcDriver").newInstance();
             //
 			con = DriverManager.getConnection(
-										"jdbc:hsqldb:file:~/db/mpProtesto/mpProtestoDB", "sa", "");
+									"jdbc:hsqldb:file:~/db/mpSaudeMedidaCerta/mpSaudeMedidaCertaDB", "sa", "");
 			//
 	        statement = con.createStatement();
 	        //

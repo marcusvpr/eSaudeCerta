@@ -29,6 +29,7 @@ import org.primefaces.model.menu.DefaultSeparator;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 
+import com.mpxds.mpbasic.model.MpAlerta;
 import com.mpxds.mpbasic.model.MpCategoria;
 import com.mpxds.mpbasic.model.MpGrupo;
 import com.mpxds.mpbasic.model.log.MpLoginLog;
@@ -58,7 +59,7 @@ import com.mpxds.mpbasic.model.MpUsuarioTenant;
 import com.mpxds.mpbasic.model.log.MpMovimentoLogin;
 import com.mpxds.mpbasic.security.MpSeguranca;
 import com.mpxds.mpbasic.security.MpUsuarioLogados;
-
+import com.mpxds.mpbasic.service.MpAlertaService;
 import com.mpxds.mpbasic.service.MpCategoriaService;
 import com.mpxds.mpbasic.service.MpGrupoService;
 import com.mpxds.mpbasic.service.MpLoginLogService;
@@ -127,7 +128,10 @@ public class MpLoginBean implements Serializable {
 	
 	@Inject
 	private MpTenantService mpTenantService;
-	
+
+	@Inject
+	private MpAlertaService mpAlertaService;
+
 	@Inject
 	private MpCategorias mpCategorias;
 	
@@ -226,7 +230,7 @@ public class MpLoginBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		try {
-			context.getExternalContext().redirect("/mpProtesto/sentinel/mpLogin.xhtml");
+			context.getExternalContext().redirect("/apps/sentinel/mpLogin.xhtml");
 			//
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -681,6 +685,12 @@ public class MpLoginBean implements Serializable {
     			mpUsuario.setMpStatus(MpStatus.valueOf(mpMenuGlobalUsuario.getMpStatus()));
     			mpUsuario.setMpSexo(MpSexo.valueOf(mpMenuGlobalUsuario.getMpSexo()));
     			
+    			MpAlerta mpAlertaX = new MpAlerta(false, false, false, false, false, false, false);
+    			
+    			mpAlertaX = mpAlertaService.salvar(mpAlertaX);
+    			
+    			mpUsuario.setMpAlerta(mpAlertaX);
+    			
     			if (mpMenuGlobalUsuario.getLogin().toLowerCase().equals("marcus"))
     				mpUsuario.setMpGrupos(mpGrupoList);
 
@@ -711,8 +721,8 @@ public class MpLoginBean implements Serializable {
 		List<MpTipoProdutoCategoria> mpTipoProdutoCategoriaList = 
 											Arrays.asList(MpTipoProdutoCategoria.values());
 		//
-//		System.out.println("MpLoginBean.login() - 004 ( " + 
-//														mpTipoProdutoCategoriaList.size());
+		System.out.println("MpLoginBean.login() - 004 ( " + 
+														mpTipoProdutoCategoriaList.size());
         
     	Iterator<MpTipoProdutoCategoria> itrC = mpTipoProdutoCategoriaList.iterator(); 
     	//
@@ -724,6 +734,8 @@ public class MpLoginBean implements Serializable {
     		MpTipoProdutoCategoria mpTipoProdutoCategoria = (MpTipoProdutoCategoria)
     																			itrC.next();
     		
+    		System.out.println("...........MpLoginBean.login() - 004.1 ( " + 
+    																mpTipoProdutoCategoria.getDescricao());
     		if (null == mpTipoProdutoCategoria.getMpTipoProdutoCategoria()) {
 	    		mpCategoriaPai = new MpCategoria();
 	    		
@@ -966,8 +978,8 @@ public class MpLoginBean implements Serializable {
 
 	public void montaMenu() {
 		//
-//		System.out.println("MpLoginBean.montaMenu - 000 ( " + this.loginEmail + " / " +
-//																		this.loginEmailAnt);
+		System.out.println("MpLoginBean.montaMenu - 000 ( " + this.loginEmail + " / " +
+																		this.loginEmailAnt);
 		//
 		if (!this.loginEmail.equals(this.loginEmailAnt)) {
 			//
@@ -992,15 +1004,15 @@ public class MpLoginBean implements Serializable {
 	    	//
 //    		MpGrupoMenu mpGrupoMenu = (MpGrupoMenu) itr.next();
 
-//    		System.out.println("MpLoginBean.montaMenu - 000 ( " + mpGrupoMenu.getDescricao() +
-//    														" / " + this.mpUsuario.getNome());
+    		System.out.println("MpLoginBean.montaMenu - 000 ( " + mpGrupoMenu.getDescricao() +
+    														" / " + this.mpUsuario.getNome());
     		//
     		List<MpObjeto> mpObjetoList = mpUsuarios.porMpGrupoMenu(mpGrupoMenu,
     															this.mpUsuario.getMpGrupos());    		
     		if (mpObjetoList.size() > 0) {
     			//
-//        		System.out.println("MpLoginBean.montaMenu - 001 ( " + mpGrupoMenu.getDescricao() +
-//        						" / " + this.mpUsuario.getNome() + " / " + mpObjetoList.size());
+        		System.out.println("MpLoginBean.montaMenu - 001 ( " + mpGrupoMenu.getDescricao() +
+        						" / " + this.mpUsuario.getNome() + " / " + mpObjetoList.size());
     			//
     	        DefaultSubMenu mySubmenu = new DefaultSubMenu();        
         		DefaultSubMenu mySubmenu1 = new DefaultSubMenu();        
@@ -1037,8 +1049,8 @@ public class MpLoginBean implements Serializable {
     	    		//
 //    	    		MpObjeto mpObjeto = (MpObjeto) itrObj.next();
 
-//    	    		System.out.println("MpLoginBean.montaMenu - 001 ( " + mpObjeto.getNome() + 
-//    	    			" / " + mpGrupamentoMenuAnt + " / " + mpObjeto.getMpGrupamentoMenu());
+    	    		System.out.println("MpLoginBean.montaMenu - 001 ( " + mpObjeto.getNome() + 
+    	    			" / " + mpGrupamentoMenuAnt + " / " + mpObjeto.getMpGrupamentoMenu());
     	    		//
     	            if (mpObjeto.getIndSeparator()) {
     	            	//
@@ -1123,7 +1135,7 @@ public class MpLoginBean implements Serializable {
     		}
     	}
 		//
-//		System.out.println("MpLoginBean.montaMenu - 003 ( " + this.modelMenu.getElements().size());
+		System.out.println("MpLoginBean.montaMenu - 003 ( " + this.modelMenu.getElements().size());
 		//
 //        DefaultMenuItem item = new DefaultMenuItem();
 //		
@@ -1316,6 +1328,8 @@ public class MpLoginBean implements Serializable {
     																	getMpGrupamentoMenu()));
     		mpObjeto.setMpTipoObjeto(MpTipoObjeto.valueOf(mpMenuGlobalObjeto.getMpTipoObjeto()));
     		mpObjeto.setIndResponsive(mpMenuGlobalObjeto.getIndResponsive());
+
+    		mpObjeto.setCodigoId("X");
     		
     		mpObjeto = mpObjetoService.salvar(mpObjeto);
     		//

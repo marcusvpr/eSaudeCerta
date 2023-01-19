@@ -17,8 +17,8 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-import com.mpxds.mpbasic.model.engreq.MpItemObjeto;
 import com.mpxds.mpbasic.exception.MpNegocioException;
+import com.mpxds.mpbasic.model.MpItemObjeto;
 import com.mpxds.mpbasic.repository.filter.MpItemObjetoFilter;
 import com.mpxds.mpbasic.util.jpa.MpTransactional;
 

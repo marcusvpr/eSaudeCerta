@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>MPXDS | Sistema Protesto</title>
+	<title>MPXDS - Saúde na Medida Certa</title>
 	<meta name="viewport" 
 			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
         
@@ -30,9 +30,8 @@
       	<div class="EmptyBox10"></div>
         <div class="Container80 MaxWid500 Fnone MarAuto TexAlCenter PaddingTopPercent5">
             <a href="" id="login-logo">
-                <h:graphicImage name="mpxds_logo5_menor.png" styleClass="Fleft" library="images"/>
                 <span class="Fs30 FontTitilliumSemiBoldItalic Fleft"><span class="softblue"> 
-                						Sistema</span><span class="hardblue"> PROTESTO</span></span>
+                						Saúde </span><span class="hardblue"> na Medida Certa</span></span>
             </a>
         </div>
 
@@ -47,7 +46,7 @@
                 </div>
                 <div role="2" class="Container50 TexAlCenter Animated05 BoxSizeBorder TabBtn right">
                     <div class="Container80 Fnone MarAuto FontBold"><i class="icon-key-1"></i>
-                    															 Permissões</div>
+                    															 Crie sua Conta</div>
                 </div>
 
                 <div class="Container90 Fnone MarAuto TexAlCenter TabContent OvHidden" id="TAB1">
@@ -56,18 +55,26 @@
 					<p:growl id="messages" sticky="true" autoUpdate="true" life="300" />
 					
                     <div class="EmptyBox20"></div>
-                    <p:inputText placeholder="Usuário ou E-mail" id="j_username" required="true"
+					<h:panelGroup>
+	                    <p:outputLabel for="j_username" value="Usuário / E-mail : " 
+	                    	styleClass="Container80 Fnone MarAuto Fs18" />
+    	                <p:inputText placeholder="Usuário ou E-mail" id="j_username" required="true"
                     								requiredMessage="Favor entre o Usuário/E-mail."
                     								value="#{mpLoginBean.loginEmail}"
                     								styleClass="Container80 Fnone MarAuto Fs18">
-						<p:ajax event="change" process="@this" update="ambiente"
+							<p:ajax event="change" process="@this" update="ambiente"
 													listener="#{mpLoginBean.trataVisivelTenant}" />
-					</p:inputText>
+						</p:inputText>
+					</h:panelGroup>
                     								
                     <div class="EmptyBox10"></div>
-                    <p:password placeholder="Senha" id="j_password" required="true"
+					<h:panelGroup>
+	                    <p:outputLabel for="j_password" value="Senha : " 
+	                    	styleClass="Container80 Fnone MarAuto Fs18" />
+    	                <p:password placeholder="Senha" id="j_password" required="true"
                     					requiredMessage="Favor entre a Senha."
                      					styleClass="Container80 Fnone MarAuto Fs18" feedback="false"/>
+					</h:panelGroup>
                      					    				
                     <div class="EmptyBox20"></div>
             		<h:panelGroup id="pgAmbienteIdX">
@@ -109,6 +116,9 @@
 
                     <div class="EmptyBox5"></div>
 					<h:panelGroup>
+                    	<p:outputLabel for="usuarioRegistro" value="Usuário/Apelido : " 
+                    		rendered="#{mpLoginBean.indVisivelRegistro}"
+                    		styleClass="Container80 Fnone MarAuto Fs18" />
                     	<p:inputText id="usuarioRegistro" placeholder="Usuário" required="true"
                     									requiredMessage="Favor entre o Usuário."
                     									value="#{mpLoginBean.usuarioRegistro}"
@@ -118,15 +128,20 @@
 					</h:panelGroup>
                     <div class="EmptyBox10"></div>
 					<h:panelGroup>
-                    	<p:inputText id="nomeRegistro" placeholder="Nome" required="true"
-                    									requiredMessage="Favor entre o Nome."
+                    	<p:outputLabel for="nomeRegistro" value="Nome Completo : " 
+                    		rendered="#{mpLoginBean.indVisivelRegistro}"
+                    		styleClass="Container80 Fnone MarAuto Fs18" />
+                    	<p:inputText id="nomeRegistro" placeholder="Nome Completo" required="true"
+                    									requiredMessage="Favor entre o Nome Completo."
                     									value="#{mpLoginBean.nomeRegistro}"
                     									rendered="#{mpLoginBean.indVisivelRegistro}"
                     									styleClass="Container80 Fnone MarAuto Fs18"/>
-						<p:tooltip for="nomeRegistro" value="Nome Usuário (Ex.: Fulano da Silva )" />
+						<p:tooltip for="nomeRegistro" value="Nome Completo Usuário (Ex.: Fulano da Silva )" />
 					</h:panelGroup>
                     <div class="EmptyBox10"></div>
 					<h:panelGroup>
+                    	<p:outputLabel for="emailRegistro" value="Endereço de E-mail : " 
+                    		styleClass="Container80 Fnone MarAuto Fs18" />
                     	<p:inputText id="emailRegistro" type="email" placeholder="Seu Endereço de Email" 
                     							required="true" value="#{mpLoginBean.emailRegistro}"
                     							requiredMessage="Favor entre o E-mail."
@@ -139,6 +154,9 @@
 					</h:panelGroup>
                     <div class="EmptyBox10"></div>
 					<h:panelGroup>
+                    	<p:outputLabel for="senhaRegistro" value="Senha : " 
+                    		rendered="#{mpLoginBean.indVisivelRegistro}"
+                    		styleClass="Container80 Fnone MarAuto Fs18" />
                     	<p:password id="senhaRegistro" placeholder="Senha" match="senhaConfirmaRegistro"
                     					required="true" value="#{mpLoginBean.senhaRegistro}"
                     					requiredMessage="Favor entre a Senha."
@@ -148,12 +166,15 @@
 					</h:panelGroup>
                     <div class="EmptyBox10"></div>
 					<h:panelGroup>
-                    	<p:password id="senhaConfirmaRegistro" placeholder="Confirma Senha"
+                    	<p:outputLabel for="senhaConfirmaRegistro" value="Senha Confirmação : " 
+                    		rendered="#{mpLoginBean.indVisivelRegistro}"
+                    		styleClass="Container80 Fnone MarAuto Fs18" />
+                    	<p:password id="senhaConfirmaRegistro" placeholder="Senha Confirmação"
                 					required="true" value="#{mpLoginBean.senhaConfirmaRegistro}" 
-                    				requiredMessage="Favor entre a Senha Confirma."
+                    				requiredMessage="Favor entre a Senha Confirmação."
                     				rendered="#{mpLoginBean.indVisivelRegistro}"
                 					styleClass="Container80 Fnone MarAuto Fs18" feedback="false"/>
-						<p:tooltip for="senhaConfirmaRegistro" value="Confirma Senha" />
+						<p:tooltip for="senhaConfirmaRegistro" value="Senha Confirmação" />
 					</h:panelGroup>
                     <div class="EmptyBox10"></div>
                     <div class="Container85 Fnone MarAuto softgray">                    	
@@ -179,7 +200,7 @@
         				</h:panelGroup>
                     </div>
                     <div class="EmptyBox10"></div>
-					<p:commandButton value="Envia Requisição de Acesso" ajax="false" 
+					<p:commandButton value="Enviar Requisição de Acesso" ajax="false" 
 										styleClass="Fs12" action="#{mpLoginBean.enviaRegistro}" />
                     <div class="EmptyBox10"></div>
                   </h:form>
@@ -188,6 +209,17 @@
         </div>
     </div>
     <!-- LOGIN BOX COVER END -->
+    
+    <!-- https://analytics.google.com -->
+	<script>
+  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  		ga('create', 'UA-101917588-1', 'auto');
+  		ga('send', 'pageview');
+	</script>    
     
 </h:body>
 

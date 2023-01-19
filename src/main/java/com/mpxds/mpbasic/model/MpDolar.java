@@ -27,7 +27,7 @@ public class MpDolar extends MpBaseEntity {
 	private BigDecimal valor;
 	private String observacao;
 
-	// ----------
+	// ---
 	
 	public MpDolar() {
 		super();

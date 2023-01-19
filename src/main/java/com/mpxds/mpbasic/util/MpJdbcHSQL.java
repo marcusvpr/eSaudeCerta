@@ -15,16 +15,18 @@ public class MpJdbcHSQL {
 		try {
 			Class.forName("org.hsqldb.jdbcDriver");
 			
-			connection = DriverManager.getConnection("jdbc:hsqldb:file:~/db/sisjuri/sisjuriDB", "SA", "");
+			connection = DriverManager.getConnection(
+					"jdbc:hsqldb:file:~/db/mpSaudeMedidaCerta/mpSaudeMedidaCertaDB", "SA", "");
 			statement = connection.createStatement();
 			
-			resultSet = statement.executeQuery("SELECT numero, codigo, descricao FROM tabela_interna" +
-											   " ORDER BY numero, codigo");
+			resultSet = statement.executeQuery("SELECT codigo, descricao FROM mp_tabela_interna" +
+											   " ORDER BY codigo");
 			//
-			while (resultSet.next()) {
+			System.out.println("Tabela Interna LISTAGEM: "); 
+
+					while (resultSet.next()) {
 				//
 				System.out.println("Tabela Interna : " 
-						+ resultSet.getString("numero") + " / "
 						+ resultSet.getString("codigo") + " / "
 						+ resultSet.getString("descricao"));
 				//

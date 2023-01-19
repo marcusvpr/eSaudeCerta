@@ -21,7 +21,14 @@
 
 					<ui:include src="/WEB-INF/template/sentinel/mpBotoesProjeto.xhtml" />
 
-					<div class="ContainerIndent" style="margin-top: 60px;"></div>
+					<div class="ContainerIndent ui-fluid" style="margin-top: 60px;">
+						<p:outputLabel value="Nome: " />
+						<p:inputText id="nome" maxlength="200"
+							placeholder="Informar Nome do Projeto"
+							readonly="#{mpCadastroProjetoBean.indEditavel}"
+							value="#{mpCadastroProjetoBean.mpProjeto.nome}" />
+						<p:tooltip for="nome" value="Nome (Ex.: Rodizio Saber )" />
+					</div>
 
 					<p:tabView id="tabViewC">
 
@@ -34,15 +41,6 @@
 												<p:panelGrid columns="1" layout="grid"
 													style="border:0px !important; background:none;"
 													styleClass="ui-panelgrid-blank">
-
-													<h:panelGroup id="pgNome">
-														<p:outputLabel value="Nome: " />
-														<p:inputText id="nome" maxlength="200"
-															placeholder="Informar Nome do Projeto"
-															readonly="#{mpCadastroProjetoBean.indEditavel}"
-															value="#{mpCadastroProjetoBean.mpProjeto.nome}" />
-														<p:tooltip for="nome" value="Nome (Ex.: Rodizio Saber )" />
-													</h:panelGroup>
 
 													<h:panelGroup id="pgDescricao">
 														<p:outputLabel value="Descrição: " />
@@ -894,8 +892,102 @@
 								<p:column headerText="Categoria RNF" style="text-align:center">
 									<h:outputText value="#{mpStatusDTO.mpCategoriaRNF.descricao}" />
 								</p:column>
-
 							</p:dataTable>
+
+						</p:tab>
+
+						<p:tab title="Pessoas" closable="false">
+							<p:commandButton value="Nova Pessoa"
+								icon="fa fa-plus Fs14 white"
+								action="#{mpCadastroProjetoBean.adicionarMpProjetoPessoaERX}"
+								disabled="#{mpCadastroProjetoBean.indEditavel}"
+								oncomplete="PF('novoProjetoPessoaERDialog').show()" process="@this"
+								update="frmPPesER:novoProjetoPessoaERDialogId">
+								<p:resetInput target="frmPPesER:novoProjetoPessoaERDialogId" />
+							</p:commandButton>
+
+							<p:dataTable id="projetoPessoaERsTable" rowIndexVar="rowIndex"
+								value="#{mpCadastroProjetoBean.mpProjeto.mpProjetoPessoaERList}"
+								emptyMessage="O Projeto ainda não possui Pessoas"
+								var="mpProjetoPessoaER" style="margin-top:10px" reflow="true">
+
+								<p:column headerText="Número" style="text-align:center;">
+									<h:outputText value="#{rowIndex + 1}" />
+								</p:column>
+								<p:column headerText="Nome" sortBy="#{mpProjetoPessoaER.mpPessoaER.nome}">
+									<h:outputText value="#{mpProjetoPessoaER.mpPessoaER.nome}" />
+								</p:column>
+								<p:column headerText="Grupo / Função" 
+														sortBy="#{mpProjetoPessoaER.mpPessoaFuncao.grupoFuncao}">
+									<h:outputText value="#{mpProjetoPessoaER.mpPessoaFuncao.grupoFuncao}" />
+								</p:column>
+								<p:column headerText="Observação" sortBy="#{mpProjetoPessoaER.observacao}">
+									<h:outputText value="#{mpProjetoPessoaER.observacao}" />
+								</p:column>
+
+								<p:column style="text-align:center">
+									<p:commandButton title="Alterar" icon="fa fa-edit Fs14 blue"
+										oncomplete="PF('novoProjetoPessoaERDialog').show()"
+										action="#{mpCadastroProjetoBean.alterarMpProjetoPessoaER}"
+										disabled="#{mpCadastroProjetoBean.indEditavel}"
+										process="@this" update="frmPPesER:novoProjetoPessoaERDialogId">
+										<f:setPropertyActionListener value="#{mpProjetoPessoaER}"
+											target="#{mpCadastroProjetoBean.mpProjetoPessoaER}" />
+									</p:commandButton>
+
+									<p:commandButton title="Excluir" icon="fa fa-trash Fs14 blue"
+										oncomplete="PF('confirmacaoExclusaoProjetoPessoaERDialog').show()"
+										disabled="#{mpCadastroProjetoBean.indEditavel}"
+										process="@this" update=":frm:confirmacaoExclusaoProjetoPessoaERDialog">
+										<f:setPropertyActionListener value="#{mpProjetoPessoaER}"
+											target="#{mpCadastroProjetoBean.mpProjetoPessoaER}" />
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+						</p:tab>
+
+						<p:tab title="Relatórios" closable="false">
+
+							<p:dataTable id="relatoriosTable" rowIndexVar="rowIndex"
+								value="#{mpCadastroProjetoBean.mpRelatorioERList}"
+								emptyMessage="O Projeto ainda não possui Relatórios"
+								var="mpRelatorioER" style="margin-top:10px" reflow="true">
+
+								<p:column headerText="Número" style="text-align:center;">
+									<h:outputText value="#{rowIndex + 1}"
+												styleClass="Container80 Fnone MarAuto Fs18" />
+								</p:column>
+								<p:column headerText="Grupo" sortBy="#{mpRelatorioER.grupo}" style="text-align:center;">
+									<h:outputText value="#{mpRelatorioER.grupo}" />
+								</p:column>
+								<p:column headerText="Relatório" sortBy="#{mpRelatorioER.relatorio}">
+									<h:outputText value="#{mpRelatorioER.relatorio}" />
+								</p:column>
+								<p:column headerText="Acrobat PDF" sortBy="#{mpRelatorioER.indPdf}" style="text-align:center;">
+									<h:outputText value=" x " rendered="#{!mpRelatorioER.indPdf}" />
+									<p:commandButton rendered="#{mpRelatorioER.indPdf}"
+											icon="fa fa-fw fa-file-pdf-o" title="Gera PDF" />									
+								</p:column>
+								<p:column headerText="MS Word" sortBy="#{mpRelatorioER.indDoc}" style="text-align:center;">
+									<h:outputText value=" x " rendered="#{!mpRelatorioER.indDoc}" />
+									<p:commandButton rendered="#{mpRelatorioER.indDoc}"
+											icon="fa fa-fw fa-file-word-o" title="Gera MS Doc" />									
+								</p:column>
+								<p:column headerText="MS Excel" sortBy="#{mpRelatorioER.indXls}" style="text-align:center;">
+									<h:outputText value=" x " rendered="#{!mpRelatorioER.indXls}" />
+									<p:commandButton rendered="#{mpRelatorioER.indXls}"
+											icon="fa fa-fw fa-file-excel-o" title="Gera MS Excel" />									
+								</p:column>
+							</p:dataTable>
+						</p:tab>
+
+						<p:tab title="Processos BPM" closable="false">
+
+							<p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank"
+								style="border:0px !important; background:none;">
+
+							</p:panelGrid>
+							
 						</p:tab>
 
 					</p:tabView>
@@ -972,6 +1064,18 @@
 							process="@this" update=":frm:tabViewC:requisitoNaoFuncionalsTable" />
 					</p:confirmDialog>
 
+					<p:confirmDialog header="Exclusão Pessoa" message=
+			"Tem certeza que deseja excluir a Pessoa = ( #{mpCadastroProjetoBean.mpProjetoPessoaER.mpPessoaER.nome} )?"
+						widgetVar="confirmacaoExclusaoProjetoPessoaERDialog"
+						id="confirmacaoExclusaoProjetoPessoaERDialog">
+						<p:button value="Não"
+							onclick="PF('confirmacaoExclusaoProjetoPessoaERDialog').hide(); return false;" />
+						<p:commandButton value="Sim"
+							oncomplete="PF('confirmacaoExclusaoProjetoPessoaERDialog').hide();"
+							action="#{mpCadastroProjetoBean.removerMpProjetoPessoaERX}"
+							process="@this" update=":frm:tabViewC:projetoPessoaERsTable" />
+					</p:confirmDialog>
+
 				</p:panel>
 			</h:form>
 		</div>
@@ -1035,7 +1139,7 @@
 		<div class="ContainerIndent">
 		  <h:form id="frmMod">
 			<p:dialog widgetVar="novoModuloDialog" id="novoModuloDialogId" modal="true"
-				header="#{mpCadastroProjetoBean.txtModoModuloDialog} Macro Requisito" 
+				header="#{mpCadastroProjetoBean.txtModoModuloDialog} Módulo" 
 			 	showEffect="fade" hideEffect="fade" resizable="false" responsive="true" closable="false">
 
 				<h:panelGroup id="novoModuloPanel">
@@ -1178,7 +1282,7 @@
 								disabled="#{mpCadastroProjetoBean.indEditavel}"
 								value="#{mpCadastroProjetoBean.mpRequisitoFuncional.mpModulo}">
 								<f:selectItem itemLabel="Selecione o Modulo" />
-								<f:selectItems	value="#{mpCadastroProjetoBean.mpModuloList}"
+								<f:selectItems value="#{mpCadastroProjetoBean.mpModuloList}"
 									var="mpModulo" itemValue="#{mpModulo}"
 									itemLabel="#{mpModulo.descricao}" />
 								<p:ajax	listener="#{mpCadastroProjetoBean.carregarMpFuncionalidadesRF}"
@@ -1241,7 +1345,7 @@
 								disabled="#{mpCadastroProjetoBean.indEditavel}"
 								value="#{mpCadastroProjetoBean.mpRequisitoFuncional.mpComplexibilidade}">
 								<f:selectItem itemLabel="Selecione a Complexibilidade" />
-								<f:selectItems	value="#{mpCadastroProjetoBean.mpComplexibilidadeList}"
+								<f:selectItems value="#{mpCadastroProjetoBean.mpComplexibilidadeList}"
 									var="mpComplexibilidade" itemValue="#{mpComplexibilidade}"
 									itemLabel="#{mpComplexibilidade.descricao}" />
 							</p:selectOneMenu>
@@ -1512,6 +1616,73 @@
 								update=":frm:tabViewC:requisitoNaoFuncionalsTable"
 								action="#{mpCadastroProjetoBean.fecharMpRequisitoNaoFuncional}"
 								oncomplete="if (!args.validationFailed) PF('novoRequisitoNaoFuncionalDialog').hide()">
+							</p:commandButton>
+						</h:panelGroup>
+						
+					</p:panelGrid>
+				</h:panelGroup>
+			</p:dialog>
+		  </h:form>
+		</div>
+
+		<div class="ContainerIndent">
+		  <h:form id="frmPPesER">
+			<p:dialog widgetVar="novoProjetoPessoaERDialog" id="novoProjetoPessoaERDialogId" modal="true"
+				header="#{mpCadastroProjetoBean.txtModoProjetoPessoaERDialog} Pessoa" 
+			 	showEffect="fade" hideEffect="fade" resizable="false" responsive="true"  closable="false">
+
+				<h:panelGroup id="novoProjetoPessoaERPanel">
+				
+					<p:messages autoUpdate="false" />
+				
+					<p:panelGrid columns="1">
+
+						<h:panelGroup>						
+							<p:selectOneMenu id="nomePPesER" effect="fold"
+								required="#{mpCadastroProjetoBean.indEditavel}"
+								validatorMessage="Informar Pessoa"
+								disabled="#{mpCadastroProjetoBean.indEditavel}"
+								value="#{mpCadastroProjetoBean.mpProjetoPessoaER.mpPessoaER}">
+								<f:selectItem itemLabel="Selecione a Pessoa" />
+								<f:selectItems value="#{mpCadastroProjetoBean.mpPessoaERList}"
+									var="mpPessoaER" itemValue="#{mpPessoaER}"
+									itemLabel="#{mpPessoaER.nome}" />
+							</p:selectOneMenu>
+							<p:tooltip for="nomePPesER" value="Nome (Ex.: Marcus Rodrigues )" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:outputLabel value="Grupo/Função: " />
+							<p:selectOneMenu id="funcaoPPesER" effect="fold"
+								required="#{mpCadastroProjetoBean.indEditavel}"
+								validatorMessage="Informar Função"
+								disabled="#{mpCadastroProjetoBean.indEditavel}"
+								value="#{mpCadastroProjetoBean.mpProjetoPessoaER.mpPessoaFuncao}">
+								<f:selectItem itemLabel="Selecione o Grupo/Função" />
+								<f:selectItems	value="#{mpCadastroProjetoBean.mpPessoaFuncaoList}"
+									var="mpPessoaFuncao" itemValue="#{mpPessoaFuncao}"
+									itemLabel="#{mpPessoaFuncao.grupoFuncao}" />
+							</p:selectOneMenu>
+							<p:tooltip for="funcaoPPesER" value="Grupo/Função (Ex.: Equipe/Gerente Projetos )" />
+						</h:panelGroup>						
+						<h:panelGroup id="pgObservacaoPPesER">
+							<p:outputLabel value="Observação: " />
+							<p:inputTextarea id="observacaoPPesER" placeholder="Observação" rows="3"
+						 				value="#{mpCadastroProjetoBean.mpProjetoPessoaER.observacao}" />
+							<p:tooltip for="observacaoPPesER" value="Observação" />
+						</h:panelGroup>
+
+						<h:panelGroup>
+							<p:commandButton value="Salvar" process="novoProjetoPessoaERDialogId"
+								update=":frm:tabViewC:projetoPessoaERsTable novoProjetoPessoaERPanel"
+								action="#{mpCadastroProjetoBean.salvarMpProjetoPessoaER}"
+								oncomplete="if (!args.validationFailed) PF('novoProjetoPessoaERDialog').hide()">
+								<p:collector value="#{mpCadastroProjetoBean.mpProjetoPessoaER}"
+										addTo="#{mpCadastroProjetoBean.mpProjeto.mpProjetoPessoaERList}" />
+							</p:commandButton>
+							<p:commandButton value="Fechar" process="@this"
+								update=":frm:tabViewC:projetoPessoaERsTable"
+								action="#{mpCadastroProjetoBean.fecharMpProjetoPessoaER}"
+								oncomplete="if (!args.validationFailed) PF('novoProjetoPessoaERDialog').hide()">
 							</p:commandButton>
 						</h:panelGroup>
 						

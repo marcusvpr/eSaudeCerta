@@ -9,7 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.mpxds.mpbasic.model.engreq.MpItemObjeto;
+import com.mpxds.mpbasic.model.MpItemObjeto;
 import com.mpxds.mpbasic.model.MpObjeto;
 import com.mpxds.mpbasic.model.enums.MpStatusObjeto;
 import com.mpxds.mpbasic.model.enums.MpGrupoMenu;
@@ -160,7 +160,7 @@ public class MpCadastroObjetoBean implements Serializable {
 		this.mpItemObjeto.setMpObjeto(this.mpObjeto);
 		this.mpItemObjeto.setTenantId(mpSeguranca.capturaTenantId());
 
-		this.mpObjeto.getMpItens().add(this.mpItemObjeto);			
+		this.mpObjeto.getMpItemObjetos().add(this.mpItemObjeto);			
 		//
 		this.indEditavelIte = true;
 	}
@@ -168,7 +168,7 @@ public class MpCadastroObjetoBean implements Serializable {
 	public void removerMpItemObjetoX() {
 		//
 		try {
-			this.mpObjeto.getMpItens().remove(this.mpItemObjeto);
+			this.mpObjeto.getMpItemObjetos().remove(this.mpItemObjeto);
 			
 			this.mpItemObjetoExcluidoList.add(this.mpItemObjeto);
 			
@@ -189,7 +189,7 @@ public class MpCadastroObjetoBean implements Serializable {
 	public void fecharMpItemObjeto() {
 		//
 		if (this.txtModoItemObjetoDialog.equals("Novo"))
-			this.mpObjeto.getMpItens().remove(this.mpItemObjeto);
+			this.mpObjeto.getMpItemObjetos().remove(this.mpItemObjeto);
 	}			
 	
 	// -------- Trata Navegação ...
@@ -357,7 +357,7 @@ public class MpCadastroObjetoBean implements Serializable {
 		this.mpObjeto.setNome("");		
 		this.mpObjeto.setDescricao("");		
 
-		this.mpObjeto.setMpItens(new ArrayList<MpItemObjeto>());
+		this.mpObjeto.setMpItemObjetos(new ArrayList<MpItemObjeto>());
 		//
 		this.mpItemObjeto = new MpItemObjeto();
 		this.mpItemObjeto.setNome("");

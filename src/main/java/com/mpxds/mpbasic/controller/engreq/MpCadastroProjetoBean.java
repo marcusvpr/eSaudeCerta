@@ -34,12 +34,16 @@ import com.mpxds.mpbasic.model.engreq.MpProjeto;
 import com.mpxds.mpbasic.model.engreq.MpRegraNegocio;
 import com.mpxds.mpbasic.model.engreq.MpRequisitoFuncional;
 import com.mpxds.mpbasic.model.engreq.MpRequisitoNaoFuncional;
+import com.mpxds.mpbasic.model.engreq.MpProjetoPessoaER;
+import com.mpxds.mpbasic.model.engreq.MpPessoaER;
 import com.mpxds.mpbasic.model.engreq.MpSequencia;
 import com.mpxds.mpbasic.model.enums.engreq.MpCategoriaRNF;
 import com.mpxds.mpbasic.model.enums.engreq.MpComplexibilidade;
 import com.mpxds.mpbasic.model.enums.engreq.MpPrioridade;
 import com.mpxds.mpbasic.model.enums.engreq.MpProjetoFaseEtapa;
 import com.mpxds.mpbasic.model.enums.engreq.MpStatusRequisito;
+import com.mpxds.mpbasic.model.enums.engreq.MpPessoaFuncao;
+import com.mpxds.mpbasic.model.enums.engreq.MpRelatorioER;
 import com.mpxds.mpbasic.repository.engreq.MpFuncionalidades;
 import com.mpxds.mpbasic.repository.engreq.MpMacroRequisitos;
 import com.mpxds.mpbasic.repository.engreq.MpModulos;
@@ -47,6 +51,8 @@ import com.mpxds.mpbasic.repository.engreq.MpProjetos;
 import com.mpxds.mpbasic.repository.engreq.MpRegraNegocios;
 import com.mpxds.mpbasic.repository.engreq.MpRequisitoFuncionals;
 import com.mpxds.mpbasic.repository.engreq.MpRequisitoNaoFuncionals;
+import com.mpxds.mpbasic.repository.engreq.MpProjetoPessoaERs;
+import com.mpxds.mpbasic.repository.engreq.MpPessoaERs;
 import com.mpxds.mpbasic.repository.engreq.MpSequencias;
 import com.mpxds.mpbasic.security.MpSeguranca;
 import com.mpxds.mpbasic.service.engreq.MpProjetoService;
@@ -77,6 +83,12 @@ public class MpCadastroProjetoBean implements Serializable {
 	
 	@Inject
 	private MpRequisitoNaoFuncionals mpRequisitoNaoFuncionals;
+	
+	@Inject
+	private MpProjetoPessoaERs mpProjetoPessoaERs;
+	
+	@Inject
+	private MpPessoaERs mpPessoaERs;
 	
 	@Inject
 	private MpRegraNegocios mpRegraNegocios;
@@ -110,6 +122,7 @@ public class MpCadastroProjetoBean implements Serializable {
 	private Boolean indEditavelReqF = false;
 	private Boolean indEditavelReqNF = false;
 	private Boolean indEditavelRegN = false;
+	private Boolean indEditavelPPesER = false;
 	
 	private String txtModoTela = "";
 	private String txtModoMacroRequisitoDialog = "";
@@ -118,6 +131,7 @@ public class MpCadastroProjetoBean implements Serializable {
 	private String txtModoRequisitoFuncionalDialog = "";
 	private String txtModoRequisitoNaoFuncionalDialog = "";
 	private String txtModoRegraNegocioDialog = "";
+	private String txtModoProjetoPessoaERDialog = "";
 
 	private MpPrioridade mpPrioridade;
 	private List<MpPrioridade> mpPrioridadeList = new ArrayList<>();
@@ -129,6 +143,12 @@ public class MpCadastroProjetoBean implements Serializable {
 	private List<MpCategoriaRNF> mpCategoriaRNFList = new ArrayList<>();
 	private MpProjetoFaseEtapa mpProjetoFaseEtapa;
 	private List<MpProjetoFaseEtapa> mpProjetoFaseEtapaList = new ArrayList<>();
+	private MpPessoaER mpPessoaER = new MpPessoaER();
+	private List<MpPessoaER> mpPessoaERList = new ArrayList<>();
+	private MpPessoaFuncao mpPessoaFuncao;
+	private List<MpPessoaFuncao> mpPessoaFuncaoList = new ArrayList<>();
+	private MpRelatorioER mpRelatorioER;
+	private List<MpRelatorioER> mpRelatorioERList = new ArrayList<>();
 	
 	private MpMacroRequisito mpMacroRequisito = new MpMacroRequisito();
 	private List<MpMacroRequisito> mpMacroRequisitoExcluidoList = new ArrayList<>();	
@@ -153,6 +173,9 @@ public class MpCadastroProjetoBean implements Serializable {
 	
 	private MpRequisitoNaoFuncional mpRequisitoNaoFuncional = new MpRequisitoNaoFuncional();
 	private List<MpRequisitoNaoFuncional> mpRequisitoNaoFuncionalExcluidoList = new ArrayList<>();	
+	
+	private MpProjetoPessoaER mpProjetoPessoaER = new MpProjetoPessoaER();
+	private List<MpProjetoPessoaER> mpProjetoPessoaERExcluidoList = new ArrayList<>();	
 
 	private List<MpMatrizRfRnDTO> mpMatrizRfRnDTOList = new ArrayList<>();	
 	
@@ -197,6 +220,9 @@ public class MpCadastroProjetoBean implements Serializable {
 		this.mpComplexibilidadeList = Arrays.asList(MpComplexibilidade.values());
 		this.mpStatusRequisitoList = Arrays.asList(MpStatusRequisito.values());
 		this.mpCategoriaRNFList = Arrays.asList(MpCategoriaRNF.values());
+		this.mpPessoaERList = this.mpPessoaERs.porPessoaERList();
+		this.mpPessoaFuncaoList = Arrays.asList(MpPessoaFuncao.values());
+		this.mpRelatorioERList = Arrays.asList(MpRelatorioER.values());
 		//
 		if (null == this.mpProjeto) {
 			this.limpar();
@@ -536,6 +562,15 @@ public class MpCadastroProjetoBean implements Serializable {
 				if (null == mpRequisitoNaoFuncionalX.getId()) continue;
 
 				this.mpRequisitoNaoFuncionals.remover(mpRequisitoNaoFuncionalX);
+			}
+		}
+		//
+		if (this.mpProjetoPessoaERExcluidoList.size() > 0) {
+			for (MpProjetoPessoaER mpProjetoPessoaERX : this.mpProjetoPessoaERExcluidoList) {
+				//
+				if (null == mpProjetoPessoaERX.getId()) continue;
+
+				this.mpProjetoPessoaERs.remover(mpProjetoPessoaERX);
 			}
 		}
 		//
@@ -966,6 +1001,60 @@ public class MpCadastroProjetoBean implements Serializable {
 			this.mpProjeto.getMpRequisitoNaoFuncionalList().remove(this.mpRequisitoNaoFuncional);
 	}			
 	
+	// --- Trata Projeto Pessoa ...
+
+	public void alterarMpProjetoPessoaER() {
+		//
+		this.txtModoProjetoPessoaERDialog = "Edição";
+
+		this.indEditavelPPesER = true;
+	}
+
+	public void adicionarMpProjetoPessoaERX() {
+		//
+		this.txtModoProjetoPessoaERDialog = "Nova";
+
+		this.mpProjetoPessoaER = new MpProjetoPessoaER();
+
+		this.mpProjetoPessoaER.setMpProjeto(this.mpProjeto);
+		this.mpProjetoPessoaER.setMpPessoaER(this.mpPessoaER);
+		this.mpProjetoPessoaER.setMpPessoaFuncao(this.mpPessoaFuncao);
+		this.mpProjetoPessoaER.setTenantId(mpSeguranca.capturaTenantId());
+
+		this.mpProjeto.getMpProjetoPessoaERList().add(this.mpProjetoPessoaER); ;
+		//
+		this.indEditavelPPesER = true;
+	}
+
+	public void removerMpProjetoPessoaERX() {
+		//
+		try {
+			this.mpProjeto.getMpProjetoPessoaERList().remove(this.mpProjetoPessoaER);
+
+			this.mpProjetoPessoaERExcluidoList.add(this.mpProjetoPessoaER);
+
+			MpFacesUtil.addInfoMessage("Pessoa ER... " + this.mpProjetoPessoaER.getMpPessoaER().getNome()
+					+ " excluído com sucesso.");
+		} catch (MpNegocioException ne) {
+			MpFacesUtil.addErrorMessage(ne.getMessage());
+		}
+	}
+
+	public void salvarMpProjetoPessoaER() {
+		//
+		this.indEditavelPPesER = false;
+
+		this.mpProjetoPessoaER = new MpProjetoPessoaER();
+	}
+
+	public void fecharMpProjetoPessoaER() {
+		//
+		if (this.txtModoProjetoPessoaERDialog.equals("Novo"))
+			this.mpProjeto.getMpProjetoPessoaERList().remove(this.mpProjetoPessoaER);
+	}
+	
+	// ---
+	
 	public void validateRnfAssociacao(FacesContext context, UIComponent comp, Object value) {
 		//
 		String associacaos = (String) value;
@@ -991,8 +1080,7 @@ public class MpCadastroProjetoBean implements Serializable {
 		if (!msgErro.isEmpty()) {
 			((UIInput) comp).setValid(false);
 			//
-			FacesMessage message = new FacesMessage(
-										"Requisito(s) Funcional(s) inválidos ! = " + msgErro);
+			FacesMessage message = new FacesMessage("Requisito(s) Funcional(s) inválidos ! = " + msgErro);
 			//
 			context.addMessage(comp.getClientId(context), message);
 		}
@@ -1064,8 +1152,7 @@ public class MpCadastroProjetoBean implements Serializable {
 		try {
 			this.mpProjetos.remover(mpProjeto);
 			
-			MpFacesUtil.addInfoMessage("Projeto... " + this.mpProjeto.getNome() + 
-																	" excluído(a) com sucesso.");
+			MpFacesUtil.addInfoMessage("Projeto... " + this.mpProjeto.getNome() + " excluído(a) com sucesso.");
 			//
 		} catch (MpNegocioException ne) {
 			MpFacesUtil.addErrorMessage(ne.getMessage());
@@ -1086,8 +1173,7 @@ public class MpCadastroProjetoBean implements Serializable {
 		this.mpProjetoAnt = this.mpProjeto;
 		//
 		this.indEditavel = true;
-		this.indEditavelNav = this.mpSeguranca.getMpUsuarioLogado().getMpUsuario().
-																	getIndBarraNavegacao();
+		this.indEditavelNav = this.mpSeguranca.getMpUsuarioLogado().getMpUsuario(). getIndBarraNavegacao();
 		this.indNaoEditavel = false;
 		//
 		this.txtModoTela = "";
@@ -1098,8 +1184,7 @@ public class MpCadastroProjetoBean implements Serializable {
 		this.mpProjeto = this.mpProjetoAnt;
 		
 		this.indEditavel = true;
-		this.indEditavelNav = this.mpSeguranca.getMpUsuarioLogado().getMpUsuario().
-																	getIndBarraNavegacao();
+		this.indEditavelNav = this.mpSeguranca.getMpUsuarioLogado().getMpUsuario().getIndBarraNavegacao();
 		this.indNaoEditavel = false;
 		//
 		this.txtModoTela = "";
@@ -1231,6 +1316,13 @@ public class MpCadastroProjetoBean implements Serializable {
 		this.mpRequisitoNaoFuncional = new MpRequisitoNaoFuncional();
 		this.mpRequisitoNaoFuncional.setTenantId(mpSeguranca.capturaTenantId());
 		this.mpRequisitoNaoFuncional.setDescricao("");
+		//
+		this.mpProjeto.setMpProjetoPessoaERList(new ArrayList<MpProjetoPessoaER>());
+		this.mpProjetoPessoaER = new MpProjetoPessoaER();
+		this.mpPessoaER = new MpPessoaER();
+		this.mpProjetoPessoaER.setMpPessoaER(this.mpPessoaER);
+		this.mpProjetoPessoaER.setTenantId(mpSeguranca.capturaTenantId());
+		this.mpProjetoPessoaER.setObservacao("");
 	}
 	
 	// ---
@@ -1472,13 +1564,26 @@ public class MpCadastroProjetoBean implements Serializable {
 
 	public MpStatusRequisito getMpStatusRequisito() { return mpStatusRequisito; }
 	public void setMpStatusRequisito(MpStatusRequisito mpStatusRequisito) {
-													this.mpStatusRequisito = mpStatusRequisito; }
+																this.mpStatusRequisito = mpStatusRequisito; }
 	public List<MpStatusRequisito> getMpStatusRequisitoList() { return mpStatusRequisitoList; }
 
 	public MpCategoriaRNF getMpCategoriaRNF() { return mpCategoriaRNF; }
-	public void setMpCategoriaRNF(MpCategoriaRNF mpCategoriaRNF) { 
-															this.mpCategoriaRNF = mpCategoriaRNF; }
+	public void setMpCategoriaRNF(MpCategoriaRNF mpCategoriaRNF) { 	this.mpCategoriaRNF = mpCategoriaRNF; }
 	public List<MpCategoriaRNF> getMpCategoriaRNFList() { return mpCategoriaRNFList; }
+
+	public MpPessoaER getMpPessoaER() { return mpPessoaER; }
+	public void setMpPessoaER(MpPessoaER mpPessoaER) { 	this.mpPessoaER = mpPessoaER; }
+	public List<MpPessoaER> getMpPessoaERList() { return mpPessoaERList; }
+
+	public MpPessoaFuncao getMpPessoaFuncao() { return mpPessoaFuncao; }
+	public void setMpPessoaFuncao(MpPessoaFuncao mpPessoaFuncao) { 	this.mpPessoaFuncao = mpPessoaFuncao; }
+	public List<MpPessoaFuncao> getMpPessoaFuncaoList() { return mpPessoaFuncaoList; }
+
+	public MpRelatorioER getMpRelatorioER() { return mpRelatorioER; }
+	public void setMpRelatorioER(MpRelatorioER mpRelatorioER) { this.mpRelatorioER = mpRelatorioER; }
+	public List<MpRelatorioER> getMpRelatorioERList() { return mpRelatorioERList; }
+	
+	// ---
 	
 	public MpStatusDTO getMpStatusDTO() { return mpStatusDTO; }
 	public void setMpStatusDTO(MpStatusDTO mpStatusDTO) { this.mpStatusDTO = mpStatusDTO; }
@@ -1492,10 +1597,8 @@ public class MpCadastroProjetoBean implements Serializable {
 	public MpProjetoFaseEtapaDTO getMpProjetoFaseEtapaDTO() { return mpProjetoFaseEtapaDTO; }
 	public void setMpProjetoFaseEtapaDTO(MpProjetoFaseEtapaDTO mpProjetoFaseEtapaDTO) {
 											this.mpProjetoFaseEtapaDTO = mpProjetoFaseEtapaDTO; }
-	public List<MpProjetoFaseEtapaDTO> getMpProjetoFaseEtapaDTOList() { 
-															return mpProjetoFaseEtapaDTOList; }
-	public List<MpProjetoFaseEtapaDTO> getMpProjetoFaseEtapaDetDTOList() { 
-															return mpProjetoFaseEtapaDetDTOList; }
+	public List<MpProjetoFaseEtapaDTO> getMpProjetoFaseEtapaDTOList() { return mpProjetoFaseEtapaDTOList; }
+	public List<MpProjetoFaseEtapaDTO> getMpProjetoFaseEtapaDetDTOList() { return mpProjetoFaseEtapaDetDTOList; }
 	
 	public List<MpMatrizRfRnDTO> getMpMatrizRfRnDTOList() { return mpMatrizRfRnDTOList; }
 	
@@ -1504,33 +1607,33 @@ public class MpCadastroProjetoBean implements Serializable {
 	public boolean isEditando() { return this.mpProjeto.getId() != null; }
 	
 	public MpMacroRequisito getMpMacroRequisito() { return mpMacroRequisito; }
-	public void setMpMacroRequisito(MpMacroRequisito mpMacroRequisito) { 
-														this.mpMacroRequisito = mpMacroRequisito; }
+	public void setMpMacroRequisito(MpMacroRequisito mpMacroRequisito) { this.mpMacroRequisito = mpMacroRequisito; }
 
 	public MpModulo getMpModulo() { return mpModulo; }
 	public void setMpModulo(MpModulo mpModulo) { this.mpModulo = mpModulo; }
 	public List<MpModulo> getMpModuloList() { return mpModuloList; }
 
 	public MpFuncionalidade getMpFuncionalidade() { return mpFuncionalidade; }
-	public void setMpFuncionalidade(MpFuncionalidade mpFuncionalidade) { 
-														this.mpFuncionalidade = mpFuncionalidade; }
+	public void setMpFuncionalidade(MpFuncionalidade mpFuncionalidade) { this.mpFuncionalidade = mpFuncionalidade; }
 	public List<MpFuncionalidade> getMpFuncionalidadeList() { return mpFuncionalidadeList; }
 	
 	public MpRequisitoFuncional getMpRequisitoFuncional() { return mpRequisitoFuncional; }
 	public void setMpRequisitoFuncional(MpRequisitoFuncional mpRequisitoFuncional) { 
-												this.mpRequisitoFuncional = mpRequisitoFuncional; }
+																this.mpRequisitoFuncional = mpRequisitoFuncional; }
 	
 	public MpRegraNegocio getMpRegraNegocio() { return mpRegraNegocio; }
-	public void setMpRegraNegocio(MpRegraNegocio mpRegraNegocio) { 
-															this.mpRegraNegocio = mpRegraNegocio; }
+	public void setMpRegraNegocio(MpRegraNegocio mpRegraNegocio) { this.mpRegraNegocio = mpRegraNegocio; }
 	
 	public MpRequisitoNaoFuncional getMpRequisitoNaoFuncional() { return mpRequisitoNaoFuncional; }
 	public void setMpRequisitoNaoFuncional(MpRequisitoNaoFuncional mpRequisitoNaoFuncional) { 
-											this.mpRequisitoNaoFuncional = mpRequisitoNaoFuncional; }
+														this.mpRequisitoNaoFuncional = mpRequisitoNaoFuncional; }
+	
+	public MpProjetoPessoaER getMpProjetoPessoaER() { return mpProjetoPessoaER; }
+	public void setMpProjetoPessoaER(MpProjetoPessoaER mpProjetoPessoaER) { 
+																	this.mpProjetoPessoaER = mpProjetoPessoaER; }
 	
 	public boolean getIndEditavelMReq() { return indEditavelMReq; }
-	public void setIndEditavelMReq(Boolean indEditavelMReq) { 
-															this.indEditavelMReq = indEditavelMReq; }
+	public void setIndEditavelMReq(Boolean indEditavelMReq) { this.indEditavelMReq = indEditavelMReq; }
 	
 	public boolean getIndEditavelMod() { return indEditavelMod; }
 	public void setIndEditavelMod(Boolean indEditavelMod) { this.indEditavelMod = indEditavelMod; }
@@ -1539,41 +1642,44 @@ public class MpCadastroProjetoBean implements Serializable {
 	public void setIndEditavelFun(Boolean indEditavelFun) { this.indEditavelFun = indEditavelFun; }
 	
 	public boolean getIndEditavelReqF() { return indEditavelReqF; }
-	public void setIndEditavelReqF(Boolean indEditavelReqF) { 
-														this.indEditavelReqF = indEditavelReqF; }
+	public void setIndEditavelReqF(Boolean indEditavelReqF) { this.indEditavelReqF = indEditavelReqF; }
 	
 	public boolean getIndEditavelRegN() { return indEditavelRegN; }
-	public void setIndEditavelRegN(Boolean indEditavelRegN) { 
-														this.indEditavelRegN = indEditavelRegN; }
+	public void setIndEditavelRegN(Boolean indEditavelRegN) { this.indEditavelRegN = indEditavelRegN; }
 	
 	public boolean getIndEditavelReqNF() { return indEditavelReqNF; }
-	public void setIndEditavelReqNF(Boolean indEditavelReqNF) { 
-														this.indEditavelReqNF = indEditavelReqNF; }
+	public void setIndEditavelReqNF(Boolean indEditavelReqNF) { this.indEditavelReqNF = indEditavelReqNF; }
+	
+	public boolean getIndEditavelPPesER() { return indEditavelPPesER; }
+	public void setIndEditavelPPesER(Boolean indEditavelPPesER) { this.indEditavelPPesER = indEditavelPPesER; }
 
 	public String getTxtModoMacroRequisitoDialog() { return txtModoMacroRequisitoDialog; }
 	public void setTxtModoMacroRequisitoDialog(String txtModoMacroRequisitoDialog) {
-									this.txtModoMacroRequisitoDialog = txtModoMacroRequisitoDialog; }
+												this.txtModoMacroRequisitoDialog = txtModoMacroRequisitoDialog; }
 
 	public String getTxtModoModuloDialog() { return txtModoModuloDialog; }
 	public void setTxtModoModuloDialog(String txtModoModuloDialog) { 
-													this.txtModoModuloDialog = txtModoModuloDialog; }
+																this.txtModoModuloDialog = txtModoModuloDialog; }
 
 	public String getTxtModoFuncionalidadeDialog() { return txtModoFuncionalidadeDialog; }
 	public void setTxtModoFuncionalidadeDialog(String txtModoFuncionalidadeDialog) { 
-									this.txtModoFuncionalidadeDialog = txtModoFuncionalidadeDialog; }
+												this.txtModoFuncionalidadeDialog = txtModoFuncionalidadeDialog; }
 
 	public String getTxtModoRequisitoFuncionalDialog() { return txtModoRequisitoFuncionalDialog; }
 	public void setTxtModoRequisitoFuncionalDialog(String txtModoRequisitoFuncionalDialog) {
-							this.txtModoRequisitoFuncionalDialog = txtModoRequisitoFuncionalDialog; }
+										this.txtModoRequisitoFuncionalDialog = txtModoRequisitoFuncionalDialog; }
 
 	public String getTxtModoRegraNegocioDialog() { return txtModoRegraNegocioDialog; }
 	public void setTxtModoRegraNegocioDialog(String txtModoRegraNegocioDialog) {
-										this.txtModoRegraNegocioDialog = txtModoRegraNegocioDialog; }
+													this.txtModoRegraNegocioDialog = txtModoRegraNegocioDialog; }
 
-	public String getTxtModoRequisitoNaoFuncionalDialog() { 
-														return txtModoRequisitoNaoFuncionalDialog; }
+	public String getTxtModoRequisitoNaoFuncionalDialog() { return txtModoRequisitoNaoFuncionalDialog; }
 	public void setTxtModoRequisitoNaoFuncionalDialog(String txtModoRequisitoNaoFuncionalDialog) {
-					this.txtModoRequisitoNaoFuncionalDialog = txtModoRequisitoNaoFuncionalDialog; }
+									this.txtModoRequisitoNaoFuncionalDialog = txtModoRequisitoNaoFuncionalDialog; }
+
+	public String getTxtModoProjetoPessoaERDialog() { return txtModoProjetoPessoaERDialog; }
+	public void setTxtModoProjetoPessoaERDialog(String txtModoProjetoPessoaERDialog) {
+												this.txtModoProjetoPessoaERDialog = txtModoProjetoPessoaERDialog; }
 	
 	// ---
 	
@@ -1590,11 +1696,11 @@ public class MpCadastroProjetoBean implements Serializable {
     
 	public BigDecimal getEsforcoRequisitoFuncional() { return esforcoRequisitoFuncional; }
 	public void setEsforcoRequisitoFuncional(BigDecimal esforcoRequisitoFuncional) { 
-									this.esforcoRequisitoFuncional = esforcoRequisitoFuncional; }
+											this.esforcoRequisitoFuncional = esforcoRequisitoFuncional; }
     
 	public BigDecimal getEsforcoRequisitoNaoFuncional() { return esforcoRequisitoNaoFuncional; }
 	public void setEsforcoRequisitoNaoFuncional(BigDecimal esforcoRequisitoNaoFuncional) { 
-								this.esforcoRequisitoNaoFuncional = esforcoRequisitoNaoFuncional; }
+											this.esforcoRequisitoNaoFuncional = esforcoRequisitoNaoFuncional; }
     
 	public BigDecimal getEsforcoTotal() { return esforcoTotal; }
 	public void setEsforcoTotal(BigDecimal esforcoTotal) { this.esforcoTotal = esforcoTotal; }
@@ -1603,7 +1709,6 @@ public class MpCadastroProjetoBean implements Serializable {
 	public void setPrazoProjeto(BigDecimal prazoProjeto) { this.prazoProjeto = prazoProjeto; }
     
 	public BigDecimal getEsforcoTotalPre() { return esforcoTotalPre; }
-	public void setEsforcoTotalPre(BigDecimal esforcoTotalPre) { 
-														this.esforcoTotalPre = esforcoTotalPre; }
+	public void setEsforcoTotalPre(BigDecimal esforcoTotalPre) { this.esforcoTotalPre = esforcoTotalPre; }
 	
 }

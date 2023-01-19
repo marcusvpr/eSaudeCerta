@@ -19,8 +19,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.mpxds.mpbasic.model.enums.MpCalendarioRepetir;
 
 @Entity
-@Table(name="mp_calendario",
-uniqueConstraints = @UniqueConstraint(columnNames = "data_movimento"))
+@Table(name="mp_calendario", uniqueConstraints = @UniqueConstraint(columnNames = "data_Movimento"))
 public class MpCalendario extends MpBaseEntity {
 	private static final long serialVersionUID = 1L;
 

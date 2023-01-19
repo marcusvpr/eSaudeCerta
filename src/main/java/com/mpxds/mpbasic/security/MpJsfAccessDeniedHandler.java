@@ -90,7 +90,7 @@ public class MpJsfAccessDeniedHandler implements AccessDeniedHandler {
 	      // create a connection. The first command line parameter is assumed to
 	      // be the directory in which the .dbf files are held
 	      Connection conn = DriverManager.
-	    		  					getConnection("jdbc:hsqldb:file:~/db/mpProtesto/mpProtestoDB");
+	    		  					getConnection("jdbc:hsqldb:file:~/db/mpSaudeMedidaCerta/mpSaudeMedidaCertaDB");
 	      // create a Statement object to execute the query with
 	      Statement stmt = conn.createStatement();
 	      // execute a query

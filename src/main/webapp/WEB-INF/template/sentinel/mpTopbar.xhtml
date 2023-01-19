@@ -7,19 +7,16 @@
     
     <div id="layout-header" class="Unselectable fontRegular">
         <a href="dashboardRS" id="layout-logo">
-            <h:graphicImage name="mpxds_logo5_menor.png" styleClass="Fleft" library="images" 
-            																	style="height:25px;" />
             <span class="Fs19 FontTitilliumSemiBoldItalic Fleft">
             	<!-- span class="softblue">MPXDS</span>  -->
        			<p:spacer width="10" />
-            	<span class="hardblue" style="height:30px;">Protesto</span>
+            	<span class="hardblue" style="height:30px;">Saúde na Medida Certa</span>
        			<p:spacer width="20" />
             </span>
         </a>
         
         <div class="Container50 Responsive100">
        		<div class="DispInlBlock Fleft" style="margin-top: 10px;">
-       			<p:menubar model="#{mpLoginBean.modelMenu}" rendered="#{mpLoginBean.scIndMenuTop}" />
          	</div>
         </div>
    	
@@ -86,13 +83,13 @@
 						</a>
 					</li>
 					<h:panelGroup rendered="#{mpSeguranca.mpUsuarioLogado.mpUsuario == null ? false : true}">
-						<li class="Animated05"><a href="/mpProtesto/usuarioConfigRS"
+						<li class="Animated05"><a href="/apps/usuarioConfigRS"
 							class="white Unselectable"> <i class="icon-sliders"></i>Usuário
 								Preferências
 						</a></li>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{mpSeguranca.mpUsuarioLogado.mpUsuario == null ? true : false}">
-						<li class="Animated05"><a href="/mpProtesto/usuarioTenantConfigRS"
+						<li class="Animated05"><a href="/apps/usuarioTenantConfigRS"
 							class="white Unselectable"> <i class="icon-sliders"></i>Usuário
 								Ambiente Preferências
 						</a></li>
@@ -118,7 +115,7 @@
     		<li class="Fleft BordRadHalf TexAlCenter"><i class="icon-wrench-1"></i>
     			<ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
                    	<h:panelGroup rendered="#{mpLoginBean.indAdministrador}">
-    					<li class="Animated05"><a href="/mpProtesto/sistemaConfigRS" class="white Unselectable">
+    					<li class="Animated05"><a href="/apps/sistemaConfigRS" class="white Unselectable">
     						<i class="icon-sun"></i>Sistema Configuração</a>
     					</li>
     				</h:panelGroup>
@@ -126,11 +123,11 @@
     				 													class="white Unselectable">
     					<i class="icon-lifebuoy"></i>Help Desk</a>
     				</li>
-    				<li class="Animated05"><a href="./sentinel/videos/mpProtestoTour.xhtml" 
+    				<li class="Animated05"><a href="./sentinel/videos/appsTour.xhtml" 
     													target="_blank" class="white Unselectable">
     					<i class="icon-sun"></i>Video Apresentação</a>
     				</li>
-    				<li class="Animated05"><a href="/mpProtesto/sistemaHelpRS" 
+    				<li class="Animated05"><a href="/apps/sistemaHelpRS" 
     													target="_blank" class="white Unselectable">
     					<i class="icon-book"></i>Sistema Documentação</a>
     				</li>
@@ -138,7 +135,7 @@
     		</li>
     		<li class="Fleft BordRadHalf TexAlCenter"><i class="icon-power"></i>
     			<ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
-    				<li class="Animated05"><a href="/mpProtesto/logout" class="white Unselectable">
+    				<li class="Animated05"><a href="/apps/logout" class="white Unselectable">
     					<i class="icon-logout"></i>Sair</a></li>
     			</ul>
     		</li>

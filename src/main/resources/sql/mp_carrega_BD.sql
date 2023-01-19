@@ -1,0 +1,7 @@
+-- insert into mp_grupo (id, descricao, nome, tenant_id, version, mpstatus, ind_ativo, ind_exclusao, dthr_alt, dthr_inc, user_alt, User_inc) values (1, 'ADMINISTRADORES', 'ADMINISTRADORES', 1, 0, 'ATIVO', TRUE, FALSE, CURRENT_DATE, CURRENT_DATE, 'teste', 'teste');
+-- insert into mp_grupo (id, descricao, nome, tenant_id, version, mpstatus, ind_ativo, ind_exclusao, dthr_alt, dthr_inc, user_alt, User_inc) values (2, 'CARTORIOS', 'CARTORIOS', 1, 0, 'ATIVO', TRUE, FALSE, CURRENT_DATE, CURRENT_DATE, 'teste', 'teste');
+-- insert into mp_grupo (id, descricao, nome, tenant_id, version, mpstatus, ind_ativo, ind_exclusao, dthr_alt, dthr_inc, user_alt, User_inc) values (3, 'USUARIOS', 'USUARIOS', 1, 0, 'ATIVO', TRUE, FALSE, CURRENT_DATE, CURRENT_DATE, 'teste', 'teste');
+
+-- insert into mp_usuario (id, login, email, nome, senha, mpsexo, mpstatus, tenant_id, version, ind_ativo, ind_exclusao, dthr_alt, dthr_inc, user_alt, User_inc, ind_barra_navegacao, ind_captura_foto, Ind_label_campo, ind_menu_left, ind_menu_top, ind_rodape_sistema, ind_tenant) values 1, ('teste', 'teste@mpxds.com', 'Teste User', 'teste', 'MASCULINO', 'ATIVO', 1, 0, TRUE, FALSE, CURRENT_DATE, CURRENT_DATE, 'teste', 'teste', true, true, true, false, true, true, true);
+
+-- insert into mp_usuario_grupo values(1, 1)

@@ -45,8 +45,7 @@
 														value="#{mpCadastroProdutoBean.mpTipoProdutoList}"
 														itemLabel="#{mpTipoProduto.descricao}"
 														itemValue="#{mpTipoProduto}" />
-													<p:ajax
-														listener="#{mpCadastroProdutoBean.carregarMpCategorias}"
+													<p:ajax listener="#{mpCadastroProdutoBean.carregarMpCategorias}"
 														update="mpCategoria" />
 												</p:selectOneMenu>
 												<p:tooltip for="pgTipoProduto"

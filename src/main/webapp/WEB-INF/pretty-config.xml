@@ -1,7 +1,7 @@
 <pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
-                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd"> 
 
 	<url-mapping id="logout">
 		<pattern value="/logout" />
@@ -68,14 +68,6 @@
 	<url-mapping id="sistemaConfigsRS">
 		<pattern value="/sistemaConfigsRS" />
 		<view-id value="/sentinel/sistemaConfigs/mpPesquisaSistemaConfigs.xhtml" />
-	</url-mapping>
-	<url-mapping id="custasComposicaoRS">
-		<pattern value="/custasComposicaoRS" />
-		<view-id value="/sentinel/cartorios/custasComposicaos/mpCadastroCustasComposicao.xhtml" />
-	</url-mapping>
-	<url-mapping id="custasComposicaosRS">
-		<pattern value="/custasComposicaosRS" />
-		<view-id value="/sentinel/cartorios/custasComposicaos/mpPesquisaCustasComposicaos.xhtml" />
 	</url-mapping>
 	<url-mapping id="dolarRS">
 		<pattern value="/dolarRS" />
@@ -272,14 +264,6 @@
 		<pattern value="/comprasRS" />
 		<view-id value="/sentinel/compras/mpPesquisaCompras.xhtml" />
 	</url-mapping>
-	<url-mapping id="atoRS">
-		<pattern value="/atoRS" />
-		<view-id value="/sentinel/cartorios/atos/mpCadastroAto.xhtml" />
-	</url-mapping>
-	<url-mapping id="atosRS">
-		<pattern value="/atosRS" />
-		<view-id value="/sentinel/cartorios/atos/mpPesquisaAtos.xhtml" />
-	</url-mapping>
 	<url-mapping id="usuarioTenantRS">
 		<pattern value="/usuarioTenantRS" />
 		<view-id value="/sentinel/usuarios/mpCadastroUsuarioTenant.xhtml" />
@@ -291,14 +275,6 @@
 	<url-mapping id="usuarioTenantConfigRS">
 		<pattern value="/usuarioTenantConfigRS" />
 		<view-id value="/sentinel/usuarios/mpUsuarioTenantConfig.xhtml" />
-	</url-mapping>
-	<url-mapping id="calculaAtosRS">
-		<pattern value="/calculaAtosRS" />
-		<view-id value="/sentinel/cartorios/procedimentos/mpCalculaAtos.xhtml" />
-	</url-mapping>
-	<url-mapping id="cargaDadosRS">
-		<pattern value="/cargaDadosRS" />
-		<view-id value="/sentinel/cartorios/procedimentos/mpCargaDadosBD.xhtml" />
 	</url-mapping>
 
 	<url-mapping id="turnoRS">
@@ -315,29 +291,6 @@
 		<view-id value="/sentinel/sistemaInternos/mpEnviaSql.xhtml" />
 	</url-mapping>
 
-	<url-mapping id="recebeTitulosRS">
-		<pattern value="/receceTitulosRS" />
-		<view-id value="/sentinel/cartorios/importacaos/mpRecebeTitulos.xhtml" />
-	</url-mapping>
-	<url-mapping id="recebimentoRS">
-		<pattern value="/recebimentoRS" />
-		<view-id value="/sentinel/cartorios/importacaos/mpRecebimento.xhtml" />
-	</url-mapping>
-
-	<url-mapping id="feriadoRs">
-		<pattern value="/feriadoRS" />
-		<view-id value="/sentinel/cartorios/feriados/mpCadastroFeriado.xhtml" />
-	</url-mapping>
-	<url-mapping id="feriadosRS">
-		<pattern value="/feriadosRS" />
-		<view-id value="/sentinel/cartorios/feriados/mpPesquisaFeriados.xhtml" />
-	</url-mapping>
-
-	<url-mapping id="atualizaTitulosRS">
-		<pattern value="/atualizaTitulosRS" />
-		<view-id value="/sentinel/cartorios/atualizacaos/mpAtualizaTitulos.xhtml" />
-	</url-mapping>
-
 	<url-mapping id="notificacaoUsuarioRS">
 		<pattern value="/notificacaoUsuarioRS" />
 		<view-id value="/sentinel/notificacaos/mpCadastroNotificacaoUsuario.xhtml" />
@@ -347,62 +300,6 @@
 		<view-id value="/sentinel/notificacaos/mpPesquisaNotificacaoUsuarios.xhtml" />
 	</url-mapping>
 	
-	<url-mapping id="dataProcessoRS">
-		<pattern value="/dataProcessoRS" />
-		<view-id value="/sentinel/cartorios/dataProcessos/mpCadastroDataProcesso.xhtml" />
-	</url-mapping>
-	<url-mapping id="dataProcessosRS">
-		<pattern value="/dataProcessosRS" />
-		<view-id value="/sentinel/cartorios/dataProcessos/mpPesquisaDataProcessos.xhtml" />
-	</url-mapping>
-	<url-mapping id="bancoRS">
-		<pattern value="/bancoRS" />
-		<view-id value="/sentinel/cartorios/bancos/mpCadastroBanco.xhtml" />
-	</url-mapping>
-	<url-mapping id="bancosRS">
-		<pattern value="/bancosRS" />
-		<view-id value="/sentinel/cartorios/bancos/mpPesquisaBancos.xhtml" />
-	</url-mapping>
-
-	<url-mapping id="usuarioIffRS">
-		<pattern value="/usuarioIffRS" />
-		<view-id value="/sentinel/usuarioIffs/mpCadastroUsuarioIff.xhtml" />
-	</url-mapping>
-	<url-mapping id="usuarioIffsRS">
-		<pattern value="/usuarioIffsRS" />
-		<view-id value="/sentinel/usuarioIffs/mpPesquisaUsuarioIffs.xhtml" />
-	</url-mapping>
-	<url-mapping id="indexIffRS">
-		<pattern value="/indexIffRS" />
-		<view-id value="/sentinel/iffs/index.xhtml" />
-	</url-mapping>
-
-	<url-mapping id="observacaoRS">
-		<pattern value="/observacaoRS" />
-		<view-id value="/sentinel/cartorios/observacaos/mpCadastroObservacao.xhtml" />
-	</url-mapping>
-	<url-mapping id="observacaosRS">
-		<pattern value="/observacaosRS" />
-		<view-id value="/sentinel/cartorios/observacaos/mpPesquisaObservacaos.xhtml" />
-	</url-mapping>
-
-	<url-mapping id="tituloRS">
-		<pattern value="/tituloRS" />
-		<view-id value="/sentinel/cartorios/titulos/mpCadastroTitulo.xhtml" />
-	</url-mapping>
-	<url-mapping id="titulosRS">
-		<pattern value="/titulosRS" />
-		<view-id value="/sentinel/cartorios/titulos/mpPesquisaTitulos.xhtml" />
-	</url-mapping>
-	<url-mapping id="pessoaTituloRS">
-		<pattern value="/pessoaTituloRS" />
-		<view-id value="/sentinel/cartorios/pessoaTitulos/mpCadastroPessoaTitulo.xhtml" />
-	</url-mapping>
-	<url-mapping id="pessoaTitulosRS">
-		<pattern value="/pessoaTitulosRS" />
-		<view-id value="/sentinel/cartorios/pessoaTitulos/mpPesquisaPessoaTitulos.xhtml" />
-	</url-mapping>
-
 	<url-mapping id="projetoRS">
 		<pattern value="/projetoRS" />
 		<view-id value="/sentinel/engReqs/projetos/mpCadastroProjeto.xhtml" />
@@ -421,82 +318,6 @@
 		<view-id value="/sentinel/contatos/mpPesquisaContatos.xhtml" />
 	</url-mapping>
 
-	<url-mapping id="eCartorioRjRS">
-		<pattern value="/eCartorioRjRS" />
-		<view-id value="/sentinel/cartorios/eCartorioRJ/mpServiceWS.xhtml" />
-	</url-mapping>
-
-	<url-mapping id="certidaoQRCodeRS">
-		<pattern value="/certidaoQRCodeRS" />
-		<view-id value="/servicos/certidaoEletronica/mpGeraQRCode.xhtml" />
-	</url-mapping>
-
-	<url-mapping id="pessoaFisicaRS">
-		<pattern value="/pessoaFisicaRS" />
-		<view-id value="/sentinel/sisJuri/pessoaFisicas/mpCadastroPessoaFisica.xhtml" />
-	</url-mapping>
-	<url-mapping id="pessoaFisicasRS">
-		<pattern value="/pessoaFisicasRS" />
-		<view-id value="/sentinel/sisJuri/pessoaFisicas/mpPesquisaPessoaFisicas.xhtml" />
-	</url-mapping>
-	<url-mapping id="pessoaJuridicaRS">
-		<pattern value="/pessoaJuridicaRS" />
-		<view-id value="/sentinel/sisJuri/pessoaJuridicas/mpCadastroPessoaJuridica.xhtml" />
-	</url-mapping>
-	<url-mapping id="pessoaJuridicasRS">
-		<pattern value="/pessoaJuridicasRS" />
-		<view-id value="/sentinel/sisJuri/pessoaJuridicas/mpPesquisaPessoaJuridicas.xhtml" />
-	</url-mapping>
-	<url-mapping id="clienteSJRS">
-		<pattern value="/clienteSJRS" />
-		<view-id value="/sentinel/sisJuri/clientes/mpCadastroCliente.xhtml" />
-	</url-mapping>
-	<url-mapping id="clienteSJsRS">
-		<pattern value="/clienteSJsRS" />
-		<view-id value="/sentinel/sisJuri/clientes/mpPesquisaClientes.xhtml" />
-	</url-mapping>
-
-	<url-mapping id="processoRS">
-		<pattern value="/processoRS" />
-		<view-id value="/sentinel/sisJuri/processos/mpCadastroProcesso.xhtml" />
-	</url-mapping>
-	<url-mapping id="processosRS">
-		<pattern value="/processosRS" />
-		<view-id value="/sentinel/sisJuri/processos/mpPesquisaProcessos.xhtml" />
-	</url-mapping>
-	
-	<url-mapping id="cargaDadosSJRS">
-		<pattern value="/cargaDadosSJRS" />
-		<view-id value="/sentinel/sisJuri/procedimentos/mpCargaDadosSJ.xhtml" />
-	</url-mapping>
-	
-	<url-mapping id="relatorioProcessosRS">
-		<pattern value="/relatorioProcessosRS" />
-		<view-id value="/sentinel/sisJuri/relatorios/mpRelatorioProcessos.xhtml" />
-	</url-mapping>
-	<url-mapping id="graficoProcessosDiaRS">
-		<pattern value="/graficoProcessosDiaRS" />
-		<view-id value="/sentinel/sisJuri/graficos/mpGraficoProcessosDia.xhtml" />
-	</url-mapping>
-
-	<url-mapping id="tabelaInternaSJRS">
-		<pattern value="/tabelaInternaSJRS" />
-		<view-id value="/sentinel/sisJuri/tabelaInternas/mpCadastroTabelaInterna.xhtml" />
-	</url-mapping>
-	<url-mapping id="tabelaInternaSJsRS">
-		<pattern value="/tabelaInternaSJsRS" />
-		<view-id value="/sentinel/sisJuri/tabelaInternas/mpPesquisaTabelaInternas.xhtml" />
-	</url-mapping>
-	
-	<url-mapping id="tabelaInternaSJRSX">
-		<pattern value="/tabelaInternaSJRSX" />
-		<view-id value="/sentinel/sisJuri/tabelaInternas/mpCadastroTabelaInternaX.xhtml" />
-	</url-mapping>
-	<url-mapping id="tabelaInternaSJsRSX">
-		<pattern value="/tabelaInternaSJsRSX" />
-		<view-id value="/sentinel/sisJuri/tabelaInternas/mpPesquisaTabelaInternasX.xhtml" />
-	</url-mapping>
-
 	<url-mapping id="geraArtefatosRS">
 		<pattern value="/geraArtefatosRS" />
 		<view-id value="/sentinel/sistemaInternos/mpGeraArtefatos.xhtml" />
@@ -505,6 +326,15 @@
 	<url-mapping id="sistemaHelpRS">
 		<pattern value="/sistemaHelpRS" />
 		<view-id value="/sentinel/sistemaHelp/mpSistemaHelp.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="pessoaERRS">
+		<pattern value="/pessoaERRS" />
+		<view-id value="/sentinel/engReqs/pessoas/mpCadastroPessoaER.xhtml" />
+	</url-mapping>
+	<url-mapping id="pessoaERsRS">
+		<pattern value="/pessoaERsRS" />
+		<view-id value="/sentinel/engReqs/pessoas/mpPesquisaPessoasER.xhtml" />
 	</url-mapping>
 	
 </pretty-config>

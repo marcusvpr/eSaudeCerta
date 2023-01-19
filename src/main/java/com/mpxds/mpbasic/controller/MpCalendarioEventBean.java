@@ -21,7 +21,7 @@ import com.mpxds.mpbasic.model.MpTurno;
 import com.mpxds.mpbasic.model.enums.MpCalendarioRepetir;
 import com.mpxds.mpbasic.model.enums.MpFeriadoOficial;
 import com.mpxds.mpbasic.model.enums.MpPeriodicidade;
-import com.mpxds.mpbasic.model.pt08.MpFeriado;
+import com.mpxds.mpbasic.model.MpFeriado;
 import com.mpxds.mpbasic.repository.MpAlarmes;
 import com.mpxds.mpbasic.repository.MpAtividades;
 import com.mpxds.mpbasic.repository.MpCalendarios;
@@ -30,7 +30,7 @@ import com.mpxds.mpbasic.repository.filter.MpAlarmeFilter;
 
 import com.mpxds.mpbasic.repository.filter.MpCalendarioViewFilter;
 
-import com.mpxds.mpbasic.repository.pt08.MpFeriados;
+import com.mpxds.mpbasic.repository.MpFeriados;
 
 import com.mpxds.mpbasic.util.MpAppUtil;
 

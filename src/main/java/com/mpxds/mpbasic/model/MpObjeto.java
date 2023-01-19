@@ -1,12 +1,11 @@
 package com.mpxds.mpbasic.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
+import javax.persistence.CascadeType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
@@ -18,7 +17,6 @@ import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.mpxds.mpbasic.model.engreq.MpItemObjeto;
 import com.mpxds.mpbasic.model.enums.MpGrupamentoMenu;
 import com.mpxds.mpbasic.model.enums.MpGrupoMenu;
 import com.mpxds.mpbasic.model.enums.MpStatusObjeto;
@@ -52,7 +50,7 @@ public class MpObjeto extends MpBaseEntity {
 	private MpTipoObjeto mpTipoObjeto;
 	private MpTipoObjetoSistema mpTipoObjetoSistema;
 		
-	private List<MpItemObjeto> mpItens = new ArrayList<MpItemObjeto>();
+	private List<MpItemObjeto> mpItemObjetos;
 	
 	// ----
 	
@@ -60,42 +58,7 @@ public class MpObjeto extends MpBaseEntity {
 	  super();
 	}
 
-	public  MpObjeto(String codigoId
-						, String transacao
-            			, String codigo
-                        , String nome
-                        , String descricao
-                        , String informacao
-                        , String classeAssociada
-                        , String icon
-                        , Boolean indSeparator
-                        , Boolean indResponsive
-                        , MpStatusObjeto mpStatusObjeto
-                        , MpGrupoMenu mpGrupoMenu
-                        , MpGrupamentoMenu mpGrupamentoMenu
-                        , MpTipoObjeto mpTipoObjeto
-                        , MpTipoObjetoSistema mpTipoObjetoSistema
-                 ) {
-		this.codigoId = codigoId;
-		this.transacao = transacao;
-		this.codigo = codigo;
-		this.nome = nome;
-		this.descricao = descricao;
-		this.informacao = informacao;
-		this.classeAssociada = classeAssociada;
-		this.icon = icon;
-		this.indSeparator = indSeparator;
-		this.indResponsive = indResponsive;
-		this.mpStatusObjeto = mpStatusObjeto;
-		this.mpGrupoMenu = mpGrupoMenu;
-		this.mpGrupamentoMenu = mpGrupamentoMenu;
-		this.mpTipoObjeto = mpTipoObjeto;
-		this.mpTipoObjetoSistema = mpTipoObjetoSistema;
-	}
-
-	@NotBlank(message = "Por favor, informe código identificação!")
-//	@Column(nullable = false, length = 50, unique = true)
-	@Column(nullable = true, length = 50, name = "codigo_id")
+	@Column(nullable = false, length = 50, name = "codigo_id")
 	public String getCodigoId() { return this.codigoId; }
 	public void setCodigoId(String newCodigoId) { this.codigoId = newCodigoId; }
 	
@@ -168,8 +131,7 @@ public class MpObjeto extends MpBaseEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = true, length = 50, name = "mpTipo_objeto")
 	public MpTipoObjeto getMpTipoObjeto() { return this.mpTipoObjeto; }
-	public void setMpTipoObjeto(MpTipoObjeto newMpTipoObjeto) {
-															this.mpTipoObjeto = newMpTipoObjeto; }
+	public void setMpTipoObjeto(MpTipoObjeto newMpTipoObjeto) { this.mpTipoObjeto = newMpTipoObjeto; }
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = true, length = 50, name = "mpTipo_objeto_sistema")
@@ -177,10 +139,13 @@ public class MpObjeto extends MpBaseEntity {
 	public void setMpTipoObjetoSistema(MpTipoObjetoSistema newMpTipoObjetoSistema) {
 												this.mpTipoObjetoSistema = newMpTipoObjetoSistema; }
 	
-	@OneToMany(mappedBy = "mpObjeto", cascade = CascadeType.ALL, orphanRemoval = true,
-																		fetch = FetchType.LAZY)
-	public List<MpItemObjeto> getMpItens() { return mpItens; }
-	public void setMpItens(List<MpItemObjeto> mpItens) { this.mpItens = mpItens; }
+//	@OneToMany(mappedBy = "mpObjeto", cascade = CascadeType.ALL, orphanRemoval = true,
+//																			fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "mpObjeto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	public List<MpItemObjeto> getMpItemObjetos() { return mpItemObjetos; }
+	public void setMpItemObjetos(List<MpItemObjeto> mpItemObjetos) { this.mpItemObjetos = mpItemObjetos; }
+	
+	// ---
 		  
 	@Transient
 	public String getMpGrupamentoNome() {

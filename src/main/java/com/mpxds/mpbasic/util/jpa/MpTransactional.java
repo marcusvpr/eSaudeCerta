@@ -6,7 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import javax.interceptor.InterceptorBinding;
+import javax.transaction.Transactional;
 
+@Transactional
 @InterceptorBinding
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE, ElementType.METHOD })

@@ -16,7 +16,7 @@ public class MpEntityManagerProducer {
 	
 	public MpEntityManagerProducer() {
 		//
-		this.factory = Persistence.createEntityManagerFactory("MpProtestoPU");
+		this.factory = Persistence.createEntityManagerFactory("MpSaudeMedidaCertaPU");
 	}
 	
 	@Produces @RequestScoped
